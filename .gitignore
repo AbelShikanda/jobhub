@@ -484,7 +484,11 @@ npm-debug.log
 
 # Laravel 4 specific
 bootstrap/compiled.php
+bootstrap/cache/
 app/storage/
+storage
+/storage
+/storage/
 
 # Laravel 5 & Lumen specific
 # public/storage
