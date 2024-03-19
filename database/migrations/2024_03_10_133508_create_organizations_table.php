@@ -20,7 +20,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('Country', 50)->nullable();
             $table->text('Description')->nullable();
             $table->date('Founded_Date')->nullable();
-            $table->foreignId('org_id')->constrained('organizations')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('org_category_id')->constrained('organizations_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

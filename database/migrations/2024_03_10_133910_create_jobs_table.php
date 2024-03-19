@@ -17,6 +17,7 @@ class CreateJobsTable extends Migration
             $table->bigIncrements('id');
             $table->string('job_title', 100);
             $table->foreignId('org_id')->constrained('organizations')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('job_category_id')->constrained('jobs_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->text('description')->nullable(); 
             $table->text('responsibilities')->nullable();
             $table->text('requirements')->nullable();
