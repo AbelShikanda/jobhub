@@ -968,5 +968,6 @@ __pycache__/
 # By default, sensitive information, such as encrypted password
 # should be stored in the .pubxml.user file.
 
+multi-docs/
 
 # End of https://www.gitignore.io/api/vim,node,linux,macos,windows,laravel,intellij,sublimetext,visualstudio,visualstudiocode,composer
