@@ -8,4 +8,28 @@ use Illuminate\Database\Eloquent\Model;
 class Jobs extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'job_title',
+        'org_id',
+        'job_category_id',
+        'description',
+        'responsibilities',
+        'requirements',
+        'salary_range',
+        'deadline_date',
+    ];
+
+    /**
+    * Get the Category.
+    */
+    public function categories()
+    {
+        return $this->belongsToMany(JobsCategoties::class, 'job_job_categories', 'job_id', 'id');
+    }
 }

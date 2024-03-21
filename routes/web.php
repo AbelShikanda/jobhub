@@ -18,8 +18,9 @@ use App\Http\Controllers\Admin\JobsController;
 use App\Http\Controllers\Admin\JobsCategoryController;
 use App\Http\Controllers\Admin\ProgressController;
 use App\Http\Controllers\Admin\OrganizationsController;
-use App\Http\Controllers\Admin\OrganizationsCategoriesController;
+use App\Http\Controllers\Admin\OrganizationsCategoryController;
 use App\Http\Controllers\Admin\GalleryController;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -32,7 +33,6 @@ Route::group(['prefix' => '/admin_'], function() {
     Route::get('/login', [AdminAuthController::class, 'getLogin'])->name('getLogin');
     Route::post('/login', [AdminAuthController::class, 'postLogin'])->name('postLogin');
     Route::post('/logout', [AdminAuthController::class, 'adminLogout'])->name('adminLogout');
-
     Route::resource('/dashboard', DashboardController::class)->middleware('adminauth');
 });
 
@@ -44,7 +44,7 @@ Route::group(['middleware' => 'adminauth'], function() {
     Route::resource('administrators', AdminController::class);
     Route::resource('gallery', GalleryController::class);
     Route::resource('job_categories', JobsCategoryController::class);
-    Route::resource('organizations_categories', OrganizationsCategoriesController::class);
+    Route::resource('organizations_categories', OrganizationsCategoryController::class);
     Route::resource('progress', ProgressController::class);
     // spartie permissions
     Route::resource('permissions', PermissionsController::class);
@@ -68,6 +68,8 @@ Route::resource('contacts', ContactsController::class);
 
 
 
+// Route::get('/show', [JobsCategoryController::class, 'show'])->name('show'); 
+// Route::get('/edit', [JobsCategoryController::class, 'edit'])->name('edit'); 
 
 
 

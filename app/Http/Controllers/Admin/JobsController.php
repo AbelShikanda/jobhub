@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\job_job_category;
+use App\Models\Jobs;
+use App\Models\JobsCategoties;
+use App\Models\Organizations;
+use App\Models\OrganizationsCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class JobsController extends Controller
 {
@@ -14,8 +20,9 @@ class JobsController extends Controller
      */
     public function index()
     {
+        $work = Jobs::orderByDesc('created_at')->with('categories')->get();
         return view('admin.jobs.index')->with([
-            // 'users' => $users
+            'work' => $work,
         ]);
     }
 
@@ -26,7 +33,12 @@ class JobsController extends Controller
      */
     public function create()
     {
-        //
+        $categories = JobsCategoties::all();
+        $organizations = Organizations::all();
+        return view('admin.jobs.create')->with([
+            'categories' => $categories,
+            'organizations' => $organizations,
+        ]);
     }
 
     /**
@@ -37,7 +49,51 @@ class JobsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'organization' => 'required',
+            'category' => 'required',
+            'jName' => 'required',
+            'range' => 'required',
+            'selectedDate' => 'required',
+            'responce' => 'required',
+            'desc' => 'required',
+            'req' => 'required',
+        ]);
+
+        try {
+            DB::beginTransaction();
+            // Logic For Save User Data
+
+            $jobs = Jobs::create([
+                'job_title' => $request->input('jName'),
+                'org_id' => $request->input('organization'),
+                'job_category_id' => $request->input('category'),
+                'description' => $request->input('desc'),
+                'responsibilities' => $request->input('responce'),
+                'requirements' => $request->input('req'),
+                'salary_range' => $request->input('range'),
+                'deadline_date' => $request->input('selectedDate'),
+            ]);
+
+            job_job_category::create([
+                'job_id' => $jobs->id,
+                'job_category_id' => $request->input('category'),
+            ]);
+
+            if(!$jobs){
+                DB::rollBack();
+
+                return back()->with('message', 'Something went wrong while saving user data');
+            }
+
+            DB::commit();
+            return redirect()->route('job.index')->with('message', 'Category Stored Successfully.');
+
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
     }
 
     /**
@@ -48,7 +104,9 @@ class JobsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admin.jobs.show')->with([
+            // 'users' => $users
+        ]);
     }
 
     /**
@@ -59,7 +117,9 @@ class JobsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.jobs.edit')->with([
+            // 'users' => $users
+        ]);
     }
 
     /**
@@ -71,7 +131,44 @@ class JobsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'organization' => '',
+            'category' => 'required',
+            'jName' => '',
+            'range' => '',
+            'selectedDate' => '',
+            'responce' => '',
+            'desc' => '',
+            'req' => '',
+        ]);
+
+        try {
+            DB::beginTransaction();
+            // Logic For Save User Data
+
+            $jobs = Jobs::create([
+                'job_title' => $request->input('jName'),
+                'description' => $request->input('desc'),
+                'responsibilities' => $request->input('responce'),
+                'requirements' => $request->input('req'),
+                'salary_range' => $request->input('range'),
+                'deadline_date' => $request->input('selectedDate'),
+            ]);
+
+            if(!$jobs){
+                DB::rollBack();
+
+                return back()->with('message', 'Something went wrong while saving user data');
+            }
+
+            DB::commit();
+            return redirect()->route('job.index')->with('message', 'Category Stored Successfully.');
+
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
     }
 
     /**
@@ -82,6 +179,8 @@ class JobsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Jobs::find($id);
+        $category->delete();
+        return redirect()->route('job.index')->with('message', 'Category Deleted Successfully.');
     }
 }

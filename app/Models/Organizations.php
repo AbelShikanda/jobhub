@@ -8,4 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Organizations extends Model
 {
     use HasFactory;
+    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'Org_Name',
+        'Website',
+        'Country',
+        'Description',
+        'Founded_Date',
+        'org_category_id',
+    ];
+
+    /**
+    * Get the Category.
+    */
+    public function categories()
+    {
+        return $this->belongsToMany(OrganizationsCategory::class, 'organization_organization_category', 'org_id', 'id');
+    }
 }

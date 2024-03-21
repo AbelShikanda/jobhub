@@ -105,6 +105,7 @@ div.error {
   top: 0.5rem;
   left: 1rem;
   color: #6c757d;
+  background-color: #fff;
   cursor: text;
   transition: top 0.2s, font-size 0.2s;
 }
@@ -149,7 +150,6 @@ div.error {
 .file-upload {
   position: relative;
 }
-
 .file-input {
   position: absolute;
   left: 0;
@@ -159,7 +159,6 @@ div.error {
   opacity: 0;
   cursor: pointer;
 }
-
 .file-label {
   display: inline-block;
   padding: 10px 20px;
@@ -170,11 +169,9 @@ div.error {
   font-size: 16px;
   cursor: pointer;
 }
-
 .file-input:focus + .file-label {
   outline: 2px solid #007bff; /* Change color to indicate focus */
 }
-
 .search-input-custom {
   width: 100%;
   padding: 0.375rem 0.75rem;

@@ -20,17 +20,15 @@
                         <div class="row">
                             <div class="input-field col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder=" "
-                                        required>
-                                    <label for="exampleFormControlInput1">Frist Name</label>
+                                    <input type="text" class="form-control" id="first_name" placeholder=" " required>
+                                    <label for="first_name">Frist Name</label>
                                 </div>
                                 <div id="e1"></div>
                             </div>
                             <div class="input-field col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder=" "
-                                        required>
-                                    <label for="exampleFormControlInput1">Frist Name</label>
+                                    <input type="text" class="form-control" id="last_name" placeholder=" " required>
+                                    <label for="last_name">Last Name</label>
                                 </div>
                                 <div id="e1"></div>
                             </div>
@@ -39,9 +37,8 @@
                         <div class="row">
                             <div class="input-field col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder=" "
-                                        required>
-                                    <label for="exampleFormControlInput1">Your Email</label>
+                                    <input type="text" class="form-control" id="email" placeholder=" " required>
+                                    <label for="email">Your Email</label>
                                 </div>
                                 <div id="e2"></div>
                             </div>
@@ -62,11 +59,11 @@
                         <div class="row py-4">
                             <div class="col s12">
                                 <div class="form row">
-                                    <label for="inputPassword3" class="col-sm-3 col-form-label text-dark">Date of
+                                    <label for="dob" class="col-sm-3 col-form-label text-dark">Date of
                                         birth:</label>
                                     <div class="col-sm-9">
-                                        <input type="datetime-local" name="selectedDate" class="form-control text-dark"
-                                            type="text" id="selectedDate" value="">
+                                        <input type="datetime-local" id="dob" name="selectedDate"
+                                            class="form-control text-dark" type="text" id="selectedDate" value="">
                                         <input type="text" id="endDate" value="0" hidden="true">
                                     </div>
                                 </div>
@@ -80,13 +77,13 @@
                                 <div class="form-group">
                                     <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control"
                                         id="exampleFormControlInput11" placeholder=" " required>
-                                    <label for="exampleFormControlInput11">Phone Number (254)</label>
+                                    <label for="phoneNumber">Phone Number (254)</label>
                                 </div>
                                 <div id="e2"></div>
                             </div>
                             <div class="input-field col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <select class="form-control validate" id="select-state" id="gender" name="country"
+                                    <select class="form-control validate" id="select-state" id="country" name="country"
                                         data-error="#e3" placeholder="Pick a country..." required>
                                         <option value="">Pick a country...</option>
                                         <option value="AL">Alabama</option>
@@ -117,8 +114,9 @@
                                     <label for="inputPassword3" class="col-sm-4 col-form-label text-dark">Education
                                         backgound:</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control validate" id="select-state" id="gender"
-                                            name="country" data-error="#e3" placeholder="Education Background" required>
+                                        <select class="form-control validate" id="select-state" id="education"
+                                            name="education" data-error="#e3" placeholder="Education Background"
+                                            required>
                                             <option value="">Pick a background...</option>
                                             <option value="AL">Alabama</option>
                                             <option value="AK">Alaska</option>
@@ -146,8 +144,8 @@
                         <div class="row py-4">
                             <div class="input-field col s12">
                                 <div class="form-group">
-                                    <textarea class="form-control" id="exampleFormControlTextarea11" rows="3" name="bio" data-error="#e6"
-                                        required placeholder="Add (list) Proffessional certificates if any"></textarea>
+                                    <textarea class="form-control" id="certificate" rows="3" name="bio" data-error="#e6" required
+                                        placeholder="Add (list) Proffessional certificates if any"></textarea>
                                 </div>
                                 <div id="e6"></div>
                             </div>
@@ -157,8 +155,7 @@
                         <div class="row py-4">
                             <div class="col s12">
                                 <div class="form row">
-                                    <label for="inputGroupSelect04"
-                                        class="col-sm-3 col-form-label text-dark">Language:</label>
+                                    <label for="language" class="col-sm-3 col-form-label text-dark">Language:</label>
                                     <div class="col-sm-9">
                                         <select id="inputGroupSelect04" placeholder="Add Language" multiple>
                                             <option value="Tiktok">Kiswahili</option>
@@ -178,8 +175,8 @@
                         <div class="row py-4">
                             <div class="input-field col s12">
                                 <div class="form-group">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="bio" data-error="#e6"
-                                        required placeholder="Add (list) Previous Work Experiences if any"></textarea>
+                                    <textarea class="form-control" id="experience" rows="3" name="bio" data-error="#e6" required
+                                        placeholder="Add (list) Previous Work Experiences if any"></textarea>
                                 </div>
                                 <div id="e6"></div>
                             </div>
@@ -192,78 +189,78 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck1" name="food" data-error="#e7">
-                                            <label for="customCheck1"> &nbsp; Waiters/Waitress</label>
+                                            <input type="checkbox" id="waiter" name="food" data-error="#e7">
+                                            <label for="waiter"> &nbsp; Waiters/Waitress</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck2" name="food" data-error="#e7">
-                                            <label for="customCheck2"> &nbsp; Chef Helper</label>
+                                            <input type="checkbox" id="chef" name="food" data-error="#e7">
+                                            <label for="chef"> &nbsp; Chef Helper</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck3" name="food" data-error="#e7">
-                                            <label for="customCheck3"> &nbsp; Excavator Operators</label>
+                                            <input type="checkbox" id="excavator" name="food" data-error="#e7">
+                                            <label for="excavator"> &nbsp; Excavator Operators</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck4" name="food" data-error="#e7">
-                                            <label for="customCheck4"> &nbsp; Buldozer Operators</label>
+                                            <input type="checkbox" id="buldozer" name="food" data-error="#e7">
+                                            <label for="buldozer"> &nbsp; Buldozer Operators</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck5" name="food" data-error="#e7">
-                                            <label for="customCheck5"> &nbsp; Grill Manager</label>
+                                            <input type="checkbox" id="grill" name="food" data-error="#e7">
+                                            <label for="grill"> &nbsp; Grill Manager</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck6" name="food" data-error="#e7">
-                                            <label for="customCheck6"> &nbsp; Car Wash Attendant</label>
+                                            <input type="checkbox" id="car_wash" name="food" data-error="#e7">
+                                            <label for="car_wash"> &nbsp; Car Wash Attendant</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck7" name="food" data-error="#e7">
-                                            <label for="customCheck7"> &nbsp; Bike Riders and Delivery</label>
+                                            <input type="checkbox" id="bike" name="food" data-error="#e7">
+                                            <label for="bike"> &nbsp; Bike Riders and Delivery</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck8" name="food" data-error="#e7">
-                                            <label for="customCheck8"> &nbsp; Drivers Category B</label>
+                                            <input type="checkbox" id="driverb" name="food" data-error="#e7">
+                                            <label for="driverb"> &nbsp; Drivers Category B</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck9" name="food" data-error="#e7">
-                                            <label for="customCheck9"> &nbsp; Truck Drivers</label>
+                                            <input type="checkbox" id="truck_driver" name="food" data-error="#e7">
+                                            <label for="truck_driver"> &nbsp; Truck Drivers</label>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck10" name="food" data-error="#e7">
-                                            <label for="customCheck10"> &nbsp; Baristas</label>
+                                            <input type="checkbox" id="barister" name="food" data-error="#e7">
+                                            <label for="barister"> &nbsp; Baristas</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck11" name="food" data-error="#e7">
-                                            <label for="customCheck11"> &nbsp; Buchers</label>
+                                            <input type="checkbox" id="bucher" name="food" data-error="#e7">
+                                            <label for="bucher"> &nbsp; Buchers</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck12" name="food" data-error="#e7">
-                                            <label for="customCheck12"> &nbsp; Dish Wash and Kitchen Helpers</label>
+                                            <input type="checkbox" id="dish_wash" name="food" data-error="#e7">
+                                            <label for="dish_wash"> &nbsp; Dish Wash and Kitchen Helpers</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck13" name="food" data-error="#e7">
-                                            <label for="customCheck13"> &nbsp; Hotel Room Cleaners</label>
+                                            <input type="checkbox" id="hotel_room" name="food" data-error="#e7">
+                                            <label for="hotel_room"> &nbsp; Hotel Room Cleaners</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck14" name="food" data-error="#e7">
-                                            <label for="customCheck14"> &nbsp; Electricians High and Low Current</label>
+                                            <input type="checkbox" id="electricians" name="food" data-error="#e7">
+                                            <label for="electricians"> &nbsp; Electricians High and Low Current</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck15" name="food" data-error="#e7">
-                                            <label for="customCheck15"> &nbsp; Solar Panel Technicians</label>
+                                            <input type="checkbox" id="solar_panel" name="food" data-error="#e7">
+                                            <label for="solar_panel"> &nbsp; Solar Panel Technicians</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck16" name="food" data-error="#e7">
-                                            <label for="customCheck16"> &nbsp; House Managers and Nannies</label>
+                                            <input type="checkbox" id="house_manager" name="food" data-error="#e7">
+                                            <label for="house_manager"> &nbsp; House Managers and Nannies</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck17" name="food" data-error="#e7">
-                                            <label for="customCheck17"> &nbsp; Nurses</label>
+                                            <input type="checkbox" id="nurse" name="food" data-error="#e7">
+                                            <label for="nurse"> &nbsp; Nurses</label>
                                         </div>
                                         <div class="custom-checkbox">
-                                            <input type="checkbox" id="customCheck18" name="food" data-error="#e7">
-                                            <label for="customCheck18"> &nbsp; General Cleaners</label>
+                                            <input type="checkbox" id="cleaner" name="food" data-error="#e7">
+                                            <label for="cleaner"> &nbsp; General Cleaners</label>
                                         </div>
                                     </div>
                                     <div class="col-4">
@@ -278,17 +275,17 @@
                                 <div class="form">
                                     <p for="color">Level of Expxerience</p>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio1" name="customRadio"
+                                        <input type="radio" id="customRadio1" name="Expxerience"
                                             class="custom-control-input" value="">
                                         <label class="custom-control-label" for="customRadio1">Entry Level</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio2" name="customRadio"
+                                        <input type="radio" id="customRadio2" name="Expxerience"
                                             class="custom-control-input" value="">
                                         <label class="custom-control-label" for="customRadio2">Intermediate Level</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio3" name="customRadio"
+                                        <input type="radio" id="customRadio3" name="Expxerience"
                                             class="custom-control-input" value="">
                                         <label class="custom-control-label" for="customRadio3">Experienced Level</label>
                                     </div>
@@ -305,24 +302,24 @@
                                 <div class="form">
                                     <p for="color">Do You Have a Police Clearance certificate (max 4 months ago)?</p>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio1" name="customRadio"
+                                        <input type="radio" id="customRadio4" name="certificate"
                                             class="custom-control-input" value="">
-                                        <label class="custom-control-label" for="customRadio1">Yes</label>
+                                        <label class="custom-control-label" for="customRadio4">Yes</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio2" name="customRadio"
+                                        <input type="radio" id="customRadio5" name="certificate"
                                             class="custom-control-input" value="">
-                                        <label class="custom-control-label" for="customRadio2">No</label>
+                                        <label class="custom-control-label" for="customRadio5">No</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio3" name="customRadio"
+                                        <input type="radio" id="customRadio6" name="certificate"
                                             class="custom-control-input" value="">
-                                        <label class="custom-control-label" for="customRadio3">Waiting</label>
+                                        <label class="custom-control-label" for="customRadio6">Waiting</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio3" name="customRadio"
+                                        <input type="radio" id="customRadio7" name="certificate"
                                             class="custom-control-input" value="">
-                                        <label class="custom-control-label" for="customRadio3">Older than 4 months (to be
+                                        <label class="custom-control-label" for="customRadio7">Older than 4 months (to be
                                             renewed)</label>
                                     </div>
                                 </div>
@@ -338,19 +335,19 @@
                                 <div class="form">
                                     <p for="color">Do You Have a Valid Passport?</p>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio1" name="customRadio"
+                                        <input type="radio" id="customRadio8" name="Passport"
                                             class="custom-control-input" value="">
-                                        <label class="custom-control-label" for="customRadio1">Yes</label>
+                                        <label class="custom-control-label" for="customRadio8">Yes</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio2" name="customRadio"
+                                        <input type="radio" id="customRadio9" name="Passport"
                                             class="custom-control-input" value="">
-                                        <label class="custom-control-label" for="customRadio2">No</label>
+                                        <label class="custom-control-label" for="customRadio9">No</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="customRadio3" name="customRadio"
+                                        <input type="radio" id="customRadio10" name="Passport"
                                             class="custom-control-input" value="">
-                                        <label class="custom-control-label" for="customRadio3">Waiting</label>
+                                        <label class="custom-control-label" for="customRadio10">Waiting</label>
                                     </div>
                                 </div>
                                 <div class="input-field">
@@ -363,8 +360,8 @@
                         <div class="row py-4">
                             <div class="input-field col s12">
                                 <div class="form-group">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="bio" data-error="#e6"
-                                        required placeholder="Add (list) Skills and qualifications if any"></textarea>
+                                    <textarea class="form-control" id="qualifications" rows="3" name="bio" data-error="#e6" required
+                                        placeholder="Add (list) Skills and qualifications if any"></textarea>
                                 </div>
                                 <div id="e6"></div>
                             </div>
@@ -374,7 +371,7 @@
                         <div class="row py-4">
                             <div class="col s12">
                                 <div class="form row">
-                                    <label for="inputGroupSelect04" class="col-sm-4 col-form-label text-dark">Where did
+                                    <label for="platform" class="col-sm-4 col-form-label text-dark">Where did
                                         you find us:</label>
                                     <div class="col-sm-8">
                                         <select id="inputGroupSelect04" placeholder="Where did you find us" multiple>
@@ -395,7 +392,7 @@
                             <div class="input-field col-12 col-md-6 col-lg-12">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="agents" placeholder=" " required>
-                                    <label for="exampleFormControlInput1">Agents Name</label>
+                                    <label for="agents">Agents Name</label>
                                 </div>
                                 <div id="e1"></div>
                             </div>
@@ -427,9 +424,9 @@
                         <div class="row py-4">
                             <div class="col s12">
                                 <div class="form row">
-                                    <label for="inputPassword3" class="col-sm-3 col-form-label text-dark">When will you be
+                                    <label for="available" class="col-sm-5 col-form-label text-dark">When will you be
                                         available to start work in romania:</label>
-                                    <div class="col-sm-9">
+                                    <div class="col-sm-7">
                                         <input type="datetime-local" name="selectedDate" class="form-control text-dark"
                                             type="text" id="selectedDate" value="">
                                         <input type="text" id="endDate" value="0" hidden="true">
@@ -443,8 +440,8 @@
                         <div class="row py-4">
                             <div class="input-field col s12">
                                 <div class="form-group">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="bio" data-error="#e6"
-                                        required placeholder="Additional Comments"></textarea>
+                                    <textarea class="form-control" id="comments" rows="3" name="bio" data-error="#e6" required
+                                        placeholder="Additional Comments"></textarea>
                                 </div>
                                 <div id="e6"></div>
                             </div>
@@ -455,10 +452,10 @@
                             <div class="input-field col s12">
                                 <div class="form">
                                     <div class="custom-control custom-radio">
-                                        <label for="color">Terms and Conditions</label> &nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type="radio" id="customRadio1" name="customRadio"
-                                            class="custom-control-input" value="" required>
-                                        <label class="custom-control-label" for="customRadio1">Agree</label>
+                                        <label for="agree">Terms and Conditions</label> &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <input type="radio" id="agree" name="agree" class="custom-control-input"
+                                            value="" required>
+                                        <label class="custom-control-label" for="agree">Agree</label>
                                     </div>
                                 </div>
                                 <div class="input-field">

@@ -24,10 +24,10 @@
                             <div class="card-header">
                                 <div class="row">
                                     <div class="col">
-                                        <h3 class="card-title">Applicants and their information</h3>
+                                        <h3 class="card-title">Jobs</h3>
                                     </div>
                                     <div class="col-md-2">
-                                        <a href="{{ route('applicants.create') }}" type="button" class="btn btn-block btn-dark btn-sm">Add Jobs</a>
+                                        <a href="{{ route('job.create') }}" type="button" class="btn btn-block btn-dark btn-sm">Add Jobs</a>
                                     </div>
                                 </div>
                             </div>
@@ -36,53 +36,58 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Applicant Name</th>
-                                            <th>Phone number</th>
-                                            <th>Educational Background:</th>
-                                            <th>Age</th>
-                                            <th>passport</th>
-                                            <th style="width:17%;"></th>
+                                            <th>Job Title</th>
+                                            <th>Job Category</th>
+                                            <th>Salary Range</th>
+                                            <th>Deadline</th>
+                                            <th style="width:20%;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 4.0
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td> 4</td>
-                                            <td>X</td>
+                                        @foreach ($work as $work)
+                                            @foreach ($work->categories as $category)
+                                                <tr>
+                                                    <td>{{ $work->job_title }}</td>
+                                                    <td>
+                                                        {{ $category->name }}
+                                                    </td>
+                                                    <td>{{ $work->salary_range }}</td>
+                                                    <td>{{ $work->deadline_date }}</td>
 
-                                            <td class="project-actions text-right d-flex justify-content-between">
-                                                <a class="btn btn-primary btn-sm" href="{{-- {{ route('products.show', $product->id) }} --}}">
-                                                    <i class="fas fa-folder">
-                                                    </i>
-                                                    View
-                                                </a>
-                                                <a class="btn btn-info btn-sm" href="{{-- {{ route('products.edit', $product->id) }} --}}">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                    Edit
-                                                </a>
-                                                <a class="btn btn-info btn-sm" href="{{-- {{ route('products.edit', $product->id) }} --}}">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                    Edit
-                                                </a>
-                                                {{-- {!! Form::open(['method' => 'DELETE', 'route' => ['products.destroy', $product->id], 'style' => 'display:inline']) !!}
-                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                                {!! Form::close() !!} --}}
-                                            </td>
-                                        </tr>
+                                                    <td class="project-actions text-right d-flex justify-content-between">
+                                                        <a class="btn btn-primary btn-sm"
+                                                            href="{{ route('organizations.show', $work->id) }}">
+                                                            <i class="fas fa-folder">
+                                                            </i>
+                                                            View
+                                                        </a>
+                                                        <a class="btn btn-info btn-sm"
+                                                            href="{{ route('organizations.edit', $work->id) }}">
+                                                            <i class="fas fa-pencil-alt">
+                                                            </i>
+                                                            Edit
+                                                        </a>
+                                                        {!! Form::open([
+                                                            'method' => 'DELETE',
+                                                            'route' => ['organizations.destroy', $work->id],
+                                                            'style' => 'display:inline',
+                                                        ]) !!}
+                                                        <button type="submit" class="btn btn-danger btn-sm">
+                                                            <i class="fas fa-trash"></i> Delete
+                                                        </button>
+                                                        {!! Form::close() !!}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>Applicant Name</th>
-                                            <th>Phone number</th>
-                                            <th>Educational Background:</th>
-                                            <th>Age</th>
-                                            <th>passport</th>
+                                            <th>Job Title</th>
+                                            <th>Job Category</th>
+                                            <th>Salary Range</th>
+                                            <th>Deadline</th>
+                                            <th style="width:20%;"></th>
                                         </tr>
                                     </tfoot>
                                 </table>
