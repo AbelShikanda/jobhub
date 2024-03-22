@@ -41,7 +41,7 @@
 
 
     // Header carousel
-    $(".header-carousel").owlCarousel({
+    $('.header-carousel').owlCarousel({
         autoplay: true,
         smartSpeed: 1500,
         items: 1,

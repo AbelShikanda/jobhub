@@ -5,7 +5,7 @@ form p {
 
 .ctrlqHeaderMast {
   background: linear-gradient(rgba(43, 57, 64, .5), rgba(43, 57, 64, .5)), url(../img/carousel-1.jpg) center center no-repeat;
-  height: 278px;
+  height: 378px;
 }
 
 .ctrlqFormContent {
@@ -46,7 +46,7 @@ form p {
 }
 
 .ctrlqFormCard:first-of-type {
-  margin-top: -100px;
+  margin-top: -200px;
 }
 
 .ctrlqHeaderTitle {
