@@ -171,7 +171,7 @@
                                                                                 <input type="tect" name="range"
                                                                                     class="form-control"
                                                                                     id="exampleInputEmail1"
-                                                                                    placeholder="Enter a range (1 - 10)" required>
+                                                                                    placeholder="Enter a salary" required>
                                                                             </div>
                                                                         </div>
                                                                     </td>

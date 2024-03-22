@@ -39,16 +39,17 @@
                                     <div class="info-box bg-light">
                                         <div class="info-box-content">
                                             <span class="info-box-text text-center text-muted">Applicant Country</span>
-                                            <span class="info-box-number text-center text-muted mb-0">Kenya</span>
+                                            <span
+                                                class="info-box-number text-center text-muted mb-0">{{ $user->country }}</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-4">
                                     <div class="info-box bg-light">
                                         <div class="info-box-content">
-                                            <span class="info-box-text text-center text-muted">Applicant Phone Number</span>
-                                            <span class="info-box-number text-center text-muted mb-0">+254 712 345
-                                                678</span>
+                                            <span class="info-box-text text-center text-muted">Applicant Gender</span>
+                                            <span
+                                                class="info-box-number text-center text-muted mb-0">{{ $user->gender }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -56,7 +57,15 @@
                                     <div class="info-box bg-light">
                                         <div class="info-box-content">
                                             <span class="info-box-text text-center text-muted">Applicant Age</span>
-                                            <span class="info-box-number text-center text-muted mb-0">20</span>
+                                            <span class="info-box-number text-center text-muted mb-0"><?php
+                                            // Calculate the age based on the date of birth
+                                            $dob = $user->date_of_birth;
+                                            $dobObj = new DateTime($dob);
+                                            $currentDate = new DateTime();
+                                            $ageInterval = $currentDate->diff($dobObj);
+                                            $age = $ageInterval->y;
+                                            ?>
+                                                {{ $age }} Years</span>
                                         </div>
                                     </div>
                                 </div>
@@ -69,9 +78,9 @@
                                             <img class="img-circle img-bordered-sm"
                                                 src="{{ asset('admin/dist/img/user1-128x128.jpg') }}" alt="user image">
                                             <span class="username">
-                                                <a href="#">Jonathan Burke Jr.</a>
+                                                <a href="#">{{ $user->first_name . ' ' . $user->last_name }}</a>
                                             </span>
-                                            <span class="description">Shared publicly - 7:45 PM today</span>
+                                            <span class="description">Shared publicly - {{ $user->created_at }}</span>
                                         </div>
                                         <!-- /.user-block -->
                                         <div class="row">
@@ -86,26 +95,28 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th style="width: 10px">#</th>
-                                                                    <th>Industry</th>
-                                                                    <th>Job</th>
-                                                                    <th>Organization</th>
-                                                                    <th style="">Label</th>
+                                                                    <th>Company Name</th>
+                                                                    <th>Position</th>
+                                                                    <th>Descriptiom</th>
+                                                                    <th>Start Date</th>
+                                                                    <th style="">End Date</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>1.</td>
-                                                                    <td>Preferred Industry</td>
-                                                                    <td>Preferred Industry</td>
-                                                                    <td>Preferred Industry</td>
-                                                                    <td>Preferred Industry</td>
-                                                                </tr>
+                                                                    <tr>
+                                                                        <td>1.</td>
+                                                                        <td>{{ $experiences->company_name }}</td>
+                                                                        <td>{{ $experiences->Position }}</td>
+                                                                        <td>{{ $experiences->description }}</td>
+                                                                        <td>{{ $experiences->start_date }}</td>
+                                                                        <td>{{ $experiences->end_date }}</td>
+                                                                    </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
                                                     <div class="card-footer clearfix">
-                                                        <ul class="pagination pagination-sm m-0 float-right">
+                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
                                                             <li class="page-item"><a class="page-link"
                                                                     href="#">&laquo;</a></li>
                                                             <li class="page-item"><a class="page-link" href="#">1</a>
@@ -116,7 +127,7 @@
                                                             </li>
                                                             <li class="page-item"><a class="page-link"
                                                                     href="#">&raquo;</a></li>
-                                                        </ul>
+                                                        </ul> --}}
                                                     </div>
                                                 </div>
                                                 <!-- /.card -->
@@ -137,25 +148,29 @@
                                                                 <tr>
                                                                     <th style="width: 10px">#</th>
                                                                     <th>Education</th>
+                                                                    <th>Field</th>
                                                                     <th>Institution</th>
-                                                                    <th>Start date</th>
-                                                                    <th>End Date</th>
+                                                                    <th>Location</th>
+                                                                    <th>graduation Date</th>
+                                                                    <th>description</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr>
-                                                                    <td>1.</td>
-                                                                    <td>Preferred Industry</td>
-                                                                    <td>Preferred Industry</td>
-                                                                    <td>Preferred Industry</td>
-                                                                    <td>Preferred Industry</td>
-                                                                </tr>
+                                                                    <tr>
+                                                                        <td>1.</td>
+                                                                        <td>{{ $educations->degree }}</td>
+                                                                        <td>{{ $educations->field_of_study }}</td>
+                                                                        <td>{{ $educations->institution }}</td>
+                                                                        <td>{{ $educations->location }}</td>
+                                                                        <td>{{ $educations->graduation_year }}</td>
+                                                                        <td>{{ $educations->description }}</td>
+                                                                    </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
                                                     <div class="card-footer clearfix">
-                                                        <ul class="pagination pagination-sm m-0 float-right">
+                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
                                                             <li class="page-item"><a class="page-link"
                                                                     href="#">&laquo;</a></li>
                                                             <li class="page-item"><a class="page-link" href="#">1</a>
@@ -166,7 +181,7 @@
                                                             </li>
                                                             <li class="page-item"><a class="page-link"
                                                                     href="#">&raquo;</a></li>
-                                                        </ul>
+                                                        </ul> --}}
                                                     </div>
                                                 </div>
                                                 <!-- /.card -->
@@ -194,30 +209,56 @@
                                                                 <tr>
                                                                     <td>1.</td>
                                                                     <td>Police Clearance</td>
-                                                                    <td><span class="badge bg-success">90%</span></td>
+                                                                    <td><span
+                                                                            class="badge bg-success">
+                                                                            @if ($user->has_police_clearance === 0)
+                                                                                <span class="badge badge-danger">No</span>
+                                                                            @elseif ($user->has_police_clearance === 1)
+                                                                                <span class="badge badge-warning">Waiting</span>
+                                                                            @elseif ($user->has_police_clearance === 2)
+                                                                                <span class="badge badge-info">Renewing</span>
+                                                                            @elseif ($user->has_police_clearance === 3)
+                                                                                <span class="badge badge-success">Yes</span>
+                                                                            @endif
+                                                                        </span>
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>2.</td>
                                                                     <td>Passport</td>
-                                                                    <td><span class="badge bg-success">90%</span></td>
+                                                                    <td><span class="badge bg-success">
+                                                                            @if ($user->has_passport === 0)
+                                                                                <span class="badge badge-danger">No</span>
+                                                                            @elseif ($user->has_passport === 1)
+                                                                                <span
+                                                                                    class="badge badge-warming">Waiting</span>
+                                                                            @elseif ($user->has_passport === 2)
+                                                                                <span
+                                                                                    class="badge badge-success">Yes</span>
+                                                                            @endif
+                                                                        </span>
+                                                                    </td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
                                                     <div class="card-footer clearfix">
-                                                        <ul class="pagination pagination-sm m-0 float-right">
+                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
                                                             <li class="page-item"><a class="page-link"
                                                                     href="#">&laquo;</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">1</a>
+                                                            <li class="page-item"><a class="page-link"
+                                                                    href="#">1</a>
                                                             </li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a>
+                                                            <li class="page-item"><a class="page-link"
+                                                                    href="#">2</a>
                                                             </li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a>
+                                                            <li class="page-item"><a class="page-link"
+                                                                    href="#">3</a>
                                                             </li>
                                                             <li class="page-item"><a class="page-link"
                                                                     href="#">&raquo;</a></li>
-                                                        </ul>
+                                                        </ul> --}}
                                                     </div>
                                                 </div>
                                                 <!-- /.card -->
@@ -236,33 +277,32 @@
                         </div>
                         <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
                             <h3 class="text-primary"><i class="fas fa-paint-brush"></i> Job Hub</h3>
-                            <p class="text-muted">This is the comment description. This is the comment description. This is
-                                the comment description. This is the comment description. This is the comment description.
-                                This is the comment description.</p>
+                            <p class="text-muted">{{ $comments->comment_text }}</p>
                             <br>
                             <div class="text-muted">
-                                <p class="text-sm">Recent Company
-                                    <b class="d-block">Deveint Inc</b>
+                                <p class="text-sm">Most Recent Company
+                                    <b class="d-block">{{ $latestex->company_name }}</b>
                                 </p>
-                                <p class="text-sm">Recent Company Refference
-                                    <b class="d-block">Tony Chicken</b>
-                                    <a href="#" class="btn-link text-secondary"><i class="fas fa-fw fa-phone"></i>+254 712 345 444</a>
+                                <p class="text-sm">Refference
+                                    <b class="d-block">{{ $user->reference_source }}</b>
                                 </p>
                             </div>
 
-                            <h5 class="mt-5 text-muted">Applicant files</h5>
+                            <h5 class="mt-5 text-muted">Applicant personal details</h5>
                             <ul class="list-unstyled">
                                 <li>
-                                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
+                                    <a href="{{ $fileName }}" class="btn-link text-secondary"><i
+                                            class="far fa-fw fa-file-word"></i>
                                         Resume</a>
                                 </li>
                                 <li>
-                                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i>
-                                        UAT.pdf</a>
+                                    <a href="#" class="btn-link text-secondary"><i
+                                            class="fas fa-fw fa-phone"></i>{{ $user->phone }}</a>
                                 </li>
                                 <li>
-                                    <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i>
-                                        Email</a>
+                                    <a href="" class="btn-link text-secondary"><i
+                                            class="far fa-fw fa-envelope"></i>
+                                        {{ $user->email }}</a>
                                 </li>
                             </ul>
                             <div class="text-center mt-5 mb-3">

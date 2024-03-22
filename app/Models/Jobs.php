@@ -32,4 +32,9 @@ class Jobs extends Model
     {
         return $this->belongsToMany(JobsCategoties::class, 'job_job_categories', 'job_id', 'id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'job_users', 'user_id', 'user_id');
+    }
 }

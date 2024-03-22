@@ -27,7 +27,8 @@
                                         <h3 class="card-title">Applicants and their information</h3>
                                     </div>
                                     <div class="col-md-2">
-                                        <a href="{{ route('applicants.create') }}" type="button" class="btn btn-block btn-dark btn-sm">Add applicants</a>
+                                        <a href="{{ route('applicants.create') }}" type="button"
+                                            class="btn btn-block btn-dark btn-sm">Add applicants</a>
                                     </div>
                                 </div>
                             </div>
@@ -38,51 +39,83 @@
                                         <tr>
                                             <th>Applicant Name</th>
                                             <th>Phone number</th>
-                                            <th>Educational Background:</th>
+                                            <th>Police clearance</th>
                                             <th>Age</th>
                                             <th>passport</th>
-                                            <th style="width:17%;"></th>
+                                            <th style="width:20%;"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Trident</td>
-                                            <td>Internet
-                                                Explorer 4.0
-                                            </td>
-                                            <td>Win 95+</td>
-                                            <td> 4</td>
-                                            <td>X</td>
+                                        @foreach ($applicants as $applicant)
+                                            <tr>
+                                                <td>{{ $applicant->first_name }}</td>
+                                                <td>{{ $applicant->phone }}</td>
+                                                <td>
+                                                    @if ($applicant->has_police_clearance === 0)
+                                                        <span class="badge badge-danger">No</span>
+                                                    @elseif ($applicant->has_police_clearance === 1)
+                                                        <span class="badge badge-warning">Waiting</span>
+                                                    @elseif ($applicant->has_police_clearance === 2)
+                                                        <span class="badge badge-info">Renewing</span>
+                                                    @elseif ($applicant->has_police_clearance === 3)
+                                                        <span class="badge badge-success">Yes</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                    // Calculate the age based on the date of birth
+                                                    $dob = $applicant->date_of_birth;
+                                                    $dobObj = new DateTime($dob);
+                                                    $currentDate = new DateTime();
+                                                    $ageInterval = $currentDate->diff($dobObj);
+                                                    $age = $ageInterval->y;
+                                                    ?>
+                                                    {{ $age }} Years
+                                                </td>
+                                                <td>
+                                                    @if ($applicant->has_passport === 0)
+                                                        <span class="badge badge-danger">No</span>
+                                                    @elseif ($applicant->has_passport === 1)
+                                                        <span class="badge badge-warming">Waiting</span>
+                                                    @elseif ($applicant->has_passport === 2)
+                                                        <span class="badge badge-success">Yes</span>
+                                                    @endif
+                                                </td>
 
-                                            <td class="project-actions text-right d-flex justify-content-between">
-                                                <a class="btn btn-primary btn-sm" href="{{-- {{ route('products.show', $product->id) }} --}}">
-                                                    <i class="fas fa-folder">
-                                                    </i>
-                                                    View
-                                                </a>
-                                                <a class="btn btn-info btn-sm" href="{{-- {{ route('products.edit', $product->id) }} --}}">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                    Edit
-                                                </a>
-                                                <a class="btn btn-info btn-sm" href="{{-- {{ route('products.edit', $product->id) }} --}}">
-                                                    <i class="fas fa-pencil-alt">
-                                                    </i>
-                                                    Edit
-                                                </a>
-                                                {{-- {!! Form::open(['method' => 'DELETE', 'route' => ['products.destroy', $product->id], 'style' => 'display:inline']) !!}
-                                                {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                                {!! Form::close() !!} --}}
-                                            </td>
-                                        </tr>
+                                                <td class="project-actions text-right d-flex justify-content-between">
+                                                    <a class="btn btn-primary btn-sm"
+                                                        href="{{ route('applicants.show', $applicant->id) }}">
+                                                        <i class="fas fa-folder">
+                                                        </i>
+                                                        View
+                                                    </a>
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('applicants.edit', $applicant->id) }}">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                        Edit
+                                                    </a>
+                                                    {!! Form::open([
+                                                        'method' => 'DELETE',
+                                                        'route' => ['applicants.destroy', $applicant->id],
+                                                        'style' => 'display:inline',
+                                                    ]) !!}
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                    {!! Form::close() !!}
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>Applicant Name</th>
                                             <th>Phone number</th>
-                                            <th>Educational Background:</th>
+                                            <th>Police clearance</th>
                                             <th>Age</th>
                                             <th>passport</th>
+                                            <th style="width:20%;"></th>
                                         </tr>
                                     </tfoot>
                                 </table>

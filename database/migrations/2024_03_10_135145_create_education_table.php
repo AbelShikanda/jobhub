@@ -20,7 +20,7 @@ class CreateEducationTable extends Migration
             $table->string('field_of_study', 100)->nullable();
             $table->string('institution', 100)->nullable();
             $table->string('location', 100)->nullable();
-            $table->integer('graduation_year')->nullable();
+            $table->timestamp('graduation_year')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

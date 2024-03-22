@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Experience extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+        'company_name',
+        'Position',
+        'start_date',
+        'end_date',
+        'description',
+        'location',
+    ];
 }

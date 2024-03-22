@@ -14,7 +14,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicon -->
-    <link href="{{ asset('img/logo.jpg') }}" rel="icon">
+    <link href="{{ asset('img/logo.png') }}" rel="icon">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -72,7 +72,7 @@
 
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-            <a href="{{ route('home') }}"><img src="{{ asset('img/logo.jpg') }}" alt="" class="px-1 mx-2"
+            <a href="{{ route('home') }}"><img src="{{ asset('img/logo.png') }}" alt="" class="px-1 mx-2"
                     style="width: 50px;"></a>
             <a href="{{ url('/') }}" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
                 <h1 class="m-0 text-secondary">{{ config('app.name', 'JobHub') }}</h1>
@@ -165,6 +165,16 @@
         //<!-- Multiple inputs -->
         $(document).ready(function() {
             var multipleSelectDropdown = new Choices('#inputGroupSelect04', {
+                removeItemButton: true
+            });
+        });
+        $(document).ready(function() {
+            var multipleSelectDropdown = new Choices('#inputGroupSelect05', {
+                removeItemButton: true
+            });
+        });
+        $(document).ready(function() {
+            var multipleSelectDropdown = new Choices('#inputGroupSelect06', {
                 removeItemButton: true
             });
         });
