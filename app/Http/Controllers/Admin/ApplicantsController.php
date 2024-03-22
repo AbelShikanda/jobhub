@@ -105,7 +105,7 @@ class ApplicantsController extends Controller
             $filePath = $resume->file_path;
             $fileName = Storage::url('img/img/'.$filePath);
         } else {
-            // Handle case when file record is not found
+            $fileName = null;
         }
         // dd($fileName);
 

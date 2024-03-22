@@ -103,6 +103,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @if ($experiences)
                                                                     <tr>
                                                                         <td>1.</td>
                                                                         <td>{{ $experiences->company_name }}</td>
@@ -111,6 +112,11 @@
                                                                         <td>{{ $experiences->start_date }}</td>
                                                                         <td>{{ $experiences->end_date }}</td>
                                                                     </tr>
+                                                                @else
+                                                                    <tr>
+                                                                        <td colspan="6">No experiences found</td>
+                                                                    </tr>
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -156,6 +162,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @if ($educations)
                                                                     <tr>
                                                                         <td>1.</td>
                                                                         <td>{{ $educations->degree }}</td>
@@ -165,6 +172,11 @@
                                                                         <td>{{ $educations->graduation_year }}</td>
                                                                         <td>{{ $educations->description }}</td>
                                                                     </tr>
+                                                                @else
+                                                                    <tr>
+                                                                        <td colspan="6">No education found</td>
+                                                                    </tr>
+                                                                @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -209,14 +221,15 @@
                                                                 <tr>
                                                                     <td>1.</td>
                                                                     <td>Police Clearance</td>
-                                                                    <td><span
-                                                                            class="badge bg-success">
+                                                                    <td><span class="badge bg-">
                                                                             @if ($user->has_police_clearance === 0)
                                                                                 <span class="badge badge-danger">No</span>
                                                                             @elseif ($user->has_police_clearance === 1)
-                                                                                <span class="badge badge-warning">Waiting</span>
+                                                                                <span
+                                                                                    class="badge badge-warning">Waiting</span>
                                                                             @elseif ($user->has_police_clearance === 2)
-                                                                                <span class="badge badge-info">Renewing</span>
+                                                                                <span
+                                                                                    class="badge badge-info">Renewing</span>
                                                                             @elseif ($user->has_police_clearance === 3)
                                                                                 <span class="badge badge-success">Yes</span>
                                                                             @endif
@@ -226,15 +239,14 @@
                                                                 <tr>
                                                                     <td>2.</td>
                                                                     <td>Passport</td>
-                                                                    <td><span class="badge bg-success">
+                                                                    <td><span class="badge bg-">
                                                                             @if ($user->has_passport === 0)
                                                                                 <span class="badge badge-danger">No</span>
                                                                             @elseif ($user->has_passport === 1)
                                                                                 <span
                                                                                     class="badge badge-warming">Waiting</span>
                                                                             @elseif ($user->has_passport === 2)
-                                                                                <span
-                                                                                    class="badge badge-success">Yes</span>
+                                                                                <span class="badge badge-success">Yes</span>
                                                                             @endif
                                                                         </span>
                                                                     </td>
@@ -277,11 +289,23 @@
                         </div>
                         <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
                             <h3 class="text-primary"><i class="fas fa-paint-brush"></i> Job Hub</h3>
-                            <p class="text-muted">{{ $comments->comment_text }}</p>
+                            <p class="text-muted">
+                                @if ($educations)
+                                    {{ $comments->comment_text }}
+                                @else
+                                    No comment found
+                                @endif
+                            </p>
                             <br>
                             <div class="text-muted">
                                 <p class="text-sm">Most Recent Company
-                                    <b class="d-block">{{ $latestex->company_name }}</b>
+                                    <b class="d-block">
+                                        @if ($educations)
+                                        {{ $latestex->company_name }}
+                                        @else
+                                            No company found
+                                        @endif
+                                    </b>
                                 </p>
                                 <p class="text-sm">Refference
                                     <b class="d-block">{{ $user->reference_source }}</b>
