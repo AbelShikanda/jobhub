@@ -17,14 +17,14 @@
                                         <img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg"
                                             alt="" style="width: 80px; height: 80px;">
                                         <div class="text-start ps-4">
-                                            <h5 class="mb-3">{{ $data['job']->job_title }}</h5>
+                                            <h5 class="mb-3">{{ $data['job_title'] }}</h5>
                                             <span class="text-truncate me-3"><i
-                                                    class="fa fa-map-marker-alt text-danger me-2"></i>{{ $data['organization']->Country }}</span>
+                                                    class="fa fa-map-marker-alt text-danger me-2"></i>{{ $data['org_name'] }}</span>
                                             <span class="text-truncate me-3"><i
-                                                    class="far fa-clock text-danger me-2"></i>{{ $data['organization']->categories->first()?->name }}</span>
+                                                    class="far fa-clock text-danger me-2"></i>{{ $data['category_name'] }}</span>
                                             <span class="text-truncate me-0"><i
                                                     class="far fa-money-bill-alt text-danger me-2"></i>Ksh
-                                                {{ $data['job']->salary_range }}</span>
+                                                {{ $data['salary_range'] }}</span>
                                         </div>
                                     </div>
                                     <div
@@ -34,11 +34,14 @@
                                         </div>
                                         <small class="text-truncate"><i
                                                 class="far fa-calendar-alt text-danger me-2"></i>Deadline for application
-                                            {{ $data['job']->deadline_date }}</small>
+                                            {{ $data['deadline_date'] }}</small>
                                     </div>
                                 </div>
                             </div>
                         @endforeach
+                    </div>
+                    <div class="row justify-content-center">
+                        {{ $organizations->links() }}
                     </div>
                 </div>
             </div>

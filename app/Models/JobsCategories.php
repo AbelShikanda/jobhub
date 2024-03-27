@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Sluggable\HasSlug;
 
-class JobsCategoties extends Model
+class JobsCategories extends Model
 {
     use HasFactory, Notifiable, HasSlug;
 

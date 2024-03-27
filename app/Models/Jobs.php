@@ -26,18 +26,18 @@ class Jobs extends Model
     ];
 
     /**
-    * Get the Category.
-    */
+     * Get the Category.
+     */
     public function categories()
     {
-        return $this->belongsToMany(JobsCategoties::class, 'job_job_categories', 'job_id', 'id');
+        return $this->belongsToMany(JobsCategories::class, 'job_job_categories', 'job_id', 'job_category_id');
     }
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'job_users', 'user_id', 'user_id');
+        return $this->belongsToMany(User::class, 'job_users', 'user_id', 'job_id');
     }
-    
+
     public function organizations()
     {
         return $this->belongsToMany(Organizations::class, 'organizations_jobs', 'org_id', 'job_id');

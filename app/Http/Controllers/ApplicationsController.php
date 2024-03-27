@@ -10,6 +10,7 @@ use App\Models\Education;
 use App\Models\Experience;
 use App\Models\job_user;
 use App\Models\Jobs;
+use App\Models\JobsCategories;
 use App\Models\JobsCategoties;
 use App\Models\Language;
 use App\Models\Organizations;
@@ -40,7 +41,7 @@ class ApplicationsController extends Controller
      */
     public function index()
     {
-        $categories = JobsCategoties::all();
+        $categories = JobsCategories::all();
         $organizations = Organizations::all();
         $jobs = Jobs::all();
         // dd($jobs);
