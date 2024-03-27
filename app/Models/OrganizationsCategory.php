@@ -49,4 +49,9 @@ class OrganizationsCategory extends Model
     {
         return $this->belongsToMany(Organizations::class, 'organization_organization_category', 'org_category_id', 'org_id');
     }
+
+    public function jobs()
+    {
+        return $this->hasMany(Jobs::class);
+    }
 }
