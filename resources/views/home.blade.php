@@ -11,9 +11,18 @@
                     <div class="container">
                         <div class="row justify-content-start">
                             <div class="col-10 col-lg-8">
-                                <h1 class="display-3 text-white animated slideInDown mb-4">Recruitment Service from Africa, Asia</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">If you are looking to recruit long-term stable workers eager to help you scale up your business, Multi Workforce is the answer for you, with over 10 years of experience in Germany and Romania we can find the best solutions for you.</p>
-                                
+                                <h1 class="display-3 text-white animated slideInDown mb-4">Recruitment Service from Africa,
+                                    Asia</h1>
+                                <p class="fs-5 fw-medium text-white mb-4 pb-2">If you are looking to recruit long-term
+                                    stable workers eager to help you scale up your business, Multi Workforce is the answer
+                                    for you, with over 10 years of experience in Germany and Romania we can find the best
+                                    solutions for you.</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="{{ route('jobs') }}" class="custom-button">See Latest Jobs</a>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -26,8 +35,15 @@
                     <div class="container">
                         <div class="row justify-content-start">
                             <div class="col-10 col-lg-8">
-                                <h1 class="display-3 text-white animated slideInDown mb-4">We are ready to grow together</h1>
-                                <p class="fs-5 fw-medium text-white mb-4 pb-2">We consult big companies to help them build a functional team ready to grow together.</p>
+                                <h1 class="display-3 text-white animated slideInDown mb-4">We are ready to grow together
+                                </h1>
+                                <p class="fs-5 fw-medium text-white mb-4 pb-2">We consult big companies to help them build a
+                                    functional team ready to grow together.</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="{{ route('jobs') }}" class="custom-button">See Latest Jobs</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -43,37 +59,54 @@
     @endif
 
 
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
+                    <div class="row g-0 about-bg rounded overflow-hidden">
+                        <div class="col-6 text-start">
+                            <img class="img-fluid w-100" src="img/about-1.jpg">
+                        </div>
+                        <div class="col-6 text-start">
+                            <img class="img-fluid" src="img/about-2.jpg" style="width: 85%; margin-top: 15%;">
+                        </div>
+                        <div class="col-6 text-end">
+                            <img class="img-fluid" src="img/about-3.jpg" style="width: 85%;">
+                        </div>
+                        <div class="col-6 text-end">
+                            <img class="img-fluid w-100" src="img/about-4.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                    <h1 class="mb-4">Get The Best Jobs And Find Talent</h1>
+                    <p class="mb-4">Connect to job seekers with potential employers,
+                        and find qualified candidates. You can explore job opportunities,
+                        create profiles, and apply for positions that match your skills and experience.</p>
+                    <p><i class="fa fa-check text-danger me-3"></i>The ultimate resource for both job seekers and employers
+                    </p>
+                    <p><i class="fa fa-check text-danger me-3"></i>Seamless recruitment experience</p>
+                    <p><i class="fa fa-check text-danger me-3"></i>A high-performing team</p>
+                    <a class="btn btn-danger py-3 px-5 mt-3" href="{{ url('/about') }}">Read More</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
     <!-- Jobs Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Job Listing</h1>
             <div class="tab-class text-center wow fadeInUp" data-wow-delay="0.3s">
-                {{-- <ul class="nav nav-pills d-inline-flex justify-content-center border-bottom mb-5">
-                    <li class="nav-item">
-                        <a class="d-flex align-items-center text-start mx-3 ms-0 pb-3 active" data-bs-toggle="pill"
-                            href="#tab-1">
-                            <h6 class="mt-n1 mb-0">Featured</h6>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="d-flex align-items-center text-start mx-3 pb-3" data-bs-toggle="pill" href="#tab-2">
-                            <h6 class="mt-n1 mb-0">Full Time</h6>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
-                            href="#tab-3">
-                            <h6 class="mt-n1 mb-0">Part Time</h6>
-                        </a>
-                    </li>
-                </ul> --}}
                 <div class="tab-content">
                     @foreach ($organizations as $data)
                         <div class="job-item p-4 mb-4">
                             <div class="row g-4">
                                 <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                    <img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg" alt=""
-                                        style="width: 80px; height: 80px;">
+                                    <img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg"
+                                        alt="" style="width: 80px; height: 80px;">
                                     <div class="text-start ps-4">
                                         <h5 class="mb-3">{{ $data['job_title'] }}</h5>
                                         <span class="text-truncate me-3"><i
@@ -90,7 +123,8 @@
                                     <div class="d-flex mb-3">
                                         <a class="btn btn-success" href="">Apply Now</a>
                                     </div>
-                                    <small class="text-truncate"><i class="far fa-calendar-alt text-danger me-2"></i>Deadline
+                                    <small class="text-truncate"><i
+                                            class="far fa-calendar-alt text-danger me-2"></i>Deadline
                                         for application
                                         {{ $data['deadline_date'] }}</small>
                                 </div>
@@ -109,7 +143,8 @@
             <div class="row g-2">
                 <div class="col-md-12">
                     <h3 class="text-center display- text-white animated slideInDown mb-4">SUBSCRIBE FOR DETAILS</h3>
-                    <p class="text-center fs-5 fw-medium text-white mb-4 pb-2">Sign up to hear from us about how can we help you.</p>
+                    <p class="text-center fs-5 fw-medium text-white mb-4 pb-2">Sign up to hear from us about how can we help
+                        you.</p>
                     <div class="justify-content-end row g-2">
                         <div class="col-md-6 animated slideInLeft">
                             <input type="text" class="form-control border-0" placeholder="Email Address" />

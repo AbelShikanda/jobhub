@@ -32,7 +32,6 @@
                 <p><i class="fa fa-check text-danger me-3"></i>The ultimate resource for both job seekers and employers</p>
                 <p><i class="fa fa-check text-danger me-3"></i>Seamless recruitment experience</p>
                 <p><i class="fa fa-check text-danger me-3"></i>A high-performing team</p>
-                <a class="btn btn-danger py-3 px-5 mt-3" href="{{ url('/about') }}">Read More</a>
             </div>
         </div>
     </div>
