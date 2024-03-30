@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jobs;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $jobs = Jobs::selectRaw('jobs.*')
+            ->addSelect('organizations.Org_Name AS org_name')
+            ->addSelect('organizations.website AS site')
+            ->addSelect('organizations.Country AS country')
+            ->addSelect('organizations.Description AS description')
+            ->addSelect('organizations.Founded_Date AS fdate')
+            ->addSelect('jobs_categories.name AS category_name')
+            ->join('organizations', 'jobs.org_id', '=', 'organizations.id')
+            ->join('jobs_categories', 'jobs.job_category_id', '=', 'jobs_categories.id')
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('home', ['organizations' => $jobs]);
     }
 }

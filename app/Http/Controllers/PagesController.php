@@ -45,7 +45,7 @@ class PagesController extends Controller
             $perPage,
             $currentPage
         );
-        
+
         $paginator->setPath(route('jobs'));
         // dd($jobs);
 
@@ -62,5 +62,35 @@ class PagesController extends Controller
     {
 
         return View('pages.contact')->with('products',);
+    }
+
+    public function jobsCategory($category_id)
+    {
+        $jobs = Jobs::selectRaw('jobs.*')
+            ->addSelect('organizations.Org_Name AS org_name')
+            ->addSelect('organizations.website AS site')
+            ->addSelect('organizations.Country AS country')
+            ->addSelect('organizations.Description AS description')
+            ->addSelect('organizations.Founded_Date AS fdate')
+            ->addSelect('jobs_categories.name AS category_name')
+            ->join('organizations', 'jobs.org_id', '=', 'organizations.id')
+            ->join('jobs_categories', 'jobs.job_category_id', '=', 'jobs_categories.id')
+            ->where('jobs.job_category_id', $category_id)
+            ->latest()
+            ->paginate(10);
+
+        // if ($jobs->isEmpty()) {
+        //     // No jobs found for the given category_id
+        //     // You can return a view with a message or redirect the user to another page
+        //     return view('pages.noJobsFound');
+        // }
+
+        $categories = JobsCategories::all();
+
+        return view('pages.jobsCategory', [
+            'jobs' => $jobs,
+            'categories' => $categories,
+        ]
+    );
     }
 }

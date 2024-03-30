@@ -58,6 +58,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [PagesController::class, 'about'])->name('about');
 Route::get('/jobs', [PagesController::class, 'jobs'])->name('jobs');
+Route::get('/jobsCategory/{id}', [PagesController::class, 'jobsCategory'])->name('jobsCategory');
 Route::get('/job_details', [PagesController::class, 'job_details'])->name('job_details');
 Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 // profile resources
