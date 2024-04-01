@@ -230,7 +230,7 @@ section.section {
   position: relative;
   display: inline-block;
 }
-.dropdown-menu {
+.dropdown-menu-category {
   display: none;
   position: absolute;
   z-index: 1;
@@ -239,19 +239,19 @@ section.section {
   border: 1px solid gray;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
-.dropdown-menu a {
+.dropdown-menu-category a {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
-.dropdown-menu a.selected {
+.dropdown-menu-category a.selected {
   background-color: lightgray;
 }
-.dropdown-menu a:hover {
+.dropdown-menu-category a:hover {
   background-color: lightgray;
 }
-.dropdown-button {
+.dropdown-button-category {
   display: inline-block;
   background-color: white;
   border: 1px solid gray;
@@ -274,7 +274,7 @@ section.section {
   border-top: 5px solid gray;
   transition: all 0.3s ease;
 }
-.dropdown-button.open .dropdown-chevron {
+.dropdown-button-category.open .dropdown-chevron {
   transform: rotate(180deg);
 }
 

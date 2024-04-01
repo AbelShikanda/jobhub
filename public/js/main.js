@@ -82,28 +82,12 @@
 
 /*
 
-Prompts:
-
-Can you generate a custom dropdown button in HTML for selecting one of the following two options:  'Week' and 'Month.'  The button's text reflects the value that was chosen.  It defaults to 'Week'.
-
-The button has a chevron on the right pointing down when the dropdown menu is closed, and pointing up when the dropdown menu is open.  Clicking the button should open the dropdown menu that lets you choose between the options 'Week' and 'Month', with the already selected value highlighted.  Clicking one of the options changes the selected value and closes the dropdown menu.
-The chevron on the right of the button should animate (rotate) as it changes from showing a down-facing to an up-facing chevron.
-
-...
-
-Could you change the code to make the following changes:
-- Close the dropdown menu when you click anywhere outside the dropdown menu.
-- Make sure the chevron does not overlap with the button's text
-
-...
-
-continue
 
 */
 
 function toggleDropdown() {
-    let button = document.querySelector('.dropdown-button');
-    let menu = document.querySelector('.dropdown-menu');
+    let button = document.querySelector('.dropdown-button-category');
+    let menu = document.querySelector('.dropdown-menu-category');
     button.classList.toggle('open');
     if (menu.style.display === 'block') {
       menu.style.display = 'none';
@@ -122,8 +106,8 @@ function toggleDropdown() {
 //     });
 //   });
   document.addEventListener('click', function(event) {
-    let button = document.querySelector('.dropdown-button');
-let menu = document.querySelector('.dropdown-menu');
+    let button = document.querySelector('.dropdown-button-category');
+let menu = document.querySelector('.ddropdown-menu-category');
 if (!button.contains(event.target) && !menu.contains(event.target) && menu.style.display === 'block') {
 toggleDropdown();
 }

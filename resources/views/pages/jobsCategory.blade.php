@@ -19,11 +19,11 @@
                         </div>
                         <div class="col-8">
                             <div class="dropdown-container">
-                                <div class="dropdown-button" onclick="toggleDropdown()">
+                                <div class="dropdown-button-category" onclick="toggleDropdown()">
                                     <span class="dropdown-text">Category</span>
                                     <span class="dropdown-chevron"></span>
                                 </div>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu-category">
                                     @foreach ($categories as $c)
                                         <a
                                             href="{{ route('jobsCategory', $c['id']) }}">{{ $c['name'] }}</a>

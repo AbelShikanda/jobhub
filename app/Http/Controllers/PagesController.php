@@ -47,9 +47,16 @@ class PagesController extends Controller
         );
 
         $paginator->setPath(route('jobs'));
+        $categories = JobsCategories::all();
         // dd($jobs);
 
-        return view('pages.jobs', ['organizations' => $paginator]);
+        return view(
+            'pages.jobs',
+            [
+                'organizations' => $paginator,
+                'categories' => $categories,
+            ]
+        );
     }
 
     public function jobs_details()
@@ -87,10 +94,12 @@ class PagesController extends Controller
 
         $categories = JobsCategories::all();
 
-        return view('pages.jobsCategory', [
-            'jobs' => $jobs,
-            'categories' => $categories,
-        ]
-    );
+        return view(
+            'pages.jobsCategory',
+            [
+                'jobs' => $jobs,
+                'categories' => $categories,
+            ]
+        );
     }
 }
