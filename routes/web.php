@@ -53,17 +53,22 @@ Route::group(['middleware' => 'adminauth'], function() {
 
 
 Auth::routes();
-
+// HOME ROUTES
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// PAGES ROUTES
 Route::get('/about', [PagesController::class, 'about'])->name('about');
 Route::get('/jobs', [PagesController::class, 'jobs'])->name('jobs');
 Route::get('/jobsCategory/{id}', [PagesController::class, 'jobsCategory'])->name('jobsCategory');
 Route::get('/job_details', [PagesController::class, 'job_details'])->name('job_details');
 Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
-// profile resources
+
+// PROFILE ROUTE
+Route::get('/profile_category', [ProfileController::class, 'profile_category'])->name('profile_category');
+Route::resource('profile', ProfileController::class);
+
 Route::resource('applications', ApplicationsController::class);
-Route::resource('profiles', ProfileController::class);
 Route::resource('contacts', ContactsController::class);
 
 

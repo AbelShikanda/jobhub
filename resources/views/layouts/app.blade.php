@@ -17,7 +17,7 @@
     <link href="{{ asset('img/logo.png') }}" rel="icon">
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
     <script src="{{ asset('js/main.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -54,7 +54,7 @@
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
 </head>
 
@@ -119,10 +119,21 @@
 
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                        <a class="dropdown-item" href="{{ route('home') }}">
-                                            {{ __('Home') }}
+
+                                        <a class="dropdown-item" href="{{ route('profile.index') }}">
+                                            {{ __('Profile') }}
                                         </a>
-                                        
+
+                                        <a class="dropdown-item" href="{{ route('profile.index') }}">
+                                            <div class="col header-profile">
+                                                <div class="notification">
+                                                    {{ __('Notifications') }}
+                                                    <span class="notification-number">3</span>
+                                                    <i class="fas fa-bell"></i>
+                                                </div>
+                                            </div>
+                                        </a>
+
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
