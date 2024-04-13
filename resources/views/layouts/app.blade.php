@@ -121,15 +121,10 @@
 
 
                                         <a class="dropdown-item" href="{{ route('profile.index') }}">
-                                            {{ __('Profile') }}
-                                        </a>
-
-                                        <a class="dropdown-item" href="{{ route('profile.index') }}">
                                             <div class="col header-profile">
                                                 <div class="notification">
-                                                    {{ __('Notifications') }}
+                                                    {{ __('Profile') }}
                                                     <span class="notification-number">3</span>
-                                                    <i class="fas fa-bell"></i>
                                                 </div>
                                             </div>
                                         </a>

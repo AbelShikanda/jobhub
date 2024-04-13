@@ -236,7 +236,14 @@ section.section {
   padding-right: 45px;
 }
 
-
+@media (max-width: 400px) {
+  .col-4 {
+    display: none;
+  }
+  .col-8 {
+    margin-left: 27%;
+  }
+}
 
 
 
@@ -354,6 +361,47 @@ section.section {
   border-color: #fff;
 }
 
+@media (max-width: 400px) {
+
+  .custom-button {
+    text-decoration: none;
+    color: #ffffff;
+    margin-left: 40%;
+    font-size: 0.8rem;
+    position: relative;
+    transition: all .5s
+  }
+
+  .custom-button::before,
+  .custom-button::after {
+    content: "";
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-style: solid;
+    border-color: #fff;
+    transition: all .5s
+  }
+
+  .custom-button::before {
+    top: -0.5rem;
+    left: -0.5rem;
+    border-width: 3px 0 0 3px;
+  }
+
+  .custom-button::after {
+    bottom: -0.5rem;
+    right: -0.5rem;
+    border-width: 0px 3px 3px 0px;
+  }
+
+  .custom-button:hover::before,
+  .custom-button:hover::after {
+    width: calc(100% + 1.0rem);
+    height: calc(100% + 1.0rem);
+    border-color: #fff;
+  }
+}
 
 
 
@@ -393,7 +441,6 @@ section.section {
   display: inline-block;
   border-radius: 5px;
   cursor: pointer;
-  margin-left: -50%;
 }
 
 .dropdown-text-profile {

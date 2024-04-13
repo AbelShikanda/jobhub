@@ -119,8 +119,14 @@
 
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
+
                                         <a class="dropdown-item" href="{{ route('profile.index') }}">
-                                            {{ __('Profile') }}
+                                            <div class="col header-profile">
+                                                <div class="notification">
+                                                    {{ __('Profile') }}
+                                                    <span class="notification-number">3</span>
+                                                </div>
+                                            </div>
                                         </a>
                                         
                                         <a class="dropdown-item" href="{{ route('logout') }}"
