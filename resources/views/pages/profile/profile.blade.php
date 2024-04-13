@@ -1,7 +1,6 @@
 @extends('layouts.app_profile')
 
 @section('content')
-    <div class="main-container">
         <div class="content-wrapper">
             <div class="content-wrapper-header">
                 <div class="content-wrapper-context">
@@ -9,11 +8,11 @@
                         <div class="profile-img">
                             <i class="fas fa-user"></i>
                         </div>
-                        <div class="pr">
+                        <div class="" style="padding-left: 10%">
                             {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
                         </div>
                     </h3>
-                    <div class="content-text">Grab yourself jobs internationally and open up to oppotunities, 
+                    <div class="content-text">Grab yourself jobs internationally and open up to oppotunities,
                         that will help you get to the next level in your life.</div>
                     <div class="pt-4 text-light">
                         <a class="content-button">Edit Profile</a>

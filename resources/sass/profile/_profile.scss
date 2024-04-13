@@ -6,9 +6,9 @@
 }
 
 :root {
- --theme-bg-color: rgba(16 18 27 / 40%);
- --border-color: rgba(113 119 144 / 25%);
- --theme-color: #f9fafb;
+ --theme-bg-color: rgba(172, 174, 179, 0.4);
+ --border-color: rgba(160, 162, 170, 0.25);
+ --theme-color: #b4b8bd;
  --inactive-color: rgb(113 119 144 / 78%);
  --body-font: "Poppins", sans-serif;
  --hover-menu-bg: rgba(12 15 25 / 30%);
@@ -24,8 +24,8 @@
 }
 
 .light-mode {
-  --theme-bg-color: rgb(255 255 255 / 31%);
- --theme-color: #3c3a3a;
+  --theme-bg-color: rgba(255, 255, 255, 0.541);
+ --theme-color: #312e2e;
  --inactive-color: #333333;
   --button-inactive: #3c3a3a;
  --search-bg: rgb(255 255 255 / 31%);
@@ -104,7 +104,7 @@ img {
  stroke: var(--theme-color);
 }
  .profile-img {
-  border: 2px solid var(--theme-bg-color)
+  border: 2px solid #000
  }
  .content-section ul{
   background-color: var(--theme-bg-color);
@@ -117,8 +117,8 @@ img {
  }
 }
 
-body.light-mode:before,
-body.light-mode .video-bg:before {
+.light-mode,
+.light-mode .video-bg {
     content: "";
     position: absolute;
     left: 0;
@@ -131,7 +131,7 @@ body.light-mode .video-bg:before {
 
 .app {
  background-color: var(--theme-bg-color);
- max-width: 1250px;
+ max-width: 100%;
  max-height: 860px;
  height: 90vh;
  display: flex;
@@ -283,12 +283,10 @@ body.light-mode .video-bg:before {
 }
 
 .profile-img {
- width: 32px;
- height: 32px;
  border-radius: 50%;
  object-fit: cover;
- border: 2px solid var(--theme-color);
- margin-left: 22px;
+ border: 2px solid #000;
+//  margin-left: 22px;
 }
 
 .wide {
@@ -416,22 +414,43 @@ body.light-mode .video-bg:before {
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  background-image: url("https://www.transparenttextures.com/patterns/cubes.png"),
-   linear-gradient(
-    to right top,
-    #cf4af3,
-    #e73bd7,
-    #f631bc,
-    #fd31a2,
-    #ff3a8b,
-    #ff4b78,
-    #ff5e68,
-    #ff705c,
-    #ff8c51,
-    #ffaa49,
-    #ffc848,
-    #ffe652
-   );
+  // background-image: url("https://www.transparenttextures.com/patterns/cubes.png"),
+  //  linear-gradient(
+  //   to right top,
+  //   #cf4af3,
+  //   #e73bd7,
+  //   #f631bc,
+  //   #fd31a2,
+  //   #ff3a8b,
+  //   #ff4b78,
+  //   #ff5e68,
+  //   #ff705c,
+  //   #ff8c51,
+  //   #ffaa49,
+  //   #ffc848,
+  //   #ffe652
+  //  );
+   background-image: url("https://www.transparenttextures.com/patterns/cubes.pn"),
+    linear-gradient(
+     to right top,
+     #fd3131,
+     #f73939,
+     #f64c4c,
+     #ff5e68,
+     #fb6868,
+     #ff7777,
+     #ff7e87,
+     #ff9a9a,
+     #c99494,
+     #dedede,
+     #9f9f9f,
+     #d2d2d2,
+     #9b9b9b,
+     #545454,
+     #524a4a,
+     #3e3c3c,
+     #212121,
+    );
   border-radius: 14px;
   padding: 20px 40px;
   @media screen and (max-width: 415px) {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\JobsCategoties;
+use App\Models\JobsCategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +16,7 @@ class JobsCategoryController extends Controller
      */
     public function index()
     {
-        $category = JobsCategoties::orderByDesc('created_at')->get();
+        $category = JobsCategories::orderByDesc('created_at')->get();
         return view('admin.categories.jobs_categories.index')->with([
             'category' => $category
         ]);
@@ -48,7 +48,7 @@ class JobsCategoryController extends Controller
             DB::beginTransaction();
             // Logic For Save User Data
 
-            $category = JobsCategoties::create([
+            $category = JobsCategories::create([
                 'name' => $request->input('cName'),
             ]);
 
@@ -87,7 +87,7 @@ class JobsCategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = JobsCategoties::find($id);
+        $category = JobsCategories::find($id);
         return view('admin.categories.jobs_categories.edit')->with([
             'category' => $category
         ]);
@@ -110,7 +110,7 @@ class JobsCategoryController extends Controller
             DB::beginTransaction();
 
             // Logic For Save User Data
-            $category = JobsCategoties::where('id', $id)->update([
+            $category = JobsCategories::where('id', $id)->update([
                 'name' => $request->input('cName'),
             ]);
 
@@ -138,7 +138,7 @@ class JobsCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = JobsCategoties::find($id);
+        $category = JobsCategories::find($id);
         $category->delete();
         return redirect()->route('job_categories.index')->with('message', 'Category Deleted Successfully.');
     }
