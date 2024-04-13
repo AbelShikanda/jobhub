@@ -95,19 +95,34 @@ function toggleDropdown() {
         menu.style.display = 'block';
     }
 }
-//   document.querySelectorAll('.dropdown-menu a').forEach(function(a) {
-//     a.addEventListener('click', function(event) {
-//       event.preventDefault();
-//       let selected = document.querySelector('.dropdown-menu .selected');
-//       selected.classList.remove('selected');
-//       this.classList.add('selected');
-//       document.querySelector('.dropdown-text').innerHTML = this.innerHTML;
-//       toggleDropdown();
-//     });
-//   });
-document.addEventListener('click', function (event) {
+function toggleDropdownProfile() {
+    let button = document.querySelector('.dropdown-button-profile');
+    let menu = document.querySelector('.dropdown-menu-profile');
+    button.classList.toggle('open');
+    if (menu.style.display === 'block') {
+        menu.style.display = 'none';
+    } else {
+        menu.style.display = 'block';
+    }
+}
+// document.addEventListener('click', function (event) {
+//     let button = document.querySelector('.dropdown-button-category');
+//     let menu = document.querySelector('.dropdown-menu-category');
+//     if (!button.contains(event.target) && !menu.contains(event.target) && menu.style.display === 'block') {
+//         toggleDropdown();
+//     }
+// });
+document.addEventListener('click', function profileDropdownHandler(event) {
+    let button = document.querySelector('.dropdown-button-profile');
+    let menu = document.querySelector('.dropdown-menu-profile');
+    if (!button.contains(event.target) && !menu.contains(event.target) && menu.style.display === 'block') {
+        toggleDropdownProfile();
+    }
+});
+
+document.addEventListener('click', function categoryDropdownHandler(event) {
     let button = document.querySelector('.dropdown-button-category');
-    let menu = document.querySelector('.ddropdown-menu-category');
+    let menu = document.querySelector('.dropdown-menu-category');
     if (!button.contains(event.target) && !menu.contains(event.target) && menu.style.display === 'block') {
         toggleDropdown();
     }
@@ -199,3 +214,4 @@ document.body.classList.add('light-mode');
 // toggleButton.addEventListener('click', () => {
 //     document.body.classList.toggle('light-mode');
 // });
+

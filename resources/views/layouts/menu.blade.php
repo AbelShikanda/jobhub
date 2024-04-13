@@ -60,6 +60,17 @@
             <div class="main-header">
                 <a class="menu-link-main" href="{{ route('profile.index') }}">All Jobs</a>
                 <div class="header-menu">
-                    <a class="main-header-link is-active" href="#">Desktop</a>
+                    <div class="dropdown-container-profile">
+                        <div class="dropdown-button-profile" onclick="toggleDropdownProfile()">
+                            <span class="dropdown-text-profile">Categories</span>
+                            <span class="dropdown-chevron-profile"></span>
+                        </div>
+                        <div class="dropdown-menu-profile">
+                            @foreach ($categories as $c)
+                                <a
+                                    href="{{ route('jobsCategory', $c['id']) }}">{{ $c['name'] }}</a>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>

@@ -57,7 +57,7 @@
                 </ul>
             </div>
             <div class="content-section">
-                <div class="content-section-title">Apps in your plan</div>
+                <div class="content-section-title">Related Jobs</div>
                 <div class="apps-card">
                     <div class="app-card">
                         <span>

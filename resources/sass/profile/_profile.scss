@@ -39,28 +39,6 @@
  --content-title-color: --theme-color;
 }
 
-// html {
-//  box-sizing: border-box;
-//  -webkit-font-smoothing: antialiased;
-// }
-
-// body {
-//  font-family: var(--body-font);
-//  background-image: url(https://wallpapershome.com/images/wallpapers/macos-big-sur-1280x720-dark-wwdc-2020-22655.jpg);
-//  background-size: cover;
-//  background-position: center;
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//  flex-direction: column;
-//  padding: 2em;
-//  width: 100%;
-//  height: 100vh;
-//  @media screen and (max-width: 480px) {
-//   padding: 0.8em;
-//  }
-// }
-
 .video-bg {
  position: fixed;
  right: 0;
@@ -150,7 +128,7 @@ img {
  display: flex;
  align-items: center;
  flex-shrink: 0;
- height: 58px;
+ height: 1px;
  width: 100%;
  border-bottom: 1px solid var(--border-color);
  padding: 0 30px;
@@ -169,7 +147,7 @@ img {
    transition: 0.3s;
    @media screen and (max-width: 610px) {
     &:not(.main-header-link) {
-     display: none;
+     display: block;
     }
    }
    &.is-active,
@@ -292,7 +270,7 @@ img {
 .wide {
  .header-menu,
  .header-profile {
-  display: none;
+  display: inline-block;
  }
  .search-bar {
   max-width: 600px;
@@ -370,7 +348,7 @@ img {
  display: flex;
  align-items: center;
  border-bottom: 1px solid var(--border-color);
- height: 58px;
+ height: 50px;
  flex-shrink: 0;
  .header-menu {
   margin-left: 150px;
@@ -414,22 +392,6 @@ img {
   align-items: center;
   width: 100%;
   justify-content: space-between;
-  // background-image: url("https://www.transparenttextures.com/patterns/cubes.png"),
-  //  linear-gradient(
-  //   to right top,
-  //   #cf4af3,
-  //   #e73bd7,
-  //   #f631bc,
-  //   #fd31a2,
-  //   #ff3a8b,
-  //   #ff4b78,
-  //   #ff5e68,
-  //   #ff705c,
-  //   #ff8c51,
-  //   #ffaa49,
-  //   #ffc848,
-  //   #ffe652
-  //  );
    background-image: url("https://www.transparenttextures.com/patterns/cubes.pn"),
     linear-gradient(
      to right top,
@@ -441,10 +403,10 @@ img {
      #ff7777,
      #ff7e87,
      #ff9a9a,
-     #c99494,
+     #f6b8b8,
      #dedede,
-     #9f9f9f,
      #d2d2d2,
+     #9f9f9f,
      #9b9b9b,
      #545454,
      #524a4a,
