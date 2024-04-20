@@ -58,8 +58,9 @@
         </div>
         <div class="main-container">
             <div class="main-header">
-                <a class="menu-link-main" href="{{ route('profile.index') }}">All Jobs</a>
+                {{-- <a class="menu-link-main" href="{{ route('profile.index') }}">All Jobs</a> --}}
                 <div class="header-menu">
+                    <a class="menu-link-main" href="{{ route('profile.index') }}">All Jobs</a>
                     <div class="dropdown-container-profile">
                         <div class="dropdown-button-profile" onclick="toggleDropdownProfile()">
                             <span class="dropdown-text-profile">Categories</span>

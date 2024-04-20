@@ -345,6 +345,12 @@ img {
  font-size: 11px;
 }
 
+@media screen and (min-width: 400px) {
+  .header-menu {
+    display: none;
+  }
+ }
+
 .main-header {
  display: flex;
  align-items: center;
