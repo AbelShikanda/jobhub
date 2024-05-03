@@ -66,6 +66,7 @@ Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 
 // PROFILE ROUTE
 Route::get('/profile_category', [ProfileController::class, 'profile_category'])->name('profile_category');
+Route::get('/profile_category{id}', [ProfileController::class, 'profileCategory'])->name('profileCategory');
 Route::resource('profile', ProfileController::class);
 
 Route::resource('applications', ApplicationsController::class);

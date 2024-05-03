@@ -36,13 +36,13 @@
                                     <span class="status-circle green"></span>
                                     progress</span>
                                 <div class="button-wrapper">
-                                    <button class="content-button status-button open">View</button>
+                                    <button class="content-button status-button open">More</button>
                                     <div class="menu">
                                         <button class="dropdown-profile">
                                             <ul>
-                                                <li><a href="#">Go to Discover</a></li>
+                                                <li><a href="#">Discover</a></li>
                                                 <li><a href="#">Learn more</a></li>
-                                                <li><a href="#">Uninstall</a></li>
+                                                <li><a href="#">delete</a></li>
                                             </ul>
                                         </button>
                                     </div>
@@ -62,7 +62,7 @@
                     <div class="app-card">
                         <span>
                             <i class="fas fa-graduation-cap p-2"></i>
-                            Premiere Pro
+                            Current Job
                         </span>
                         <div class="app-card__subtext">Edit, master and create fully proffesional videos</div>
                         <div class="app-card-buttons">

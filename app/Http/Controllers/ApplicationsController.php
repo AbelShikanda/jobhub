@@ -41,6 +41,14 @@ class ApplicationsController extends Controller
      */
     public function index()
     {
+
+        $userId = auth()->user()->id;
+        $agreementType = "1";
+        
+        if (Acknowledgment::where('user_id', $userId)->where('agreement_type', $agreementType)->exists()) {
+            return redirect()->route('profile.show', $userId);
+        }
+
         $categories = JobsCategories::all();
         $organizations = Organizations::all();
         $jobs = Jobs::all();
@@ -100,7 +108,7 @@ class ApplicationsController extends Controller
             'language' => 'required',
             'proficiency' => 'required',
         ]);
-        
+
         try {
             DB::beginTransaction();
             // Logic For Save User Data
@@ -111,7 +119,7 @@ class ApplicationsController extends Controller
                 // 'password' => Hash::make('password')
             ]);
 
-            if(!$create_user){
+            if (!$create_user) {
                 DB::rollBack();
 
                 return back()->with('error', 'Something went wrong while saving user data');
@@ -119,8 +127,6 @@ class ApplicationsController extends Controller
 
             DB::commit();
             return redirect()->route('users.index')->with('success', 'User Stored Successfully.');
-
-
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
@@ -163,10 +169,8 @@ class ApplicationsController extends Controller
             'gender' => 'required',
             'country' => 'required',
             'selectedDobDate' => 'required',
-            // 'job' => 'required',
             'range' => 'required',
             'sName' => 'required',
-            // 'level' => 'required',
             'sDesc' => 'required',
             'education' => 'required',
             'field' => 'required',
@@ -175,12 +179,10 @@ class ApplicationsController extends Controller
             'sName' => 'required',
             'cName' => 'required',
             'position' => 'required',
-            // 'wDate' => 'required',
             'selectedExDate' => 'required',
             'wDesc' => 'required',
             'wLocation' => 'required',
             'certName' => 'required',
-            // 'Issue' => 'required',
             'certIssue' => 'required',
             'selectedCertDate' => 'required',
             'selectedCertExDate' => 'required',
@@ -218,7 +220,7 @@ class ApplicationsController extends Controller
         try {
             DB::beginTransaction();
             // Logic For Save User Data
-            
+
             $selectedplatform = $request->input('platform');
             // Convert the selected platform array to a string
             $platformString = implode(', ', $selectedplatform);
@@ -246,7 +248,7 @@ class ApplicationsController extends Controller
                 ]);
             }
 
-            
+
             $selectedLanguages = $request->input('language');
             // Convert the selected languages array to a string
             $languagesString = implode(', ', $selectedLanguages);

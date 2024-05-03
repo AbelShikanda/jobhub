@@ -180,10 +180,10 @@
                             <div class="form-group col-6">
                                 <div class="row">
                                     <div class="col-4">
-                                        <label for="dob" class=" col-form-label text-dark">Graduation</label>
+                                        <label for="dog" class=" col-form-label text-dark">Graduation</label>
                                     </div>
                                     <div class="col-6">
-                                        <input type="datetime-local" id="dob" name="selectedGradDate"
+                                        <input type="datetime-local" id="dog" name="selectedGradDate"
                                             class="col-8 form-control text-dark" type="text" value="">
                                     </div>
                                 </div>
@@ -364,7 +364,7 @@
                         <div class="row">
                             <div class="col s12">
                                 <div class="form row">
-                                    <label for="inputGroupSelect04" class="col-sm-4 col-form-label text-dark">Language
+                                    <label for="inputGroupSelect05" class="col-sm-4 col-form-label text-dark">Language
                                         Proficiency:</label>
                                     <div class="col-sm-8">
                                         <select class="form-control validate" id="level" name="plevel" required>

@@ -76,7 +76,7 @@
                                                     @if ($applicant->has_passport === 0)
                                                         <span class="badge badge-danger">No</span>
                                                     @elseif ($applicant->has_passport === 1)
-                                                        <span class="badge badge-warming">Waiting</span>
+                                                        <span class="badge badge-warning">Waiting</span>
                                                     @elseif ($applicant->has_passport === 2)
                                                         <span class="badge badge-success">Yes</span>
                                                     @endif

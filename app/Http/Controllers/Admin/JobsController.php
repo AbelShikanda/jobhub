@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\job_job_category;
 use App\Models\Jobs;
-use App\Models\JobsCategoties;
+use App\Models\JobsCategories;
 use App\Models\Organizations;
 use App\Models\OrganizationsCategory;
 use Illuminate\Http\Request;
@@ -33,7 +33,7 @@ class JobsController extends Controller
      */
     public function create()
     {
-        $categories = JobsCategoties::all();
+        $categories = JobsCategories::all();
         $organizations = Organizations::all();
         return view('admin.jobs.create')->with([
             'categories' => $categories,
