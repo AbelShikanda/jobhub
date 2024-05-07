@@ -12769,6 +12769,7 @@ img {
 
 .app-card {
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   width: calc(33.3% - 20px);
   font-size: 16px;
@@ -12809,6 +12810,20 @@ img {
   align-items: center;
   margin-left: auto;
   margin-top: 16px;
+}
+.app-card-edit-button {
+  color: #fff;
+  background-color: #007bff;
+}
+.app-card-edit-button:hover {
+  color: #fff;
+  background-color: #0069d9;
+}
+.app-card-edit-button:active {
+  display: none;
+}
+.app-card-edit-button:active + .app-card-edit-input {
+  display: inline-block;
 }
 @media screen and (max-width: 1110px) {
   .app-card {

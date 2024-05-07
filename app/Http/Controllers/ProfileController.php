@@ -111,6 +111,7 @@ class ProfileController extends Controller
     public function show($id)
     {
         $user_id = auth()->user()->id;
+        $users = User::where('id', $user_id)->get();
 
         $appliedJobsId = job_user::all()
         ->where('user_id', $user_id)
@@ -121,11 +122,14 @@ class ProfileController extends Controller
         ->pluck('job_category_id')
         ->toArray();
 
+        // dd($users->first()->phone);
+
         $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
 
         return view(
             'pages.profile.profile_edit', [
                 'categories' => $categories,
+                'users' => $users,
             ]);
     }
 

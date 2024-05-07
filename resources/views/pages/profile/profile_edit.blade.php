@@ -14,9 +14,6 @@
                 </h3>
                 <div class="content-text">Grab yourself jobs internationally and open up to oppotunities,
                     that will help you get to the next level in your life.</div>
-                <div class="pt-4 text-light">
-                    <a class="content-button">Edit Profile</a>
-                </div>
             </div>
             <img class="content-wrapper-img" src="https://assets.codepen.io/3364143/glass.png" alt="">
         </div>
@@ -33,43 +30,283 @@
         @endif
 
         <div class="content-section">
-            <div class="content-section-title">Apps in your plan</div>
-            <div class="apps-card">
+            <div class="content-section-title">Your Information</div>
+            <div class="apps-card mt-3">
                 <div class="app-card">
                     <span>
                         <i class="fas fa-graduation-cap p-2"></i>
-                        Current Available jobs
+                        Your Details
                     </span>
-                    <div class="app-card__subtext">Edit, master and create fully proffesional videos</div>
-                    <div class="app-card-buttons">
-                        <button class="content-button status-button">Update</button>
-                        <div class="menu"></div>
+                    <div class="app-card__subtext">
+                        <form action="" class="app-content-form">
+                            <div class="row">
+                                <div style="margin-top:0;">
+                                    <input type="text" name="phone" id="ipt1" class="form-control" />
+                                    <label class="input-label" for="ipt1"> Phone: {{ $users->first()->phone }} </label>
+                                </div><br>
+                                <div style="margin-top:-5px;">
+                                    <input type="text" name="gender" id="ipt2" class="form-control" />
+                                    <label class="input-label" for="ipt2"> Gender: {{ $users->first()->gender }}
+                                    </label>
+                                </div><br>
+                                <div style="margin-top:-5px;">
+                                    <input type="text" name="country" id="ipt3" class="form-control" />
+                                    <label class="input-label" for="ipt3"> Country: {{ $users->first()->country }}
+                                    </label>
+                                </div><br>
+                                <div style="margin-top:-5px;">
+                                    <input type="date" name="dob" id="ipt4" class="form-control" />
+                                    <label class="input-label" for="ipt4"> Date Of Birth:
+                                        {{ $users->first()->date_of_birth }} </label>
+                                </div><br>
+                            </div>
+                            <div class="app-card-buttons">
+                                <button type="submit" class="content-button status-button">Update</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="app-card">
                     <span>
                         <i class="fas fa-graduation-cap p-2"></i>
-                        Current Available jobs
+                        Your Job Details
                     </span>
-                    <div class="app-card__subtext">Design and publish great projects & mockups</div>
-                    <div class="app-card-buttons">
-                        <button class="content-button status-button">Update</button>
-                        <div class="menu"></div>
+                    <div class="app-card__subtext">
+                        <form action="" class="app-content-form">
+                            <div class="row">
+                                <div style="margin-top:0;">
+                                    <input type="text" name="phone" id="ipt1" class="form-control" />
+                                    <label class="input-label" for="ipt1"> Phone: {{ $users->first()->phone }} </label>
+                                </div><br>
+                                <div style="margin-top:-5px;">
+                                    <input type="text" name="gender" id="ipt2" class="form-control" />
+                                    <label class="input-label" for="ipt2"> Gender: {{ $users->first()->gender }}
+                                    </label>
+                                </div><br>
+                                <div style="margin-top:-5px;">
+                                    <input type="text" name="country" id="ipt3" class="form-control" />
+                                    <label class="input-label" for="ipt3"> Country: {{ $users->first()->country }}
+                                    </label>
+                                </div><br>
+                                <div style="margin-top:-5px;">
+                                    <input type="date" name="dob" id="ipt4" class="form-control" />
+                                    <label class="input-label" for="ipt4"> Date Of Birth:
+                                        {{ $users->first()->date_of_birth }} </label>
+                                </div><br>
+                            </div>
+                            <div class="app-card-buttons">
+                                <button type="submit" class="content-button status-button">Update</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="app-card">
                     <span>
                         <i class="fas fa-graduation-cap p-2"></i>
-                        Current Available jobs
+                        Your Education Background
                     </span>
-                    <div class="app-card__subtext">Industry Standart motion graphics & visual effects</div>
-                    <div class="app-card-buttons">
-                        <button class="content-button status-button">Update</button>
-                        <div class="menu"></div>
+                    <div class="app-card__subtext">
+                        <form action="" class="app-content-form">
+                            <div class="row">
+                                <div style="margin-top:0;">
+                                    <input type="text" name="phone" id="ipt1" class="form-control" />
+                                    <label class="input-label" for="ipt1"> Phone: {{ $users->first()->phone }} </label>
+                                </div><br>
+                                <div style="margin-top:-5px;">
+                                    <input type="text" name="gender" id="ipt2" class="form-control" />
+                                    <label class="input-label" for="ipt2"> Gender: {{ $users->first()->gender }}
+                                    </label>
+                                </div><br>
+                                <div style="margin-top:-5px;">
+                                    <input type="text" name="country" id="ipt3" class="form-control" />
+                                    <label class="input-label" for="ipt3"> Country: {{ $users->first()->country }}
+                                    </label>
+                                </div><br>
+                                <div style="margin-top:-5px;">
+                                    <input type="date" name="dob" id="ipt4" class="form-control" />
+                                    <label class="input-label" for="ipt4"> Date Of Birth:
+                                        {{ $users->first()->date_of_birth }} </label>
+                                </div><br>
+                            </div>
+                            <div class="app-card-buttons">
+                                <button type="submit" class="content-button status-button">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="apps-card mt-3">
+                    <div class="app-card">
+                        <span>
+                            <i class="fas fa-graduation-cap p-2"></i>
+                            Your Work Experiences
+                        </span>
+                        <div class="app-card__subtext">
+                            <form action="" class="app-content-form">
+                                <div class="row">
+                                    <div style="margin-top:0;">
+                                        <input type="text" name="phone" id="ipt1" class="form-control" />
+                                        <label class="input-label" for="ipt1"> Phone: {{ $users->first()->phone }} </label>
+                                    </div><br>
+                                    <div style="margin-top:-5px;">
+                                        <input type="text" name="gender" id="ipt2" class="form-control" />
+                                        <label class="input-label" for="ipt2"> Gender: {{ $users->first()->gender }}
+                                        </label>
+                                    </div><br>
+                                    <div style="margin-top:-5px;">
+                                        <input type="text" name="country" id="ipt3" class="form-control" />
+                                        <label class="input-label" for="ipt3"> Country: {{ $users->first()->country }}
+                                        </label>
+                                    </div><br>
+                                    <div style="margin-top:-5px;">
+                                        <input type="date" name="dob" id="ipt4" class="form-control" />
+                                        <label class="input-label" for="ipt4"> Date Of Birth:
+                                            {{ $users->first()->date_of_birth }} </label>
+                                    </div><br>
+                                </div>
+                                <div class="app-card-buttons">
+                                    <button type="submit" class="content-button status-button">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="app-card">
+                        <span>
+                            <i class="fas fa-graduation-cap p-2"></i>
+                            Your Certificates
+                        </span>
+                        <div class="app-card__subtext">
+                            <form action="" class="app-content-form">
+                                <div class="row">
+                                    <div style="margin-top:0;">
+                                        <input type="text" name="phone" id="ipt1" class="form-control" />
+                                        <label class="input-label" for="ipt1"> Phone: {{ $users->first()->phone }} </label>
+                                    </div><br>
+                                    <div style="margin-top:-5px;">
+                                        <input type="text" name="gender" id="ipt2" class="form-control" />
+                                        <label class="input-label" for="ipt2"> Gender: {{ $users->first()->gender }}
+                                        </label>
+                                    </div><br>
+                                    <div style="margin-top:-5px;">
+                                        <input type="text" name="country" id="ipt3" class="form-control" />
+                                        <label class="input-label" for="ipt3"> Country: {{ $users->first()->country }}
+                                        </label>
+                                    </div><br>
+                                    <div style="margin-top:-5px;">
+                                        <input type="date" name="dob" id="ipt4" class="form-control" />
+                                        <label class="input-label" for="ipt4"> Date Of Birth:
+                                            {{ $users->first()->date_of_birth }} </label>
+                                    </div><br>
+                                </div>
+                                <div class="app-card-buttons">
+                                    <button type="submit" class="content-button status-button">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="app-card">
+                        <span>
+                            <i class="fas fa-graduation-cap p-2"></i>
+                            Languages
+                        </span>
+                        <div class="app-card__subtext">
+                            <form action="" class="app-content-form">
+                                <div class="row">
+                                    <div style="margin-top:0;">
+                                        <input type="text" name="phone" id="ipt1" class="form-control" />
+                                        <label class="input-label" for="ipt1"> Phone: {{ $users->first()->phone }} </label>
+                                    </div><br>
+                                    <div style="margin-top:-5px;">
+                                        <input type="text" name="gender" id="ipt2" class="form-control" />
+                                        <label class="input-label" for="ipt2"> Gender: {{ $users->first()->gender }}
+                                        </label>
+                                    </div><br>
+                                    <div style="margin-top:-5px;">
+                                        <input type="text" name="country" id="ipt3" class="form-control" />
+                                        <label class="input-label" for="ipt3"> Country: {{ $users->first()->country }}
+                                        </label>
+                                    </div><br>
+                                    <div style="margin-top:-5px;">
+                                        <input type="date" name="dob" id="ipt4" class="form-control" />
+                                        <label class="input-label" for="ipt4"> Date Of Birth:
+                                            {{ $users->first()->date_of_birth }} </label>
+                                    </div><br>
+                                </div>
+                                <div class="app-card-buttons">
+                                    <button type="submit" class="content-button status-button">Update</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="apps-card mt-3">
+                        <div class="app-card">
+                            <span>
+                                <i class="fas fa-graduation-cap p-2"></i>
+                                Your Legal Documents
+                            </span>
+                            <div class="app-card__subtext">
+                                <form action="" class="app-content-form">
+                                    <div class="row">
+                                        <div style="margin-top:0;">
+                                            <input type="text" name="phone" id="ipt1" class="form-control" />
+                                            <label class="input-label" for="ipt1"> Phone: {{ $users->first()->phone }} </label>
+                                        </div><br>
+                                        <div style="margin-top:-5px;">
+                                            <input type="text" name="gender" id="ipt2" class="form-control" />
+                                            <label class="input-label" for="ipt2"> Gender: {{ $users->first()->gender }}
+                                            </label>
+                                        </div><br>
+                                        <div style="margin-top:-5px;">
+                                            <input type="text" name="country" id="ipt3" class="form-control" />
+                                            <label class="input-label" for="ipt3"> Country: {{ $users->first()->country }}
+                                            </label>
+                                        </div><br>
+                                        <div style="margin-top:-5px;">
+                                            <input type="date" name="dob" id="ipt4" class="form-control" />
+                                            <label class="input-label" for="ipt4"> Date Of Birth:
+                                                {{ $users->first()->date_of_birth }} </label>
+                                        </div><br>
+                                    </div>
+                                    <div class="app-card-buttons">
+                                        <button type="submit" class="content-button status-button">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="app-card">
+                            <span>
+                                <i class="fas fa-graduation-cap p-2"></i>
+                                Your Resume
+                            </span>
+                            <div class="app-card__subtext">
+                                <form action="" class="app-content-form">
+                                    <div class="row">
+                                        <div style="margin-top:0;">
+                                            <input type="text" name="phone" id="ipt1" class="form-control" />
+                                            <label class="input-label" for="ipt1"> Phone: {{ $users->first()->phone }} </label>
+                                        </div><br>
+                                        <div style="margin-top:-5px;">
+                                            <input type="text" name="gender" id="ipt2" class="form-control" />
+                                            <label class="input-label" for="ipt2"> Gender: {{ $users->first()->gender }}
+                                            </label>
+                                        </div><br>
+                                        <div style="margin-top:-5px;">
+                                            <input type="text" name="country" id="ipt3" class="form-control" />
+                                            <label class="input-label" for="ipt3"> Country: {{ $users->first()->country }}
+                                            </label>
+                                        </div><br>
+                                        <div style="margin-top:-5px;">
+                                            <input type="date" name="dob" id="ipt4" class="form-control" />
+                                            <label class="input-label" for="ipt4"> Date Of Birth:
+                                                {{ $users->first()->date_of_birth }} </label>
+                                        </div><br>
+                                    </div>
+                                    <div class="app-card-buttons">
+                                        <button type="submit" class="content-button status-button">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    </div>
-@endsection
+        @endsection
