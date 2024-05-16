@@ -11984,7 +11984,7 @@ textarea.form-control-lg {
 }
 
 :root {
-  --theme-bg-color: rgba(237, 237, 237, 0.45);
+  --theme-bg-color: rgba(220, 220, 220, 0.45);
   --border-color: rgba(160, 162, 170, 0.25);
   --theme-color: #312e2e;
   --inactive-color: #312e2e;
@@ -12002,7 +12002,7 @@ textarea.form-control-lg {
 }
 
 .light-mode {
-  --theme-bg-color: rgba(255, 255, 255, 0.541);
+  --theme-bg-color: rgba(220, 220, 220, 0.45);
   --theme-color: #312e2e;
   --inactive-color: #333333;
   --button-inactive: #3c3a3a;
@@ -12622,7 +12622,6 @@ img {
 .dropdown-profile ul {
   position: absolute;
   background: var(--dropdown-profile-bg);
-  height: 110px;
   width: 120px;
   right: 0;
   top: 20px;

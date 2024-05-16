@@ -7,6 +7,7 @@ use App\Models\job_job_category;
 use App\Models\Jobs;
 use App\Models\JobsCategories;
 use App\Models\Organizations;
+use App\Models\Organizations_jobs;
 use App\Models\OrganizationsCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -78,6 +79,11 @@ class JobsController extends Controller
             job_job_category::create([
                 'job_id' => $jobs->id,
                 'job_category_id' => $request->input('category'),
+            ]);
+
+            Organizations_jobs::create([
+                'job_id' => $jobs->id,
+                'org_id' => $request->input('organization'),
             ]);
 
             if(!$jobs){

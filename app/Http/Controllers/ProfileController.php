@@ -32,7 +32,7 @@ class ProfileController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -42,23 +42,23 @@ class ProfileController extends Controller
     {
         $user_id = auth()->user()->id;
         $jobsId = job_user::all()
-        ->where('user_id', $user_id)
-        ->pluck('job_id');
-        
+            ->where('user_id', $user_id)
+            ->pluck('job_id');
+
         $agreementType = "1";
-        
+
         if (!Acknowledgment::where('user_id', $user_id)->where('agreement_type', $agreementType)->exists()) {
             return redirect()->route('applications.index')->with('message', 'Almost Done. Please Fill the Application to Get Jobs.');
         }
-        
+
         $appliedJobsId = job_user::all()
-        ->where('user_id', $user_id)
-        ->pluck('job_id');
-        
+            ->where('user_id', $user_id)
+            ->pluck('job_id');
+
         $appliedJobsCategoriesId = Jobs::all()
-        ->whereIn('job_category_id', $appliedJobsId)
-        ->pluck('job_category_id')
-        ->toArray();
+            ->whereIn('job_category_id', $appliedJobsId)
+            ->pluck('job_category_id')
+            ->toArray();
 
         $jobs = Jobs::selectRaw('jobs.*')
             ->addSelect('organizations.Org_Name AS org_name')
@@ -76,13 +76,14 @@ class ProfileController extends Controller
 
         $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
         // $categories = JobsCategories::all();
-        // dd($appliedJobsCategoriesId);
+        // dd($jobs);
 
         return view(
             'pages.profile.profile',
             [
                 'jobs' => $jobs,
                 'categories' => $categories,
+                'user_id' => $user_id,
             ]
         );
     }
@@ -119,24 +120,59 @@ class ProfileController extends Controller
         $user_id = auth()->user()->id;
         $users = User::where('id', $user_id)->get();
 
+        $experiences = Experience::where('user_id', $id)->latest()->first();
+        $educations = Education::where('user_id', $id)->latest()->first();
+        $certificates = Certificates::where('user_id', $id)->latest()->first();
+        $languages = Language::where('user_id', $id)->latest()->first();
+        $comments = Comments::where('user_id', $id)->latest()->first();
+        $resume = Resumes::where('user_id', $id)->latest()->first();
+
+        $preferredlanguages = $languages->first()->language;
+        $preferredlanguagesArray = explode(', ', $preferredlanguages);
+
+
+        $userPreferredJobIds = $users->first()->preferred_industry;
+        $userPreferredJobIds = json_decode($userPreferredJobIds);
+        foreach ($userPreferredJobIds as &$jobId) {
+            $jobId = intval($jobId);
+        }
+        $preferredIndustries = Jobs::whereIn('id', $userPreferredJobIds)->pluck('job_title');
+
+
+        if ($resume) {
+            $filePath = $resume->file_path;
+            $fileName = Storage::url('img/img/' . $filePath);
+        } else {
+            $fileName = null;
+        }
+
         $appliedJobsId = job_user::all()
-        ->where('user_id', $user_id)
-        ->pluck('job_id');
-        
+            ->where('user_id', $user_id)
+            ->pluck('job_id');
+
         $appliedJobsCategoriesId = Jobs::all()
-        ->whereIn('job_category_id', $appliedJobsId)
-        ->pluck('job_category_id')
-        ->toArray();
+            ->whereIn('job_category_id', $appliedJobsId)
+            ->pluck('job_category_id')
+            ->toArray();
 
         // dd($users->first()->phone);
 
         $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
 
         return view(
-            'pages.profile.profile_edit', [
+            'pages.profile.profile_edit',
+            [
                 'categories' => $categories,
                 'users' => $users,
-            ]);
+                'experiences' => $experiences,
+                'educations' => $educations,
+                'comments' => $comments,
+                'preferredIndustries' => $preferredIndustries,
+                'certificates' => $certificates,
+                'preferredlanguagesArray' => $preferredlanguagesArray,
+                'fileName' => $fileName
+            ]
+        );
     }
 
     /**
@@ -360,15 +396,15 @@ class ProfileController extends Controller
     public function profileCategory($category_id)
     {
         $user_id = auth()->user()->id;
-        
+
         $appliedJobsId = job_user::all()
-        ->where('user_id', $user_id)
-        ->pluck('job_id');
-        
+            ->where('user_id', $user_id)
+            ->pluck('job_id');
+
         $appliedJobsCategoriesId = Jobs::all()
-        ->whereIn('job_category_id', $appliedJobsId)
-        ->pluck('job_category_id')
-        ->toArray();
+            ->whereIn('job_category_id', $appliedJobsId)
+            ->pluck('job_category_id')
+            ->toArray();
 
         $jobs = Jobs::selectRaw('jobs.*')
             ->addSelect('organizations.Org_Name AS org_name')

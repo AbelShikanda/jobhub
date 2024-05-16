@@ -349,7 +349,7 @@
                                     <div class="col-sm-8">
                                         <select id="inputGroupSelect05" name="language[]" placeholder="Add Language"
                                             multiple>
-                                            <option value="Tiktok">Kiswahili</option>
+                                            <option value="Kiswahili">Kiswahili</option>
                                             <option value="English">English</option>
                                             <option value="French">French</option>
                                             <option value="Arabic">Arabic</option>

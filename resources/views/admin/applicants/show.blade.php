@@ -149,29 +149,12 @@
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
-                                                    <div class="card-footer clearfix">
-                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&laquo;</a></li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">1</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">2</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">3</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&raquo;</a></li>
-                                                        </ul> --}}
-                                                    </div>
                                                 </div>
                                                 <!-- /.card -->
                                             </div>
                                             <!-- /.col -->
                                         </div>
-                                        <!-- /.user-block -->
+                                        <!-- /.user-work-experience -->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
@@ -210,26 +193,12 @@
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
-                                                    <div class="card-footer clearfix">
-                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&laquo;</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">1</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&raquo;</a></li>
-                                                        </ul> --}}
-                                                    </div>
                                                 </div>
                                                 <!-- /.card -->
                                             </div>
                                             <!-- /.col -->
                                         </div>
-                                        <!-- /.user-block -->
+                                        <!-- /.user-education-details -->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
@@ -270,26 +239,12 @@
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
-                                                    <div class="card-footer clearfix">
-                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&laquo;</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">1</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&raquo;</a></li>
-                                                        </ul> --}}
-                                                    </div>
                                                 </div>
                                                 <!-- /.card -->
                                             </div>
                                             <!-- /.col -->
                                         </div>
-                                        <!-- /.user-block -->
+                                        <!-- /.user-job-prefference -->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
@@ -302,54 +257,32 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th style="width: 10px">#</th>
-                                                                    <th>Education</th>
-                                                                    <th>Field</th>
-                                                                    <th>Institution</th>
-                                                                    <th>Location</th>
-                                                                    <th>graduation Date</th>
-                                                                    <th>description</th>
+                                                                    <th>Job Title</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @if ($educations)
+                                                                @if ($preferredIndustries)
+                                                                @foreach ($preferredIndustries as $key => $industry)
                                                                     <tr>
-                                                                        <td>1.</td>
-                                                                        <td>{{ $educations->degree }}</td>
-                                                                        <td>{{ $educations->field_of_study }}</td>
-                                                                        <td>{{ $educations->institution }}</td>
-                                                                        <td>{{ $educations->location }}</td>
-                                                                        <td>{{ $educations->graduation_year }}</td>
-                                                                        <td>{{ $educations->description }}</td>
+                                                                        <td>#.</td>
+                                                                        <td>{{ $industry }}</td>
                                                                     </tr>
+                                                                    @endforeach
                                                                 @else
                                                                     <tr>
-                                                                        <td colspan="6">No education found</td>
+                                                                        <td colspan="6">No job found</td>
                                                                     </tr>
                                                                 @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
-                                                    <div class="card-footer clearfix">
-                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&laquo;</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">1</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&raquo;</a></li>
-                                                        </ul> --}}
-                                                    </div>
                                                 </div>
                                                 <!-- /.card -->
                                             </div>
                                             <!-- /.col -->
                                         </div>
-                                        <!-- /.user-block -->
+                                        <!-- /.user-skills -->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
@@ -363,53 +296,29 @@
                                                                 <tr>
                                                                     <th style="width: 10px">#</th>
                                                                     <th>Education</th>
-                                                                    <th>Field</th>
-                                                                    <th>Institution</th>
-                                                                    <th>Location</th>
-                                                                    <th>graduation Date</th>
-                                                                    <th>description</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 @if ($educations)
                                                                     <tr>
-                                                                        <td>1.</td>
-                                                                        <td>{{ $educations->degree }}</td>
-                                                                        <td>{{ $educations->field_of_study }}</td>
-                                                                        <td>{{ $educations->institution }}</td>
-                                                                        <td>{{ $educations->location }}</td>
-                                                                        <td>{{ $educations->graduation_year }}</td>
-                                                                        <td>{{ $educations->description }}</td>
+                                                                        <td>#.</td>
+                                                                        <td>{{ $skills->Skill_Name }}</td>
                                                                     </tr>
                                                                 @else
                                                                     <tr>
-                                                                        <td colspan="6">No education found</td>
+                                                                        <td colspan="6">No skills found</td>
                                                                     </tr>
                                                                 @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
-                                                    <div class="card-footer clearfix">
-                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&laquo;</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">1</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&raquo;</a></li>
-                                                        </ul> --}}
-                                                    </div>
                                                 </div>
                                                 <!-- /.card -->
                                             </div>
                                             <!-- /.col -->
                                         </div>
-                                        <!-- /.user-block -->
+                                        <!-- /.user-additional-certificates -->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
@@ -422,54 +331,36 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th style="width: 10px">#</th>
-                                                                    <th>Education</th>
-                                                                    <th>Field</th>
-                                                                    <th>Institution</th>
-                                                                    <th>Location</th>
-                                                                    <th>graduation Date</th>
-                                                                    <th>description</th>
+                                                                    <th>Certificate Name</th>
+                                                                    <th>Issuing Authority</th>
+                                                                    <th>Issue Date</th>
+                                                                    <th>Expiry Date</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @if ($educations)
+                                                                @if ($certificates)
                                                                     <tr>
                                                                         <td>1.</td>
-                                                                        <td>{{ $educations->degree }}</td>
-                                                                        <td>{{ $educations->field_of_study }}</td>
-                                                                        <td>{{ $educations->institution }}</td>
-                                                                        <td>{{ $educations->location }}</td>
-                                                                        <td>{{ $educations->graduation_year }}</td>
-                                                                        <td>{{ $educations->description }}</td>
+                                                                        <td>{{ $certificates->certificate_name }}</td>
+                                                                        <td>{{ $certificates->issuing_authority }}</td>
+                                                                        <td>{{ $certificates->issue_date }}</td>
+                                                                        <td>{{ $certificates->expiry_date }}</td>
                                                                     </tr>
                                                                 @else
                                                                     <tr>
-                                                                        <td colspan="6">No education found</td>
+                                                                        <td colspan="6">No additional-certificates found</td>
                                                                     </tr>
                                                                 @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
-                                                    <div class="card-footer clearfix">
-                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&laquo;</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">1</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&raquo;</a></li>
-                                                        </ul> --}}
-                                                    </div>
                                                 </div>
                                                 <!-- /.card -->
                                             </div>
                                             <!-- /.col -->
                                         </div>
-                                        <!-- /.user-block -->
+                                        <!-- /.user-languages -->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
@@ -482,114 +373,32 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th style="width: 10px">#</th>
-                                                                    <th>Education</th>
-                                                                    <th>Field</th>
-                                                                    <th>Institution</th>
-                                                                    <th>Location</th>
-                                                                    <th>graduation Date</th>
-                                                                    <th>description</th>
+                                                                    <th>Language</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @if ($educations)
+                                                                @if ($preferredlanguagesArray)
+                                                                @foreach ($preferredlanguagesArray as $key => $value)
                                                                     <tr>
-                                                                        <td>1.</td>
-                                                                        <td>{{ $educations->degree }}</td>
-                                                                        <td>{{ $educations->field_of_study }}</td>
-                                                                        <td>{{ $educations->institution }}</td>
-                                                                        <td>{{ $educations->location }}</td>
-                                                                        <td>{{ $educations->graduation_year }}</td>
-                                                                        <td>{{ $educations->description }}</td>
+                                                                        <td>#.</td>
+                                                                        <td>{{ $value }}</td>
                                                                     </tr>
+                                                                    @endforeach
                                                                 @else
                                                                     <tr>
-                                                                        <td colspan="6">No education found</td>
+                                                                        <td colspan="6">No languages found</td>
                                                                     </tr>
                                                                 @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
-                                                    <div class="card-footer clearfix">
-                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&laquo;</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">1</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&raquo;</a></li>
-                                                        </ul> --}}
-                                                    </div>
                                                 </div>
                                                 <!-- /.card -->
                                             </div>
                                             <!-- /.col -->
                                         </div>
-                                        <!-- /.user-block -->
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h3 class="card-title">Education Details</h3>
-                                                    </div>
-                                                    <!-- /.card-header -->
-                                                    <div class="card-body">
-                                                        <table class="table table-bordered">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th style="width: 10px">#</th>
-                                                                    <th>Education</th>
-                                                                    <th>Field</th>
-                                                                    <th>Institution</th>
-                                                                    <th>Location</th>
-                                                                    <th>graduation Date</th>
-                                                                    <th>description</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @if ($educations)
-                                                                    <tr>
-                                                                        <td>1.</td>
-                                                                        <td>{{ $educations->degree }}</td>
-                                                                        <td>{{ $educations->field_of_study }}</td>
-                                                                        <td>{{ $educations->institution }}</td>
-                                                                        <td>{{ $educations->location }}</td>
-                                                                        <td>{{ $educations->graduation_year }}</td>
-                                                                        <td>{{ $educations->description }}</td>
-                                                                    </tr>
-                                                                @else
-                                                                    <tr>
-                                                                        <td colspan="6">No education found</td>
-                                                                    </tr>
-                                                                @endif
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <!-- /.card-body -->
-                                                    <div class="card-footer clearfix">
-                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&laquo;</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">1</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&raquo;</a></li>
-                                                        </ul> --}}
-                                                    </div>
-                                                </div>
-                                                <!-- /.card -->
-                                            </div>
-                                            <!-- /.col -->
-                                        </div>
-                                        <!-- /.user-block -->
+                                        <!-- /.user-refference-sources -->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
@@ -602,54 +411,32 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th style="width: 10px">#</th>
-                                                                    <th>Education</th>
-                                                                    <th>Field</th>
-                                                                    <th>Institution</th>
-                                                                    <th>Location</th>
-                                                                    <th>graduation Date</th>
-                                                                    <th>description</th>
+                                                                    <th>Refference Person</th>
+                                                                    <th>Refference platform</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @if ($educations)
+                                                                @if ($user)
                                                                     <tr>
                                                                         <td>1.</td>
-                                                                        <td>{{ $educations->degree }}</td>
-                                                                        <td>{{ $educations->field_of_study }}</td>
-                                                                        <td>{{ $educations->institution }}</td>
-                                                                        <td>{{ $educations->location }}</td>
-                                                                        <td>{{ $educations->graduation_year }}</td>
-                                                                        <td>{{ $educations->description }}</td>
+                                                                        <td>{{ $user->reference_source }}</td>
+                                                                        <td>{{ $user->additional_reference }}</td>
                                                                     </tr>
                                                                 @else
                                                                     <tr>
-                                                                        <td colspan="6">No education found</td>
+                                                                        <td colspan="6">No refference-sources found</td>
                                                                     </tr>
                                                                 @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
-                                                    <div class="card-footer clearfix">
-                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&laquo;</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">1</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&raquo;</a></li>
-                                                        </ul> --}}
-                                                    </div>
                                                 </div>
                                                 <!-- /.card -->
                                             </div>
                                             <!-- /.col -->
                                         </div>
-                                        <!-- /.user-block -->
+                                        <!-- /.user-comments -->
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="card">
@@ -662,48 +449,24 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th style="width: 10px">#</th>
-                                                                    <th>Education</th>
-                                                                    <th>Field</th>
-                                                                    <th>Institution</th>
-                                                                    <th>Location</th>
-                                                                    <th>graduation Date</th>
-                                                                    <th>description</th>
+                                                                    <th>Comments</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @if ($educations)
+                                                                @if ($comments)
                                                                     <tr>
                                                                         <td>1.</td>
-                                                                        <td>{{ $educations->degree }}</td>
-                                                                        <td>{{ $educations->field_of_study }}</td>
-                                                                        <td>{{ $educations->institution }}</td>
-                                                                        <td>{{ $educations->location }}</td>
-                                                                        <td>{{ $educations->graduation_year }}</td>
-                                                                        <td>{{ $educations->description }}</td>
+                                                                        <td>{{ $comments->comment_text }}</td>
                                                                     </tr>
                                                                 @else
                                                                     <tr>
-                                                                        <td colspan="6">No education found</td>
+                                                                        <td colspan="6">No comments found</td>
                                                                     </tr>
                                                                 @endif
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <!-- /.card-body -->
-                                                    <div class="card-footer clearfix">
-                                                        {{-- <ul class="pagination pagination-sm m-0 float-right">
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&laquo;</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">1</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a>
-                                                            </li>
-                                                            <li class="page-item"><a class="page-link"
-                                                                    href="#">&raquo;</a></li>
-                                                        </ul> --}}
-                                                    </div>
                                                 </div>
                                                 <!-- /.card -->
                                             </div>

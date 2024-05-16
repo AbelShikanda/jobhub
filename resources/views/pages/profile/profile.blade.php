@@ -15,7 +15,7 @@
                     <div class="content-text">Grab yourself jobs internationally and open up to oppotunities,
                         that will help you get to the next level in your life.</div>
                     <div class="pt-4 text-light">
-                        <a class="content-button">Edit Profile</a>
+                        <a href="{{ route('profile.show', Auth::user()->id) }}" class="content-button">Edit Profile</a>
                     </div>
                 </div>
                 <img class="content-wrapper-img" src="https://assets.codepen.io/3364143/glass.png" alt="">
@@ -40,8 +40,6 @@
                                     <div class="menu">
                                         <button class="dropdown-profile">
                                             <ul>
-                                                <li><a href="#">Discover</a></li>
-                                                <li><a href="#">Learn more</a></li>
                                                 <li><a href="#">delete</a></li>
                                             </ul>
                                         </button>

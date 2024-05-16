@@ -26,10 +26,6 @@
                                     <div class="col">
                                         <h3 class="card-title">Applicants and their information</h3>
                                     </div>
-                                    <div class="col-md-2">
-                                        <a href="{{ route('applicants.create') }}" type="button"
-                                            class="btn btn-block btn-dark btn-sm">Add applicants</a>
-                                    </div>
                                 </div>
                             </div>
                             <!-- /.card-header -->

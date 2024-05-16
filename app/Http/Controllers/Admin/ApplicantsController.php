@@ -102,6 +102,20 @@ class ApplicantsController extends Controller
         $educations = Education::where('user_id', $id)->latest()->first();
         $comments = Comments::where('user_id', $id)->latest()->first();
         $resume = Resumes::where('user_id', $id)->latest()->first();
+        $skills = Skills::where('user_id', $id)->latest()->first();
+        $certificates = Certificates::where('user_id', $id)->latest()->first();
+        $languages = Language::where('user_id', $id)->latest()->first();
+
+        $preferredlanguages = $languages->first()->language;
+        $preferredlanguagesArray = explode(', ', $preferredlanguages);
+
+        $userPreferredJobIds = $user->first()->preferred_industry;
+        $userPreferredJobIds = json_decode($userPreferredJobIds);
+        foreach ($userPreferredJobIds as &$jobId) {
+            $jobId = intval($jobId);
+        }
+        $preferredIndustries = Jobs::whereIn('id', $userPreferredJobIds)->pluck('job_title');
+
         if ($resume) {
             $filePath = $resume->file_path;
             $fileName = Storage::url('img/img/'.$filePath);
@@ -118,6 +132,10 @@ class ApplicantsController extends Controller
             'latestex' => $latestex,
             'fileName' => $fileName,
             'agree' => $agree,
+            'preferredIndustries' => $preferredIndustries,
+            'skills' => $skills,
+            'certificates' => $certificates,
+            'preferredlanguagesArray' => $preferredlanguagesArray,
         ]);
     }
 
