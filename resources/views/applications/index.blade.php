@@ -74,11 +74,11 @@
                                     <select class="form-control validate" id="country" name="country" data-error="#e3"
                                         placeholder="Pick a country..." required>
                                         <option value="">Pick a country...</option>
-                                        <option value="AL">Alabama</option>
-                                        <option value="AK">Alaska</option>
-                                        <option value="AZ">Arizona</option>
-                                        <option value="AR">Arkansas</option>
-                                        <option value="CA">California</option>
+                                        <option value="Alabama">Alabama</option>
+                                        <option value="Alaska">Alaska</option>
+                                        <option value="Arizona">Arizona</option>
+                                        <option value="Arkansas">Arkansas</option>
+                                        <option value="California">California</option>
                                     </select>
                                 </div>
                                 <div id="e3"></div>
@@ -135,9 +135,9 @@
                             <div class="form-group col-6">
                                 <select class="form-control validate" id="level" name="slevel" required>
                                     <option value="" disabled selected>Choose skill level</option>
-                                    <option>Entry</option>
-                                    <option>Intermediate</option>
-                                    <option>Experienced</option>
+                                    <option value="Entry">Entry</option>
+                                    <option value="Intermediate">Intermediate</option>
+                                    <option value="Experienced">Experienced</option>
                                 </select>
                             </div>
                             <div id="e3"></div>

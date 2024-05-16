@@ -96,6 +96,7 @@ class ApplicantsController extends Controller
     public function show($id)
     {
         $user = User::where('id', $id)->first();
+        $agree = Acknowledgment::where('user_id', $id)->first();
         $experiences = Experience::where('user_id', $id)->latest()->first();
         $latestex = Experience::where('user_id', $id)->latest()->first();
         $educations = Education::where('user_id', $id)->latest()->first();
@@ -116,6 +117,7 @@ class ApplicantsController extends Controller
             'comments' => $comments,
             'latestex' => $latestex,
             'fileName' => $fileName,
+            'agree' => $agree,
         ]);
     }
 

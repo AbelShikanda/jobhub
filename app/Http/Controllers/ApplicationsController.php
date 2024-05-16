@@ -182,11 +182,11 @@ class ApplicationsController extends Controller
             'selectedExDate' => 'required',
             'wDesc' => 'required',
             'wLocation' => 'required',
-            'certName' => 'required',
-            'certIssue' => 'required',
-            'selectedCertDate' => 'required',
-            'selectedCertExDate' => 'required',
-            'certDesc' => 'required',
+            'certName' => '',
+            'certIssue' => '',
+            'selectedCertDate' => '',
+            'selectedCertExDate' => '',
+            'certDesc' => '',
             'plevel' => 'required',
             'slevel' => 'required',
             'certificate' => 'required',
@@ -200,8 +200,11 @@ class ApplicationsController extends Controller
             'selectedPosDate' => 'required',
             'sLocation' => 'required',
             'jobz' => 'array',
-            'language' => 'required',
+            'language' => 'array',
         ]);
+
+        // $skilllevel = $request->input('slevel');
+        // dd($skilllevel);
 
         $file = $request->file('filepath');
 
@@ -313,8 +316,8 @@ class ApplicationsController extends Controller
             $skill = Skills::create([
                 'user_id' => $id,
                 'Skill_Name' => $request->input('sName'),
-                'Description' => $request->input('slevel'),
-                'Skill_level' => $request->input('sDesc'),
+                'Skill_Level' => $request->input('slevel'),
+                'Description' => $request->input('sDesc'),
             ]);
             // dd($update_user,$acknowledgement,$available,$cert,$comment,$education,$experience,$language,$resume, $skill);
 

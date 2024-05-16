@@ -42,7 +42,7 @@
                                             <th>Police clearance</th>
                                             <th>Age</th>
                                             <th>passport</th>
-                                            <th style="width:20%;"></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -82,20 +82,20 @@
                                                     @endif
                                                 </td>
 
-                                                <td class="project-actions text-right d-flex justify-content-between">
+                                                <td class="project-actions text-right  justify-content-between">
                                                     <a class="btn btn-primary btn-sm"
                                                         href="{{ route('applicants.show', $applicant->id) }}">
                                                         <i class="fas fa-folder">
                                                         </i>
                                                         View
                                                     </a>
-                                                    <a class="btn btn-info btn-sm"
+                                                    {{-- <a class="btn btn-info btn-sm"
                                                         href="{{ route('applicants.edit', $applicant->id) }}">
                                                         <i class="fas fa-pencil-alt">
                                                         </i>
                                                         Edit
-                                                    </a>
-                                                    {!! Form::open([
+                                                    </a> --}}
+                                                    {{-- {!! Form::open([
                                                         'method' => 'DELETE',
                                                         'route' => ['applicants.destroy', $applicant->id],
                                                         'style' => 'display:inline',
@@ -103,7 +103,7 @@
                                                     <button type="submit" class="btn btn-danger btn-sm">
                                                         <i class="fas fa-trash"></i> Delete
                                                     </button>
-                                                    {!! Form::close() !!}
+                                                    {!! Form::close() !!} --}}
                                                 </td>
                                             </tr>
                                         @endforeach

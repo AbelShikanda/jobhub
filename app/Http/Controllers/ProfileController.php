@@ -45,6 +45,12 @@ class ProfileController extends Controller
         ->where('user_id', $user_id)
         ->pluck('job_id');
         
+        $agreementType = "1";
+        
+        if (!Acknowledgment::where('user_id', $user_id)->where('agreement_type', $agreementType)->exists()) {
+            return redirect()->route('applications.index')->with('message', 'Almost Done. Please Fill the Application to Get Jobs.');
+        }
+        
         $appliedJobsId = job_user::all()
         ->where('user_id', $user_id)
         ->pluck('job_id');

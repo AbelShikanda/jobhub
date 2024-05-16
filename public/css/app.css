@@ -11984,7 +11984,7 @@ textarea.form-control-lg {
 }
 
 :root {
-  --theme-bg-color: rgba(255, 255, 255, 0.45);
+  --theme-bg-color: rgba(237, 237, 237, 0.45);
   --border-color: rgba(160, 162, 170, 0.25);
   --theme-color: #312e2e;
   --inactive-color: #312e2e;
@@ -12798,7 +12798,7 @@ img {
   align-items: center;
 }
 .app-card__subtext {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   line-height: 1.6em;
   margin-top: 20px;
