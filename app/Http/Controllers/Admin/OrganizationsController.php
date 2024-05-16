@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Country;
+use App\Models\job_user;
+use App\Models\Jobs;
 use App\Models\organization_organization_category;
 use App\Models\Organizations;
 use App\Models\OrganizationsCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use WisdomDiala\Countrypkg\Models\Country as ModelsCountry;
 
 class OrganizationsController extends Controller
 {
@@ -96,8 +101,17 @@ class OrganizationsController extends Controller
      */
     public function show($id)
     {
+        $orgs = Organizations::find($id);
+        $jobs = Jobs::where('org_id', $id)->get();
+        $portentialApplicantID = job_user::where('job_id', $id)->pluck('user_id');
+        $applicants = User::whereIn('id', $portentialApplicantID)->get();
+
+        // dd($applicants);
+
         return view('admin.orgs.show')->with([
-            // 'users' => $users
+            'orgs' => $orgs,
+            'jobs' => $jobs,
+            'applicants' => $applicants,
         ]);
     }
 
@@ -109,8 +123,13 @@ class OrganizationsController extends Controller
      */
     public function edit($id)
     {
+        $categories = OrganizationsCategory::all();
+        $countries = ModelsCountry::all();
+        $orgs = Organizations::find($id);
         return view('admin.orgs.edit')->with([
-            // 'users' => $users
+            'orgs' => $orgs,
+            'categories' => $categories,
+            'countries' => $countries,
         ]);
     }
 
@@ -125,7 +144,7 @@ class OrganizationsController extends Controller
     {
         $request->validate([
             'eName' => '',
-            'category' => 'required',
+            'category' => '',
             'website' => '',
             'country' => '',
             'selectedDate' => '',
@@ -136,12 +155,18 @@ class OrganizationsController extends Controller
             DB::beginTransaction();
             // Logic For Save User Data
 
-            $organizations = Organizations::where('id', $id)->update([
+            $organizations = Organizations::create([
                 'Org_Name' => $request->input('eName'),
                 'Website' => $request->input('website'),
                 'Country' => $request->input('country'),
                 'Description' => $request->input('desc'),
                 'Founded_Date' => $request->input('selectedDate'),
+                'org_category_id' => $request->input('category'),
+            ]);
+
+            organization_organization_category::create([
+                'org_id' => $organizations->id,
+                'org_category_id' => $request->input('category'),
             ]);
 
             if(!$organizations){
@@ -151,7 +176,7 @@ class OrganizationsController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('organizations.index')->with('message', 'Category Stored Successfully.');
+            return redirect()->route('organizations.show', $id)->with('message', 'Category Stored Successfully.');
 
 
         } catch (\Throwable $th) {
