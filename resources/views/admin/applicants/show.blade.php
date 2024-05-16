@@ -137,11 +137,19 @@
                                                                     <td>3.</td>
                                                                     <td>Policy Aggreement</td>
                                                                     <td><span class="badge bg-">
-                                                                            @if ($agree->agreement_type === 0)
-                                                                                <span class="badge badge-danger">disagree</span>
-                                                                            @else ($agree->agreement_type === 1)
-                                                                                <span class="badge badge-success">agree</span>
+                                                                            @if ($agree !== null)
+                                                                                @if ($agree->agreement_type === 0)
+                                                                                    <span
+                                                                                        class="badge badge-danger">disagree</span>
+                                                                                @else
+                                                                                    ($agree->agreement_type === 1)
+                                                                                    <span
+                                                                                        class="badge badge-success">agree</span>
+                                                                                @endif
+                                                                            @else
+                                                                                <span class="badge badge-warning">No agreement</span>
                                                                             @endif
+
                                                                         </span>
                                                                     </td>
                                                                 </tr>
@@ -262,11 +270,11 @@
                                                             </thead>
                                                             <tbody>
                                                                 @if ($preferredIndustries)
-                                                                @foreach ($preferredIndustries as $key => $industry)
-                                                                    <tr>
-                                                                        <td>#.</td>
-                                                                        <td>{{ $industry }}</td>
-                                                                    </tr>
+                                                                    @foreach ($preferredIndustries as $key => $industry)
+                                                                        <tr>
+                                                                            <td>#.</td>
+                                                                            <td>{{ $industry }}</td>
+                                                                        </tr>
                                                                     @endforeach
                                                                 @else
                                                                     <tr>
@@ -348,7 +356,8 @@
                                                                     </tr>
                                                                 @else
                                                                     <tr>
-                                                                        <td colspan="6">No additional-certificates found</td>
+                                                                        <td colspan="6">No additional-certificates found
+                                                                        </td>
                                                                     </tr>
                                                                 @endif
                                                             </tbody>
@@ -378,11 +387,11 @@
                                                             </thead>
                                                             <tbody>
                                                                 @if ($preferredlanguagesArray)
-                                                                @foreach ($preferredlanguagesArray as $key => $value)
-                                                                    <tr>
-                                                                        <td>#.</td>
-                                                                        <td>{{ $value }}</td>
-                                                                    </tr>
+                                                                    @foreach ($preferredlanguagesArray as $key => $value)
+                                                                        <tr>
+                                                                            <td>#.</td>
+                                                                            <td>{{ $value }}</td>
+                                                                        </tr>
                                                                     @endforeach
                                                                 @else
                                                                     <tr>
@@ -416,7 +425,7 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                @if ($user)
+                                                                @if ($user->reference_source)
                                                                     <tr>
                                                                         <td>1.</td>
                                                                         <td>{{ $user->reference_source }}</td>
@@ -496,7 +505,7 @@
                                 <p class="text-sm">Most Recent Company
                                     <b class="d-block">
                                         @if ($educations)
-                                        {{ $latestex->company_name }}
+                                            {{ $latestex->company_name }}
                                         @else
                                             No company found
                                         @endif

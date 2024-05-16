@@ -106,8 +106,19 @@ class ApplicantsController extends Controller
         $certificates = Certificates::where('user_id', $id)->latest()->first();
         $languages = Language::where('user_id', $id)->latest()->first();
 
-        $preferredlanguages = $languages->first()->language;
-        $preferredlanguagesArray = explode(', ', $preferredlanguages);
+        // $preferredlanguages = $languages->first()->language;
+        // $preferredlanguagesArray = explode(', ', $preferredlanguages);
+
+        $preferredlanguagesArray = [];
+
+        if ($languages !== null && !$languages->count() > 0) {
+            $preferredlanguages = $languages->first()->language;
+            if ($preferredlanguages !== null && $preferredlanguages !== '') {
+                $preferredlanguagesArray = explode(', ', $preferredlanguages);
+            }
+        } else {
+            $preferredlanguagesArray = [];
+        }
 
         $userPreferredJobIds = $user->first()->preferred_industry;
         $userPreferredJobIds = json_decode($userPreferredJobIds);
@@ -118,7 +129,7 @@ class ApplicantsController extends Controller
 
         if ($resume) {
             $filePath = $resume->file_path;
-            $fileName = Storage::url('img/img/'.$filePath);
+            $fileName = Storage::url('img/img/' . $filePath);
         } else {
             $fileName = null;
         }
@@ -226,7 +237,7 @@ class ApplicantsController extends Controller
         try {
             DB::beginTransaction();
             // Logic For Save User Data
-            
+
             $selectedplatform = $request->input('platform');
             // Convert the selected platform array to a string
             $platformString = implode(', ', $selectedplatform);
@@ -248,7 +259,7 @@ class ApplicantsController extends Controller
             // Attach the selected jobs to the user
             $user->jobs()->sync($selectedJobs);
 
-            
+
             $selectedLanguages = $request->input('language');
             // Convert the selected languages array to a string
             $languagesString = implode(', ', $selectedLanguages);
