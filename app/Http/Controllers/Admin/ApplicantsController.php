@@ -121,11 +121,28 @@ class ApplicantsController extends Controller
         }
 
         $userPreferredJobIds = $user->first()->preferred_industry;
-        $userPreferredJobIds = json_decode($userPreferredJobIds);
-        foreach ($userPreferredJobIds as &$jobId) {
-            $jobId = intval($jobId);
+        // $userPreferredJobIds = json_decode($userPreferredJobIds);
+        // foreach ($userPreferredJobIds as &$jobId) {
+        //     $jobId = intval($jobId);
+        // }
+        if (!is_null($userPreferredJobIds) && $userPreferredJobIds !== '' && $userPreferredJobIds !== 'null') {
+            $userPreferredJobIds = json_decode($userPreferredJobIds);
+
+            // Check if json_decode did not return null (indicating a valid JSON)
+            if (json_last_error() === JSON_ERROR_NONE && is_array($userPreferredJobIds)) {
+                foreach ($userPreferredJobIds as &$jobId) {
+                    $jobId = intval($jobId);
+                }
+                $preferredIndustries = Jobs::whereIn('id', $userPreferredJobIds)->pluck('job_title');
+            } else {
+                // Handle the case where JSON is invalid
+                $preferredIndustries = collect();
+            }
+        } else {
+            // Handle the case where preferred_industry is null or empty
+            $preferredIndustries = collect();
         }
-        $preferredIndustries = Jobs::whereIn('id', $userPreferredJobIds)->pluck('job_title');
+        // $preferredIndustries = Jobs::whereIn('id', $userPreferredJobIds)->pluck('job_title');
 
         if ($resume) {
             $filePath = $resume->file_path;
@@ -133,7 +150,7 @@ class ApplicantsController extends Controller
         } else {
             $fileName = null;
         }
-        // dd($fileName);
+        // dd($agree->agreement_type);
 
         return view('admin.applicants.show')->with([
             'user' => $user,

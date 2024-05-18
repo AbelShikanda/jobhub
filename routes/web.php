@@ -65,8 +65,8 @@ Route::get('/job_details', [PagesController::class, 'job_details'])->name('job_d
 Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 
 // PROFILE ROUTE
-Route::get('/profile_category', [ProfileController::class, 'profile_category'])->name('profile_category');
-Route::get('/profile_category{id}', [ProfileController::class, 'profileCategory'])->name('profileCategory');
+// Route::get('/profile_category', [ProfileController::class, 'profile_category'])->name('profile_category');
+// Route::get('/profile_category{id}', [ProfileController::class, 'profileCategory'])->name('profileCategory');
 Route::resource('profile', ProfileController::class);
 
 Route::resource('applications', ApplicationsController::class);

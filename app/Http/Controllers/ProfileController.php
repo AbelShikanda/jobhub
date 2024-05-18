@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use WisdomDiala\Countrypkg\Models\Country as ModelsCountry;
 
 class ProfileController extends Controller
 {
@@ -117,62 +118,7 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        $user_id = auth()->user()->id;
-        $users = User::where('id', $user_id)->get();
-
-        $experiences = Experience::where('user_id', $id)->latest()->first();
-        $educations = Education::where('user_id', $id)->latest()->first();
-        $certificates = Certificates::where('user_id', $id)->latest()->first();
-        $languages = Language::where('user_id', $id)->latest()->first();
-        $comments = Comments::where('user_id', $id)->latest()->first();
-        $resume = Resumes::where('user_id', $id)->latest()->first();
-
-        $preferredlanguages = $languages->first()->language;
-        $preferredlanguagesArray = explode(', ', $preferredlanguages);
-
-
-        $userPreferredJobIds = $users->first()->preferred_industry;
-        $userPreferredJobIds = json_decode($userPreferredJobIds);
-        foreach ($userPreferredJobIds as &$jobId) {
-            $jobId = intval($jobId);
-        }
-        $preferredIndustries = Jobs::whereIn('id', $userPreferredJobIds)->pluck('job_title');
-
-
-        if ($resume) {
-            $filePath = $resume->file_path;
-            $fileName = Storage::url('img/img/' . $filePath);
-        } else {
-            $fileName = null;
-        }
-
-        $appliedJobsId = job_user::all()
-            ->where('user_id', $user_id)
-            ->pluck('job_id');
-
-        $appliedJobsCategoriesId = Jobs::all()
-            ->whereIn('job_category_id', $appliedJobsId)
-            ->pluck('job_category_id')
-            ->toArray();
-
-        // dd($users->first()->phone);
-
-        $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
-
-        return view(
-            'pages.profile.profile_edit',
-            [
-                'categories' => $categories,
-                'users' => $users,
-                'experiences' => $experiences,
-                'educations' => $educations,
-                'comments' => $comments,
-                'preferredIndustries' => $preferredIndustries,
-                'certificates' => $certificates,
-                'preferredlanguagesArray' => $preferredlanguagesArray,
-                'fileName' => $fileName
-            ]
-        );
+        //
     }
 
     /**
@@ -183,7 +129,120 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        //
+        // $user_id = auth()->user()->id;
+        $users = User::where('id', $id)->get();
+        $jobs = Jobs::all();
+        $experiences = Experience::where('user_id', $id)->latest()->first();
+        $educations = Education::where('user_id', $id)->latest()->first();
+        $certificates = Certificates::where('user_id', $id)->latest()->first();
+        $languages = Language::where('user_id', $id)->latest()->first();
+        $comments = Comments::where('user_id', $id)->latest()->first();
+        $resume = Resumes::where('user_id', $id)->latest()->first();
+        $countries = ModelsCountry::all();
+
+        $preferredlanguages = $languages->first()->language;
+        $preferredlanguagesArray = explode(', ', $preferredlanguages);
+        
+        $userPreferredJobIds = $users->first()->preferred_industry;
+
+        // Check if the preferred_industry is not null and is a valid JSON
+        if (!is_null($userPreferredJobIds) && $userPreferredJobIds !== '' && $userPreferredJobIds !== 'null') {
+            $userPreferredJobIds = json_decode($userPreferredJobIds);
+
+            // Check if json_decode did not return null (indicating a valid JSON)
+            if (json_last_error() === JSON_ERROR_NONE && is_array($userPreferredJobIds)) {
+                foreach ($userPreferredJobIds as &$jobId) {
+                    $jobId = intval($jobId);
+                }
+                $preferredIndustries = Jobs::whereIn('id', $userPreferredJobIds)->pluck('job_title');
+            } else {
+                // Handle the case where JSON is invalid
+                $preferredIndustries = collect();
+            }
+        } else {
+            // Handle the case where preferred_industry is null or empty
+            $preferredIndustries = collect();
+        }
+
+
+        if ($resume) {
+            $filePath = $resume->file_path;
+            $fileName = Storage::url('img/img/' . $filePath);
+        } else {
+            $fileName = null;
+        }
+
+        $appliedJobsId = job_user::all()
+            ->where('user_id', $users->first()->id)
+            ->pluck('job_id');
+
+        $appliedJobsCategoriesId = Jobs::all()
+            ->whereIn('job_category_id', $appliedJobsId)
+            ->pluck('job_category_id')
+            ->toArray();
+
+        // dd($users->first()->country);
+
+        $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
+
+        $firstUser = $users->first();
+        $passportStatus = '';
+        if ($firstUser) {
+            switch ($firstUser->has_passport) {
+                case 0:
+                    $passportStatus = 'NO';
+                    break;
+                case 1:
+                    $passportStatus = 'Waiting';
+                    break;
+                case 2:
+                    $passportStatus = 'Yes';
+                    break;
+                default:
+                    $passportStatus = 'Unknown'; // Handle unexpected values
+                    break;
+            }
+        }
+
+        $policeClearanceStatus = '';
+        if ($firstUser) {
+            switch ($firstUser->has_police_clearance) {
+                case 0:
+                    $policeClearanceStatus = 'old';
+                    break;
+                case 1:
+                    $policeClearanceStatus = 'Waiting';
+                    break;
+                case 2:
+                    $policeClearanceStatus = 'No';
+                    break;
+                case 3:
+                    $policeClearanceStatus = 'Yes';
+                    break;
+                default:
+                    $policeClearanceStatus = 'Unknown'; // Handle unexpected values
+                    break;
+            }
+        }
+        
+
+        return view('pages.profile.edit')->with([
+            'categories' => $categories,
+            'users' => $users,
+            'experiences' => $experiences,
+            'educations' => $educations,
+            'comments' => $comments,
+            'preferredIndustries' => $preferredIndustries,
+            'certificates' => $certificates,
+            'preferredlanguagesArray' => $preferredlanguagesArray,
+            'fileName' => $fileName,
+            'passportStatus' => $passportStatus,
+            'policeClearanceStatus' => $policeClearanceStatus,
+            'passportStatus' => $passportStatus,
+            'policeClearanceStatus' => $policeClearanceStatus,
+            'countries' => $countries,
+            'jobs' => $jobs,
+        ]);
     }
 
     /**

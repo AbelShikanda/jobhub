@@ -136,20 +136,20 @@
                                                                 <tr>
                                                                     <td>3.</td>
                                                                     <td>Policy Aggreement</td>
-                                                                    <td><span class="badge bg-">
+                                                                    <td>
+                                                                        <span class="badge bg-">
                                                                             @if ($agree !== null)
-                                                                                @if ($agree->agreement_type === 0)
-                                                                                    <span
-                                                                                        class="badge badge-danger">disagree</span>
+                                                                                @if ($agree->agreement_type == 0)
+                                                                                    <span class="badge badge-danger">disagree</span>
+                                                                                @elseif ($agree->agreement_type == 1)
+                                                                                    <span class="badge badge-success">agree</span>
                                                                                 @else
-                                                                                    ($agree->agreement_type === 1)
-                                                                                    <span
-                                                                                        class="badge badge-success">agree</span>
+                                                                                    {{-- Add a debug statement to see if this block is reached --}}
+                                                                                    <span class="badge badge-info">Unexpected value: {{ $agree->agreement_type }}</span>
                                                                                 @endif
                                                                             @else
                                                                                 <span class="badge badge-warning">No agreement</span>
                                                                             @endif
-
                                                                         </span>
                                                                     </td>
                                                                 </tr>

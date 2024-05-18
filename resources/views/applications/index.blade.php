@@ -12,8 +12,8 @@
                         $user = Auth()->user();
                     @endphp
 
-                    <form action="{{ route('applications.update', $user->id) }}" method="post" enctype="multipart/form-data">
-                        @method('patch')
+                    <form action="{{ route('applications.store') }}" method="post" enctype="multipart/form-data">
+                        @method('post')
                         @csrf
 
                         <div class="row">
@@ -33,7 +33,7 @@
                                 </ul>
                             </div>
                         @endif
-        
+
                         <div class="pt-3">
                             @if (session()->has('message'))
                                 <div class="alert alert-success">
@@ -49,6 +49,7 @@
                         <div class="row">
                             <div class="input-field col-12 col-md-6 col-lg-6">
                                 <div class="form-group">
+                                    <input type="text" id="user_id" name="user_id" class="form-control"  value="{{ $user->id}}" hidden> 
                                     <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control"
                                         placeholder=" " required>
                                     <label for="phoneNumber">Phone Number (254)</label>
@@ -73,12 +74,10 @@
                                 <div class="form-group">
                                     <select class="form-control validate" id="country" name="country" data-error="#e3"
                                         placeholder="Pick a country..." required>
-                                        <option value="">Pick a country...</option>
-                                        <option value="Alabama">Alabama</option>
-                                        <option value="Alaska">Alaska</option>
-                                        <option value="Arizona">Arizona</option>
-                                        <option value="Arkansas">Arkansas</option>
-                                        <option value="California">California</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->name }}" @selected(old('country') == $country)>
+                                                {{ $country->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div id="e3"></div>
@@ -144,7 +143,8 @@
                         </div>
                         <div class="input-field row">
                             <div class="form-group col-12">
-                                <textarea class="form-control" id="certificate" rows="3" name="sDesc" required placeholder="Describe the skill"></textarea>
+                                <textarea class="form-control" id="certificate" rows="3" name="sDesc" required
+                                    placeholder="Describe the skill"></textarea>
                             </div>
                             <div id="e3"></div>
                         </div>

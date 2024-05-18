@@ -21,6 +21,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use WisdomDiala\Countrypkg\Models\Country as ModelsCountry;
 
 class ApplicationsController extends Controller
 {
@@ -44,19 +45,22 @@ class ApplicationsController extends Controller
 
         $userId = auth()->user()->id;
         $agreementType = "1";
-        
+
         if (Acknowledgment::where('user_id', $userId)->where('agreement_type', $agreementType)->exists()) {
             return redirect()->route('profile.show', $userId);
         }
 
         $categories = JobsCategories::all();
         $organizations = Organizations::all();
+        $countries = ModelsCountry::all();
         $jobs = Jobs::all();
         // dd($jobs);
 
         return view('applications.index')->with([
             'categories' => $categories,
             'jobs' => $jobs,
+            'organizations' => $organizations,
+            'countries' => $countries,
         ]);
     }
 
@@ -77,92 +81,6 @@ class ApplicationsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'aemail' => 'required|email',
-            'gender' => 'required',
-            'selectedDobDate' => 'required',
-            'phoneNumber' => 'required',
-            'country' => 'required',
-            'education' => 'required',
-            'proff' => 'required',
-            'language' => 'required',
-            'experience' => 'required',
-            'qualify' => 'required',
-            'platform' => 'required',
-            'aName' => 'required',
-            'filepath' => 'required',
-            'selectedAvailDate' => 'required',
-            'comment' => 'required',
-            'agree' => 'required',
-
-            'position' => 'required',
-            'selectedStartDate' => 'required',
-            'selectedEndDate' => 'required',
-            'cert' => 'required',
-            'auth' => 'required',
-            'selectedDobDate' => 'required',
-            'selectedExDate' => 'required',
-            'language' => 'required',
-            'proficiency' => 'required',
-        ]);
-
-        try {
-            DB::beginTransaction();
-            // Logic For Save User Data
-
-            $create_user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                // 'password' => Hash::make('password')
-            ]);
-
-            if (!$create_user) {
-                DB::rollBack();
-
-                return back()->with('error', 'Something went wrong while saving user data');
-            }
-
-            DB::commit();
-            return redirect()->route('users.index')->with('success', 'User Stored Successfully.');
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            throw $th;
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
     {
         $request->validate([
             'phoneNumber' => 'required',
@@ -201,10 +119,13 @@ class ApplicationsController extends Controller
             'sLocation' => 'required',
             'jobz' => 'array',
             'language' => 'array',
+            'user_id' => 'required',
         ]);
 
         // $skilllevel = $request->input('slevel');
         // dd($skilllevel);
+
+        $id = $request->input('user_id');
 
         $file = $request->file('filepath');
 
@@ -228,7 +149,7 @@ class ApplicationsController extends Controller
             // Convert the selected platform array to a string
             $platformString = implode(', ', $selectedplatform);
 
-            $update_user = User::where('id', $id)->update([
+            $update_user = User::where('id', $id)->create([
                 'gender' => $request->input('gender'),
                 'phone' => $request->input('phoneNumber'),
                 'date_of_birth' => $request->input('selectedDobDate'),
@@ -240,6 +161,7 @@ class ApplicationsController extends Controller
                 'additional_reference' => $platformString,
             ]);
             // dd($update_user);
+
 
             $user = User::find($id);
             $selectedJobs = $request->input('jobz');
@@ -329,6 +251,230 @@ class ApplicationsController extends Controller
 
             DB::commit();
             return redirect()->route('applications.index')->with('message', 'Your information has been received, we will communicate.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'phone' => '',
+            'gender' => '',
+            'country' => '',
+            'selectedDobDate' => '',
+            'range' => '',
+            'sName' => '',
+            'sDesc' => '',
+            'education' => '',
+            'field' => '',
+            'institution' => '',
+            'selectedGradDate' => '',
+            'sName' => '',
+            'cName' => '',
+            'position' => '',
+            'selectedExDate' => '',
+            'wDesc' => '',
+            'wLocation' => '',
+            'certName' => '',
+            'certIssue' => '',
+            'selectedCertDate' => '',
+            'selectedCertExDate' => '',
+            'certDesc' => '',
+            'plevel' => '',
+            'slevel' => '',
+            'certificate' => '',
+            'Passport' => '',
+            'platform' => 'array',
+            'agentName' => '',
+            'selectedAvailDate' => '',
+            'filepath' => 'file',
+            'comment' => '',
+            'agree' => '',
+            'selectedPosDate' => '',
+            'sLocation' => '',
+            'jobz' => 'array',
+            'language' => 'array',
+        ]);
+
+        // $skilllevel = $request->input('slevel');
+        // dd($request);
+
+
+        $file = $request->file('filepath');
+
+        if (isset($file)) {
+            $currentDate = Carbon::now()->toDateString();
+            $fileName = $currentDate . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            if (!Storage::disk('public')->exists('img/img')) {
+                Storage::disk('public')->makeDirectory('img/img');
+            }
+            $postFile = file_get_contents($file);
+            Storage::disk('public')->put('img/img/' . $fileName, $postFile);
+        } else {
+            $fileName = '';
+        }
+
+        try {
+            DB::beginTransaction();
+            // Logic For Save User Data
+
+            $selectedplatform = $request->input('platform');
+            // Check if the selected platform is null or not an array
+            if (is_null($selectedplatform) || !is_array($selectedplatform)) {
+                $selectedplatform = [];
+            }
+            $platformString = implode(', ', $selectedplatform);
+
+            // $gender = $request->input('gender');
+            // $phone = $request->input('phone');
+            // $dateOfBirth = $request->input('selectedDobDate');
+            // $country = $request->input('country');
+            // $preferredIndustry = $request->input('jobz');
+            // $hasPassport = $request->input('Passport');
+            // $hasPoliceClearance = $request->input('certificate');
+            // $referenceSource = $request->input('agentName');
+            // $additionalReference = $platformString;
+
+            // dump($gender, $phone, $dateOfBirth, $country, $preferredIndustry, $hasPassport, $hasPoliceClearance, $referenceSource, $additionalReference);
+
+
+            $update_user = User::where('id', $id)->update([
+                'gender' => $request->input('gender'),
+                'phone' => $request->input('phone'),
+                'date_of_birth' => $request->input('dob'),
+                'country' => $request->input('country'),
+                'preferred_industry' => $request->input('jobz'),
+                'has_passport' => $request->input('Passport'),
+                'has_police_clearance' => $request->input('certificate'),
+                'reference_source' => $request->input('agentName'),
+                'additional_reference' => $platformString,
+            ]);
+            // dd($platformString);
+
+            $user = User::find($id);
+            $selectedJobs = $request->input('jobz');
+
+            if (!is_null($selectedJobs) && is_array($selectedJobs)) {
+                foreach ($selectedJobs as $jobs) {
+                    job_user::create([
+                        'job_id' => $jobs,
+                        'user_id' => $user->id,
+                    ]);
+                }
+            }
+
+
+            $selectedLanguages = $request->input('language');
+            if (is_null($selectedLanguages) || !is_array($selectedLanguages)) {
+                $selectedLanguages = [];
+            }
+            $languagesString = implode(', ', $selectedLanguages);
+
+            // $available = Availability::create([
+            //     'user_id' => $id,
+            //     'start_time' => $request->input('selectedAvailDate'),
+            // ]);
+
+            // $acknowledgement = Acknowledgment::create([
+            //     'user_id' => $id,
+            //     'agreement_type' => $request->input('agree'),
+            //     'agreement_content' => 'i agree',
+            // ]);
+
+            $cert = Certificates::create([
+                'user_id' => $id,
+                'certificate_name' => $request->input('certName'),
+                'issuing_authority' => $request->input('certIssue'),
+                'issue_date' => $request->input('selectedCertDate'),
+                'expiry_date' => $request->input('selectedCertExDate'),
+                'description' => $request->input('certDesc'),
+            ]);
+
+            $comment = Comments::create([
+                'user_id' => $id,
+                'comment_text' => $request->input('comment'),
+            ]);
+
+            $education = Education::create([
+                'user_id' => $id,
+                'degree' => $request->input('education'),
+                'field_of_study' => $request->input('field'),
+                'institution' => $request->input('institution'),
+                'location' => $request->input('sLocation'),
+                'graduation_year' => $request->input('selectedGradDate'),
+                'description' => $request->input('proff'),
+            ]);
+
+            $experience = Experience::create([
+                'user_id' => $id,
+                'company_name' => $request->input('cName'),
+                'Position' => $request->input('position'),
+                'start_date' => $request->input('selectedPosDate'),
+                'end_date' => $request->input('selectedExDate'),
+                'description' => $request->input('wDesc'),
+                'location' => $request->input('wLocation'),
+            ]);
+
+            $language = Language::create([
+                'user_id' => $id,
+                'language' => $languagesString,
+                'proficiency' => $request->input('plevel'),
+            ]);
+
+            $resume = Resumes::create([
+                'user_id' => $id,
+                'file_name' => $fileName,
+                'file_path' => $fileName,
+            ]);
+
+            $skill = Skills::create([
+                'user_id' => $id,
+                'Skill_Name' => $request->input('sName'),
+                'Skill_Level' => $request->input('slevel'),
+                'Description' => $request->input('sDesc'),
+            ]);
+            // dd($update_user,$acknowledgement,$available,$cert,$comment,$education,$experience,$language,$resume, $skill);
+            // if (!$update_user || !$cert || !$comment || !$education || !$experience || !$language || !$resume || !$skill) {
+
+            if (!$update_user) {
+                DB::rollBack();
+
+                return back()->with('error', 'Something went wrong while update user data');
+            }
+
+            DB::commit();
+            return redirect()->route('profile.edit', $user)->with('message', 'Your information has been received, we will communicate.');
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;

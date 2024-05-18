@@ -23,8 +23,8 @@ class CreateUsersTable extends Migration
             $table->date('date_of_birth')->nullable();
             $table->string('country')->nullable();
             $table->string('preferred_industry')->nullable();
-            $table->smallInteger('has_passport')->default(0);
-            $table->smallInteger('has_police_clearance')->default(0);
+            $table->smallInteger('has_passport')->default(0)->nullable();
+            $table->smallInteger('has_police_clearance')->default(0)->nullable();
             $table->string('reference_source')->nullable();
             $table->string('additional_reference', 255)->nullable();
             $table->string('email')->unique();

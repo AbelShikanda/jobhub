@@ -28,7 +28,7 @@
                 <div class="side-title">Categories</div>
                 <div class="side-menu">
                     @foreach ($categories as $c)
-                        <a href="{{ route('profileCategory', $c['id']) }}">{{ $c['name'] }}</a>
+                        <a href="{{ route('profile.edit', $c['id']) }}">{{ $c['name'] }}</a>
                     @endforeach
                 </div>
             </div>
@@ -55,7 +55,7 @@
                         <div class="dropdown-menu-profile">
                             @foreach ($categories as $c)
                                 <a
-                                    href="{{ route('profileCategory', $c['id']) }}">{{ $c['name'] }}</a>
+                                    href="{{ route('profile.edit', $c['id']) }}">{{ $c['name'] }}</a>
                             @endforeach
                         </div>
                     </div>

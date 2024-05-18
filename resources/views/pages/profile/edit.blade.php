@@ -29,6 +29,10 @@
             </div>
         @endif
 
+        @php
+            $user = Auth()->user();
+        @endphp
+
         <div class="content-section">
             <div class="content-section-title">Your Information</div>
             <div class="apps-card mt-3">
@@ -38,26 +42,33 @@
                         Your Details
                     </span>
                     <div class="app-card__subtext">
-                        <form action="" class="app-content-form">
+                        <form action="{{ route('profile.update', $user->id) }}" method="post" >
+                            @method('patch')
+                            @csrf
                             <div class="row">
-                                <div style="margin-top:0;">
+                                <div style="margin-top:0;" class="app-content-form">
                                     <input type="text" name="phone" id="input1" class="form-control" />
                                     <label class="input-label" for="input1"> Phone: {{ $users->first()->phone }} </label>
                                 </div><br>
                                 <div style="margin-top:-5px;">
-                                    <input type="text" name="gender" id="input2" class="form-control" />
-                                    <label class="input-label" for="input2"> Gender: {{ $users->first()->gender }}
-                                    </label>
+                                    <select class="form-control validate" id="gender" name="gender" data-error="#e3">
+                                        <option value="" disabled {{ (old('gender', $users->first()->gender)) ? 'selected' : '' }} class="text-center" >Gender: {{ $users->first()->gender }}</option>
+                                        <option class="text-center">Male</option>
+                                        <option class="text-center">Female</option>
+                                    </select>
                                 </div><br>
                                 <div style="margin-top:-5px;">
-                                    <input type="text" name="country" id="input3" class="form-control" />
-                                    <label class="input-label" for="input3"> Country: {{ $users->first()->country }}
-                                    </label>
+                                    <select class="form-control validate" id="country" name="country" data-error="#e3"
+                                        placeholder="Pick a country...">
+                                        <option value="" disabled class="text-center">{{ $users->first()->country }}</option>
+                                        @foreach ($countries as $country)
+                                            <option value="{{ $country->name }}" @selected(old('country') == $country) class="text-center">
+                                                {{ $country->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div><br>
                                 <div style="margin-top:-5px;">
-                                    <input type="date" name="dob" id="input4" class="form-control" />
-                                    <label class="input-label" for="input4"> Date Of Birth:
-                                        {{ $users->first()->date_of_birth }} </label>
+                                    <input type="Date" name="dob" id="input4" class="form-control text-center" value="{{ $users->first()->date_of_birth }}"/>
                                 </div><br>
                             </div>
                             <div class="app-card-buttons">
@@ -66,22 +77,23 @@
                         </form>
                     </div>
                 </div>
-                <div class="app-card">
+                {{-- <div class="app-card">
                     <span>
                         <i class="fas fa-graduation-cap p-2"></i>
                         Your preffered industry
                     </span>
                     <div class="app-card__subtext">
-                        <form action="" class="app-content-form">
+                        <form action="{{ route('applications.update', $user->id) }}" method="post" class="app-content-form">
+                            @method('patch')
+                            @csrf
                             <div class="row">
-                                @foreach ($preferredIndustries as $index => $data)
-                                    <div style="margin-top:0;">
-                                        <input type="text" name="phone" id="ipt{{ $index }}"
-                                            class="form-control" />
-                                        <label class="input-label" for="ipt{{ $index }}"> Prefered Job:
-                                            {{ $data }} </label>
-                                    </div>
-                                @endforeach
+                                <select id="inputGroupSelect04" name="jobz[]" placeholder="Add Prefered Industry"
+                                    multiple>
+                                    @foreach ($jobs as $job)
+                                        <option value="{{ $job->id }}" @selected(old('job') == $job)>
+                                            {{ $job->job_title }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="app-card-buttons">
                                 <button type="submit" class="content-button status-button">Update</button>
@@ -95,11 +107,34 @@
                         Your Education Background
                     </span>
                     <div class="app-card__subtext">
-                        <form action="" class="app-content-form">
+                        <form action="{{ route('applications.update', $user->id) }}" method="post" class="app-content-form">
+                            @method('patch')
+                            @csrf
                             <div class="row">
                                 <div style="margin-top:0;">
-                                    <input type="text" name="phone" id="input5" class="form-control" />
-                                    <label class="input-label" for="input5"> Degree: {{ $educations->field_of_study }}
+                                    <input type="text" name="education" id="input5" class="form-control" />
+                                    <label class="input-label" for="input5"> {{ $educations->first()->degree }}:
+                                        {{ $educations->first()->degree }}
+                                    </label>
+                                    <input type="text" name="education" id="input5" class="form-control" />
+                                    <label class="input-label" for="input5"> {{ $educations->first()->field_of_study }}:
+                                        {{ $educations->first()->field_of_study }}
+                                    </label>
+                                    <input type="text" name="education" id="input5" class="form-control" />
+                                    <label class="input-label" for="input5"> {{ $educations->first()->institution }}:
+                                        {{ $educations->first()->institution }}
+                                    </label>
+                                    <input type="text" name="education" id="input5" class="form-control" />
+                                    <label class="input-label" for="input5"> {{ $educations->first()->location }}:
+                                        {{ $educations->first()->location }}
+                                    </label>
+                                    <input type="text" name="education" id="input5" class="form-control" />
+                                    <label class="input-label" for="input5"> {{ $educations->first()->graduation_year }}:
+                                        {{ $educations->first()->graduation_year }}
+                                    </label>
+                                    <input type="text" name="education" id="input5" class="form-control" />
+                                    <label class="input-label" for="input5"> {{ $educations->first()->description }}:
+                                        {{ $educations->first()->description }}
                                     </label>
                                 </div><br>
                             </div>
@@ -116,7 +151,9 @@
                             Your Work Experiences
                         </span>
                         <div class="app-card__subtext">
-                            <form action="" class="app-content-form">
+                            <form action="{{ route('applications.update', $user->id) }}" method="post" class="app-content-form">
+                                @method('patch')
+                                @csrf
                                 <div class="row">
                                     <div style="margin-top:0;">
                                         <input type="text" name="phone" id="input6" class="form-control" />
@@ -136,7 +173,9 @@
                             Your Additional Certificates
                         </span>
                         <div class="app-card__subtext">
-                            <form action="" class="app-content-form">
+                            <form action="{{ route('applications.update', $user->id) }}" method="post" class="app-content-form">
+                                @method('patch')
+                                @csrf
                                 <div class="row">
                                     <div style="margin-top:0;">
                                         <input type="text" name="phone" id="input7" class="form-control" />
@@ -156,7 +195,9 @@
                             Languages
                         </span>
                         <div class="app-card__subtext">
-                            <form action="" class="app-content-form">
+                            <form action="{{ route('applications.update', $user->id) }}" method="post" class="app-content-form">
+                                @method('patch')
+                                @csrf
                                 <div class="row">
                                     @foreach ($preferredlanguagesArray as $index => $data)
                                         <div style="margin-top:0;">
@@ -180,37 +221,27 @@
                                 Your Legal Documents
                             </span>
                             <div class="app-card__subtext">
-                                <form action="" class="app-content-form">
+                                <form action="{{ route('applications.update', $user->id) }}" method="post" class="app-content-form">
+                                    @method('patch')
+                                    @csrf
                                     <div class="row">
                                         <div style="margin-top:0;">
-                                            <input type="text" name="phone" id="input8" class="form-control" />
-                                            <label class="input-label" for="input8"> Police clearance:
-                                                <span class="badge">
-                                                    @if ($users->first()->has_police_clearance === 0)
-                                                        <span class="badge badge-danger">No</span>
-                                                    @elseif ($users->first()->has_police_clearance === 1)
-                                                        <span class="badge badge-warning">Waiting</span>
-                                                    @elseif ($users->first()->has_police_clearance === 2)
-                                                        <span class="badge badge-info">Renewing</span>
-                                                    @elseif ($users->first()->has_police_clearance === 3)
-                                                        <span class="badge badge-success">Yes</span>
-                                                    @endif
-                                                </span>
-                                            </label>
+                                            <input type="text" name="phone" id="input8" value="{{ $users->first()->has_police_clearance }}" class="form-control"/>
+                                            <select class="form-control validate input-label" id="level" name="certificate" required>
+                                                <option value="" disabled {{ is_null(old('certificate', $policeClearanceStatus)) ? 'selected' : '' }}>Police Clearance: {{ $policeClearanceStatus }}</option>
+                                                <option value="0" {{ old('certificate', $policeClearanceStatus) === 'Old' ? 'selected' : '' }}>Old</option>
+                                                <option value="1" {{ old('certificate', $policeClearanceStatus) === 'Waiting' ? 'selected' : '' }}>Waiting</option>
+                                                <option value="2" {{ old('certificate', $policeClearanceStatus) === 'No' ? 'selected' : '' }}>No</option>
+                                                <option value="2" {{ old('certificate', $policeClearanceStatus) === 'Yes' ? 'selected' : '' }}>Yes</option>
+                                            </select>
                                         </div><br>
                                         <div style="margin-top:-5px;">
-                                            <input type="text" name="gender" id="input9" class="form-control" />
-                                            <label class="input-label" for="input9"> Passport:
-                                                <span class="badge">
-                                                    @if ($users->first()->has_passport === 0)
-                                                        <span class="badge badge-danger">No</span>
-                                                    @elseif ($users->first()->has_passport === 1)
-                                                        <span class="badge badge-warming">Waiting</span>
-                                                    @elseif ($users->first()->has_passport === 2)
-                                                        <span class="badge badge-success">Yes</span>
-                                                    @endif
-                                                </span>
-                                            </label>
+                                            <select class="form-control validate input-label" id="level" name="Passport" required>
+                                                <option value="" disabled {{ is_null(old('Passport', $passportStatus)) ? 'selected' : '' }}>Passport: {{ $passportStatus }}</option>
+                                                <option value="0" {{ old('Passport', $passportStatus) === 'No' ? 'selected' : '' }}>No</option>
+                                                <option value="1" {{ old('Passport', $passportStatus) === 'Waiting' ? 'selected' : '' }}>Waiting</option>
+                                                <option value="2" {{ old('Passport', $passportStatus) === 'Yes' ? 'selected' : '' }}>Yes</option>
+                                            </select>
                                         </div><br>
                                     </div>
                                     <div class="app-card-buttons">
@@ -225,11 +256,13 @@
                                 Your Resume
                             </span>
                             <div class="app-card__subtext">
-                                <form action="" class="app-content-form">
+                                <form action="{{ route('applications.update', $user->id) }}" method="post" enctype="multipart/form-data" class="app-content-form">
+                                    @method('patch')
+                                    @csrf
                                     <div class="row">
                                         <div style="margin-top:0;">
-                                            <input class="file-path validate form-control" id="input10" name="filepath" type="file"
-                                                placeholder="Select file to upload" required>
+                                            <input class="file-path validate form-control" id="input10" name="filepath"
+                                                type="file" placeholder="Select file to upload" required>
                                             <label class="input-label" for="input10"> [Edit] :
                                                 <a href="{{ $fileName }}">Resume</a>
                                         </div><br>
@@ -241,6 +274,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         @endsection

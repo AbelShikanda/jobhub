@@ -104,7 +104,7 @@ class AdminController extends Controller
     //     return view('admin.admins.edit')->with([
     //         'admins' => $admins
     //     ]);
-    }
+    // }
 
     /**
      * Update the specified resource in storage.
@@ -143,7 +143,7 @@ class AdminController extends Controller
     //         DB::rollBack();
     //         throw $th;
     //     }
-    }
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -172,5 +172,5 @@ class AdminController extends Controller
     //         DB::rollBack();
     //         throw $th;
     //     }
-    }
+    // }
 }
