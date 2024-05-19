@@ -562,6 +562,7 @@ section.section {
   left: 0;
   color: #03a9f4;
   font-size: 0.75rem;
+  cursor: pointer;
 }
 
 .box input[type="submit"] {

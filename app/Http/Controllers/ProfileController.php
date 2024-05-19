@@ -166,10 +166,12 @@ class ProfileController extends Controller
             } else {
                 // Handle the case where JSON is invalid
                 $preferredIndustries = collect();
+                $preferredIndustriesID = collect();
             }
         } else {
             // Handle the case where preferred_industry is null or empty
             $preferredIndustries = collect();
+            $preferredIndustriesID = collect();
         }
 
 
@@ -268,79 +270,49 @@ class ProfileController extends Controller
     {
         $request->validate([
             'phone' => '',
-            'gender' => '',
-            'country' => '',
-            'date_of_birth' => '',
             'jobz' => 'array',
             'pcertificate' => '',
             'Passport' => '',
-            'agentName' => '',
-
             'language' => 'array',
             'plevel' => '',
-
-            'cName' => '',
-            'position' => '',
-            'selectedPosDate' => '',
-            'selectedExDate' => '',
-            'wDesc' => '',
-            'wLocation' => '',
-
-            'certName' => '',
-            'certIssue' => '',
-            'selectedCertDate' => '',
-            'selectedCertExDate' => '',
-            'certDesc' => '',
-
-            'education' => '',
-            'field' => '',
-            'institution' => '',
-            'sLocation' => '',
-            'selectedGradDate' => '',
-            'proff' => '',
-            
-            'pcertificate' => '',
-            'Passport' => '',
-            'filepath' => 'file',
         ]);
 
         $user = User::find($id);
-        $data = $request->only([
-            'phone',            'gender',   'country',      'date_of_birth',    'selectedExDate',
-            'jobz',             'Passport', 'pcertificate', 'agentName',        'selectedCertExDate',
-            'language',         'plevel',   'cName',        'position',         'selectedPosDate',
-            'wDesc',            'certName', 'certIssue',    'selectedCertDate', 'filepath',
-            'certDesc',         'education','field',        'institution',      'sLocation',
-            'selectedGradDate', 'proff',    'pcertificate', 'Passport',         'wLocation',
-        ]);
-        // dd($data);
-
-        $data = array_filter($data, function ($value) {
-            return !is_null($value) && $value !== '';
-        });
-
+        // $data = $request->only([
+        //     'phone',
+        //     'jobz',
+        //     'Passport', 
+        //     'pcertificate',
+        //     'language',         
+        //     'plevel',   
+        // ]);
         // dd($data);
 
         try {
             DB::beginTransaction();
 
-            if (!empty($data)) {
-                $update_user = User::where('id', $id)->update([
-                    'gender' => $request->input('gender'),
-                    'phone' => $request->input('phone'),
-                    'date_of_birth' => $request->input('date_of_birth'),
-                    'country' => $request->input('country'),
-                    'preferred_industry' => $request->input('jobz'),
-                    'has_passport' => $request->input('Passport'),
-                    'has_police_clearance' => $request->input('pcertificate'),
-                    'reference_source' => $request->input('agentName'),
+            User::where('id', $id)->update([
+                'phone' => $request->input('phone'),
+                'preferred_industry' => $request->input('jobz'),
+                'has_passport' => $request->input('Passport'),
+                'has_police_clearance' => $request->input('pcertificate'),
+            ]);
+
+            $selectedJobs = $request->input('jobz');
+            dd($selectedJobs);
+            foreach ($selectedJobs as $jobs) {
+                job_user::where('user_id', $id)->update([
+                    'job_id' => $jobs,
+                    'user_id' =>  $user->id,
                 ]);
             }
 
-            if (!$update_user) {
-                DB::rollBack();
-                return back()->with('error', 'Something went wrong while update user data');
-            }
+            $selectedLanguages = $request->input('language');
+            $languagesString = implode(', ', $selectedLanguages);
+            Language::where('user_id', $id)->update([
+                'language' => $languagesString,
+                'proficiency' => $request->input('plevel'),
+            ]);
 
             DB::commit();
             return back()->with('message', 'Your information has been updated');

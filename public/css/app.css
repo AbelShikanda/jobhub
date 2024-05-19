@@ -12770,7 +12770,7 @@ img {
   display: flex;
   overflow: hidden;
   flex-direction: column;
-  width: calc(33.3% - 20px);
+  width: 100%;
   font-size: 16px;
   background-color: var(--content-bg);
   border-radius: 14px;
