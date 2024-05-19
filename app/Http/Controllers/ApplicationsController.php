@@ -47,7 +47,7 @@ class ApplicationsController extends Controller
         $agreementType = "1";
 
         if (Acknowledgment::where('user_id', $userId)->where('agreement_type', $agreementType)->exists()) {
-            return redirect()->route('profile.show', $userId);
+            return redirect()->route('profile.index', $userId);
         }
 
         $categories = JobsCategories::all();

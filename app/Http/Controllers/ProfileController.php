@@ -140,9 +140,16 @@ class ProfileController extends Controller
         $resume = Resumes::where('user_id', $id)->latest()->first();
         $countries = ModelsCountry::all();
 
+        if ($resume) {
+            $filePath = $resume->file_path;
+            $fileName = Storage::url('img/img/' . $filePath);
+        } else {
+            $fileName = null;
+        }
+
         $preferredlanguages = $languages->first()->language;
         $preferredlanguagesArray = explode(', ', $preferredlanguages);
-        
+
         $userPreferredJobIds = $users->first()->preferred_industry;
 
         // Check if the preferred_industry is not null and is a valid JSON
@@ -155,6 +162,7 @@ class ProfileController extends Controller
                     $jobId = intval($jobId);
                 }
                 $preferredIndustries = Jobs::whereIn('id', $userPreferredJobIds)->pluck('job_title');
+                $preferredIndustriesID = Jobs::whereIn('id', $userPreferredJobIds)->pluck('id');
             } else {
                 // Handle the case where JSON is invalid
                 $preferredIndustries = collect();
@@ -181,7 +189,8 @@ class ProfileController extends Controller
             ->pluck('job_category_id')
             ->toArray();
 
-        // dd($users->first()->country);
+        // dd($preferredIndustriesID);
+        // var_dump($preferredIndustriesID);
 
         $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
 
@@ -224,7 +233,8 @@ class ProfileController extends Controller
                     break;
             }
         }
-        
+
+        // dd($users->first()->preferred_industry);
 
         return view('pages.profile.edit')->with([
             'categories' => $categories,
@@ -242,6 +252,8 @@ class ProfileController extends Controller
             'policeClearanceStatus' => $policeClearanceStatus,
             'countries' => $countries,
             'jobs' => $jobs,
+            'preferredIndustriesID' => $preferredIndustriesID,
+            'languages' => $languages,
         ]);
     }
 
@@ -255,167 +267,83 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'phoneNumber' => '',
+            'phone' => '',
             'gender' => '',
             'country' => '',
-            'selectedDobDate' => '',
-            'range' => '',
-            'sName' => '',
-            'sDesc' => '',
-            'education' => '',
-            'field' => '',
-            'institution' => '',
-            'selectedGradDate' => '',
-            'sName' => '',
+            'date_of_birth' => '',
+            'jobz' => 'array',
+            'pcertificate' => '',
+            'Passport' => '',
+            'agentName' => '',
+
+            'language' => 'array',
+            'plevel' => '',
+
             'cName' => '',
             'position' => '',
+            'selectedPosDate' => '',
             'selectedExDate' => '',
             'wDesc' => '',
             'wLocation' => '',
+
             'certName' => '',
             'certIssue' => '',
             'selectedCertDate' => '',
             'selectedCertExDate' => '',
             'certDesc' => '',
-            'plevel' => '',
-            'slevel' => '',
-            'certificate' => '',
-            'Passport' => '',
-            'platform' => 'array',
-            'agentName' => '',
-            'selectedAvailDate' => '',
-            'filepath' => 'file',
-            'comment' => '',
-            'agree' => '',
-            'selectedPosDate' => '',
+
+            'education' => '',
+            'field' => '',
+            'institution' => '',
             'sLocation' => '',
-            'jobz' => 'array',
-            'language' => '',
+            'selectedGradDate' => '',
+            'proff' => '',
+            
+            'pcertificate' => '',
+            'Passport' => '',
+            'filepath' => 'file',
         ]);
 
-        $file = $request->file('filepath');
+        $user = User::find($id);
+        $data = $request->only([
+            'phone',            'gender',   'country',      'date_of_birth',    'selectedExDate',
+            'jobz',             'Passport', 'pcertificate', 'agentName',        'selectedCertExDate',
+            'language',         'plevel',   'cName',        'position',         'selectedPosDate',
+            'wDesc',            'certName', 'certIssue',    'selectedCertDate', 'filepath',
+            'certDesc',         'education','field',        'institution',      'sLocation',
+            'selectedGradDate', 'proff',    'pcertificate', 'Passport',         'wLocation',
+        ]);
+        // dd($data);
 
-        if (isset($file)) {
-            $currentDate = Carbon::now()->toDateString();
-            $fileName = $currentDate . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
-            if (!Storage::disk('public')->exists('img/img')) {
-                Storage::disk('public')->makeDirectory('img/img');
-            }
-            $postFile = file_get_contents($file);
-            Storage::disk('public')->put('img/img/' . $fileName, $postFile);
-        } else {
-            $fileName = '';
-        }
+        $data = array_filter($data, function ($value) {
+            return !is_null($value) && $value !== '';
+        });
+
+        // dd($data);
 
         try {
             DB::beginTransaction();
-            // Logic For Save User Data
 
-            $selectedplatform = $request->input('platform');
-            // Convert the selected platform array to a string
-            $platformString = implode(', ', $selectedplatform);
-
-            $update_user = User::where('id', $id)->update([
-                'gender' => $request->input('gender'),
-                'phone' => $request->input('phoneNumber'),
-                'date_of_birth' => $request->input('selectedDobDate'),
-                'country' => $request->input('country'),
-                'preferred_industry' => $request->input('jobz'),
-                'has_passport' => $request->input('Passport'),
-                'has_police_clearance' => $request->input('certificate'),
-                'reference_source' => $request->input('agentName'),
-                'additional_reference' => $platformString,
-            ]);
-            // dd($update_user);
-
-            $user = User::find($id);
-            $selectedJobs = $request->input('jobz');
-
-            foreach ($selectedJobs as $jobs) {
-                job_user::create([
-                    'job_id' => $jobs,
-                    'user_id' =>  $user->id,
+            if (!empty($data)) {
+                $update_user = User::where('id', $id)->update([
+                    'gender' => $request->input('gender'),
+                    'phone' => $request->input('phone'),
+                    'date_of_birth' => $request->input('date_of_birth'),
+                    'country' => $request->input('country'),
+                    'preferred_industry' => $request->input('jobz'),
+                    'has_passport' => $request->input('Passport'),
+                    'has_police_clearance' => $request->input('pcertificate'),
+                    'reference_source' => $request->input('agentName'),
                 ]);
             }
 
-
-            $selectedLanguages = $request->input('language');
-            // Convert the selected languages array to a string
-            $languagesString = implode(', ', $selectedLanguages);
-
-            $available = Availability::create([
-                'user_id' => $id,
-                'start_time' => $request->input('selectedAvailDate'),
-            ]);
-
-            $acknowledgement = Acknowledgment::create([
-                'user_id' => $id,
-                'agreement_type' => $request->input('agree'),
-                'agreement_content' => 'i agree',
-            ]);
-
-            $cert = Certificates::create([
-                'user_id' => $id,
-                'certificate_name' => $request->input('certName'),
-                'issuing_authority' => $request->input('certIssue'),
-                'issue_date' => $request->input('selectedCertDate'),
-                'expiry_date' => $request->input('selectedCertExDate'),
-                'description' => $request->input('certDesc'),
-            ]);
-
-            $comment = Comments::create([
-                'user_id' => $id,
-                'comment_text' => $request->input('comment'),
-            ]);
-
-            $education = Education::create([
-                'user_id' => $id,
-                'degree' => $request->input('education'),
-                'field_of_study' => $request->input('field'),
-                'institution' => $request->input('institution'),
-                'location' => $request->input('sLocation'),
-                'graduation_year' => $request->input('selectedGradDate'),
-                'description' => $request->input('proff'),
-            ]);
-
-            $experience = Experience::create([
-                'user_id' => $id,
-                'company_name' => $request->input('cName'),
-                'Position' => $request->input('position'),
-                'start_date' => $request->input('selectedPosDate'),
-                'end_date' => $request->input('selectedExDate'),
-                'description' => $request->input('wDesc'),
-                'location' => $request->input('wLocation'),
-            ]);
-
-            $language = Language::create([
-                'user_id' => $id,
-                'language' => $languagesString,
-                'proficiency' => $request->input('plevel'),
-            ]);
-
-            $resume = Resumes::create([
-                'user_id' => $id,
-                'file_name' => $fileName,
-                'file_path' => $fileName,
-            ]);
-
-            $skill = Skills::create([
-                'user_id' => $id,
-                'Skill_Name' => $request->input('sName'),
-                'Description' => $request->input('slevel'),
-                'Skill_level' => $request->input('sDesc'),
-            ]);
-            // dd($update_user,$acknowledgement,$available,$cert,$comment,$education,$experience,$language,$resume, $skill);
-
-            if (!$update_user || !$acknowledgement || !$available || !$cert || !$comment || !$education || !$experience || !$language || !$resume || !$skill) {
+            if (!$update_user) {
                 DB::rollBack();
-
                 return back()->with('error', 'Something went wrong while update user data');
             }
 
             DB::commit();
-            return redirect()->route('profile.show')->with('message', 'Your information has been received, we will communicate.');
+            return back()->with('message', 'Your information has been updated');
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;

@@ -469,7 +469,7 @@ section.section {
 .app-content-form {
   /* line-height:1.7em; */
 }
-.input-label {
+/* .input-label {
   padding:0 1em;
   margin: 0.25em;
   float: left;
@@ -516,4 +516,70 @@ section.section {
 .app-input:focus + .input-label,  .app-textarea:focus  + .input-label, .app-input:focus + select:focus {
   margin-left:-30%;
   transition:0.5s;
+} */
+
+
+
+/* profile edit form fields */
+
+.box {
+  box-sizing: border-box;
+  border-radius: 0.625rem;
+}
+
+.box .inputBox {
+  position: relative;
+}
+
+.box .inputBox input, select, textarea {
+  width: 100%;
+  padding: 0.5rem 0;
+  font-size: 1rem;
+  color: #000;
+  letter-spacing: 0.062rem;
+  margin-bottom: 0.5rem;
+  border: none;
+  border-bottom: 0.065rem solid #03a9f4;
+  outline: none;
+  background: transparent;
+}
+
+.box .inputBox label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.625rem 0;
+  font-size: 1rem;
+  color: #9b9b9b;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.box .inputBox input:focus ~ label,
+/* .box .inputBox input:valid ~ label, */
+.box .inputBox input:not([value=""]) ~ label {
+  top: -1.125rem;
+  left: 0;
+  color: #03a9f4;
+  font-size: 0.75rem;
+}
+
+.box input[type="submit"] {
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: #03a9f4;
+  padding: 0.3rem 1.0rem;
+  cursor: pointer;
+  border-radius: 0.312rem;
+  font-size: 1rem;
+}
+
+.box input[type="submit"]:hover {
+  background-color: #1cb1f5;
+}
+
+.choices__inner {
+  background-color: transparent;
+  padding: 0;
 }

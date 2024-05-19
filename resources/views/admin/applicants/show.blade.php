@@ -105,13 +105,13 @@
                                                                     <td>Police Clearance</td>
                                                                     <td><span class="badge bg-">
                                                                             @if ($user->has_police_clearance === 0)
-                                                                                <span class="badge badge-danger">No</span>
+                                                                                <span class="badge badge-warning">Old</span>
                                                                             @elseif ($user->has_police_clearance === 1)
                                                                                 <span
-                                                                                    class="badge badge-warning">Waiting</span>
+                                                                                    class="badge badge-info">Waiting</span>
                                                                             @elseif ($user->has_police_clearance === 2)
                                                                                 <span
-                                                                                    class="badge badge-info">Renewing</span>
+                                                                                    class="badge badge-danger">No</span>
                                                                             @elseif ($user->has_police_clearance === 3)
                                                                                 <span class="badge badge-success">Yes</span>
                                                                             @endif
