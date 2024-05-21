@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\job_user;
 use App\Models\Jobs;
 use App\Models\JobsCategories;
 use App\Models\Organizations;
 use App\Models\OrganizationsCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
@@ -101,5 +104,55 @@ class PagesController extends Controller
                 'categories' => $categories,
             ]
         );
+    }
+
+    /**
+     * A function to add jobs
+     *
+     * This function does the following:
+     * - Step 1
+     * - Step 2
+     * - Step 3
+     *
+     * @param  Parameter type  Parameter name Description of the parameter (optional)
+     * @return Return type Description of the return value (optional)
+     */
+    public function addJobs(Request $request)
+    {
+        $request->validate([
+            'jobz' => 'array',
+            'user_id' => 'required',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            $userID = $request->input('user_id');
+            $selectedJobs = $request->input('jobz');
+
+            $user = User::findOrFail($userID);
+            $existingJobIds = $user->preferred_industry ? json_decode($user->preferred_industry, true) : [];
+
+            foreach ($selectedJobs as $jobs) {
+                if (!job_user::where('user_id', $userID)->where('job_id', $jobs)->exists()) {
+                    job_user::create([
+                        'job_id' => $jobs,
+                        'user_id' => $userID,
+                    ]);
+                    if (!in_array($jobs, $existingJobIds)) {
+                        $existingJobIds[] = $jobs;
+                    }
+                }
+            }
+
+            $user->preferred_industry = json_encode($existingJobIds);
+            $user->save();
+
+            DB::commit();
+            return back()->with('message', 'Your application has been updated');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
     }
 }

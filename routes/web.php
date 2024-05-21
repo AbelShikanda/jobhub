@@ -67,7 +67,7 @@ Route::get('/about', [PagesController::class, 'about'])->name('about');
 Route::get('/jobs', [PagesController::class, 'jobs'])->name('jobs');
 Route::get('/jobsCategory/{id}', [PagesController::class, 'jobsCategory'])->name('jobsCategory');
 Route::get('/job_details', [PagesController::class, 'job_details'])->name('job_details');
-Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
+Route::post('/add_jobs', [PagesController::class, 'addJobs'])->name('addJobs');
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // PROFILE ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -79,6 +79,7 @@ Route::resource('applications', ApplicationsController::class);
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // CONTACT ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 Route::resource('contacts', ContactsController::class);
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
