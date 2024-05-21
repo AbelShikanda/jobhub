@@ -83,18 +83,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-1 p-lg-0">
-                    <a href="{{ url('/') }}" class="nav-item nav-link active">Home</a>
-                    <a href="{{ url('/about') }}" class="nav-item nav-link">About</a>
-                    <a href="{{ url('/jobs') }}" class="nav-item nav-link">Jobs</a>
-                    <a href="{{ route('applications.index') }}" class="nav-item nav-link">Applications</a>
-                    {{-- <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Jobs</a>
-                        <div class="dropdown-menu rounded-0 m-0">
-                            <a href="{{ url('/jobs') }}" class="dropdown-item">List</a>
-                            <a href="{{ route('applications.index') }}" class="dropdown-item">Application</a>
-                        </div>
-                    </div> --}}
-                    <a href="{{ url('/contact') }}" class="nav-item nav-link">Contact</a>
+                    <a href="{{ url('/') }}"
+                        class="nav-item nav-link {{ request()->is('/') ? 'active' : '' }}">Home</a>
+                    <a href="{{ url('/about') }}"
+                        class="nav-item nav-link {{ request()->is('about') ? 'active' : '' }}">About</a>
+                    <a href="{{ url('/jobs') }}"
+                        class="nav-item nav-link {{ request()->is('jobs') ? 'active' : '' }}">Jobs</a>
+                    <a href="{{ route('applications.index') }}"
+                        class="nav-item nav-link {{ request()->routeIs('applications.index') ? 'active' : '' }}">Applications</a>
+                    <a href="{{ url('/contact') }}"
+                        class="nav-item nav-link {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
+
                     <div lass="btn btn-danger rounded-0 py-4 px-lg-5 d-none d-lg-block">
                         <ul class="navbar-nav ms-auto">
                             <!-- Authentication Links -->

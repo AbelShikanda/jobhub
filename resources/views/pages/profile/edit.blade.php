@@ -56,7 +56,6 @@
                                         value="{{ $users->first()->phone }}" />
                                     <label> Phone:</label>
                                 </div>
-                                <hr>
                                 <div class="row mt-3">
                                     <div class="col">
                                         <div class="inputBox">

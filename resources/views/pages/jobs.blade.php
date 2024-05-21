@@ -64,8 +64,12 @@
                                     <img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg"
                                         alt="" style="width: 80px; height: 80px;">
                                     <div class="text-start ps-4">
-                                        <input type="text" name="jobz[]" value="{{ $data['id'] }}" hidden>
-                                        <input type="text" name="user_id" value="{{ Auth::user()->id }}" hidden>
+                                        @auth
+                                            <input type="text" name="jobz[]" value="{{ $data['id'] }}" hidden>
+                                            <input type="text" name="user_id" value="{{ Auth::user()->id }}" hidden>
+                                        @else
+                                            <input type="text" name="user_id" value="00000000" hidden>
+                                        @endauth
                                         <h5 class="mb-3">{{ $data['job_title'] }}</h5>
                                         <span class="text-truncate me-3"><i
                                                 class="fa fa-map-marker-alt text-danger me-2"></i>{{ $data['org_name'] }}</span>

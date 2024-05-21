@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Acknowledgment;
 use App\Models\job_user;
 use App\Models\Jobs;
 use App\Models\JobsCategories;
@@ -14,16 +15,53 @@ use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
+    /**
+     * A function to 
+     *
+     * This function does the following:
+     * - Step 1
+     * - Step 2
+     * - Step 3
+     *
+     * @param  Parameter type  Parameter name Description of the parameter (optional)
+     * @return Return type Description of the return value (optional)
+     */
     public function about()
     {
-
-        return View('pages.about')->with('products',);
+        $pageTitle = 'About';
+        $breadcrumbLinks = [
+            ['url' => '/', 'label' => 'Home'],
+            ['url' => '', 'label' => 'About'],
+        ];
+        return view(
+            'pages.about',
+            [
+                'pageTitle' => $pageTitle,
+                'breadcrumbLinks' => $breadcrumbLinks,
+            ]
+        );
     }
 
+    /**
+     * A function to 
+     *
+     * This function does the following:
+     * - Step 1
+     * - Step 2
+     * - Step 3
+     *
+     * @param  Parameter type  Parameter name Description of the parameter (optional)
+     * @return Return type Description of the return value (optional)
+     */
     public function jobs()
     {
         $perPage = 10;
         $currentPage = \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPage();
+        $pageTitle = 'Jobs';
+        $breadcrumbLinks = [
+            ['url' => '/', 'label' => 'Home'],
+            ['url' => '', 'label' => 'Jobs'],
+        ];
 
         $jobs = Jobs::selectRaw('jobs.*')
             ->addSelect('organizations.Org_Name AS org_name')
@@ -58,24 +96,87 @@ class PagesController extends Controller
             [
                 'organizations' => $paginator,
                 'categories' => $categories,
+                'pageTitle' => $pageTitle,
+                'breadcrumbLinks' => $breadcrumbLinks,
             ]
         );
     }
 
+    /**
+     * A function to 
+     *
+     * This function does the following:
+     * - Step 1
+     * - Step 2
+     * - Step 3
+     *
+     * @param  Parameter type  Parameter name Description of the parameter (optional)
+     * @return Return type Description of the return value (optional)
+     */
     public function jobs_details()
     {
+        $pageTitle = 'Jobs Details';
+        $breadcrumbLinks = [
+            ['url' => '/', 'label' => 'Home'],
+            ['url' => '', 'label' => 'Jobs Details'],
+        ];
 
-        return View('pages.jobs_details')->with('products',);
+        return view(
+            'pages.jobs_details',
+            [
+                'pageTitle' => $pageTitle,
+                'breadcrumbLinks' => $breadcrumbLinks,
+            ]
+        );
     }
 
+    /**
+     * A function to 
+     *
+     * This function does the following:
+     * - Step 1
+     * - Step 2
+     * - Step 3
+     *
+     * @param  Parameter type  Parameter name Description of the parameter (optional)
+     * @return Return type Description of the return value (optional)
+     */
     public function contact()
     {
+        $pageTitle = 'Contact';
+        $breadcrumbLinks = [
+            ['url' => '/', 'label' => 'Home'],
+            ['url' => '', 'label' => 'Contact'],
+        ];
 
-        return View('pages.contact')->with('products',);
+        return view(
+            'pages.contact',
+            [
+                'pageTitle' => $pageTitle,
+                'breadcrumbLinks' => $breadcrumbLinks,
+            ]
+        );
     }
 
+    /**
+     * A function to 
+     *
+     * This function does the following:
+     * - Step 1
+     * - Step 2
+     * - Step 3
+     *
+     * @param  Parameter type  Parameter name Description of the parameter (optional)
+     * @return Return type Description of the return value (optional)
+     */
     public function jobsCategory($category_id)
     {
+        $pageTitle = 'Job Category';
+        $breadcrumbLinks = [
+            ['url' => '/', 'label' => 'Home'],
+            ['url' => '', 'label' => 'Job Category'],
+        ];
+        
         $jobs = Jobs::selectRaw('jobs.*')
             ->addSelect('organizations.Org_Name AS org_name')
             ->addSelect('organizations.website AS site')
@@ -89,12 +190,6 @@ class PagesController extends Controller
             ->latest()
             ->paginate(10);
 
-        // if ($jobs->isEmpty()) {
-        //     // No jobs found for the given category_id
-        //     // You can return a view with a message or redirect the user to another page
-        //     return view('pages.noJobsFound');
-        // }
-
         $categories = JobsCategories::all();
 
         return view(
@@ -102,6 +197,8 @@ class PagesController extends Controller
             [
                 'jobs' => $jobs,
                 'categories' => $categories,
+                'pageTitle' => $pageTitle,
+                'breadcrumbLinks' => $breadcrumbLinks,
             ]
         );
     }
@@ -124,10 +221,15 @@ class PagesController extends Controller
             'user_id' => 'required',
         ]);
 
+        $userID = $request->input('user_id');
+        
+        if (!Acknowledgment::where('user_id', $userID)->where('agreement_type', '1')->exists()) {
+            return redirect()->route('applications.index')->with('message', 'You are almost done. Just fill in the form to get started');
+        }
+
         try {
             DB::beginTransaction();
 
-            $userID = $request->input('user_id');
             $selectedJobs = $request->input('jobz');
 
             $user = User::findOrFail($userID);

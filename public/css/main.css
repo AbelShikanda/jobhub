@@ -466,58 +466,13 @@ section.section {
 
 /* App Content input fields */
 
-.app-content-form {
-  /* line-height:1.7em; */
+.breadcrumb .breadcrumb-item a {
+  color: #ffffff;
 }
-/* .input-label {
-  padding:0 1em;
-  margin: 0.25em;
-  float: left;
-  width: 100%;
-  border-radius:3px;
-  line-height:2.5em;
-  text-align:center;
-  background:#ffffff;
-  margin-left:0;
-  cursor: pointer;
-  box-shadow:
-  6.4px 7.3px 3.2px -32px rgba(0, 0, 0, 0.018),
-  8.4px 9.6px 6.1px -32px rgba(0, 0, 0, 0.019),
-  8.7px 9.9px 9.2px -32px rgba(0, 0, 0, 0.018),
-  14px 16px 13.5px -32px rgba(0, 0, 0, 0.018),
-  28.3px 32.2px 20.8px -32px rgba(0, 0, 0, 0.024),
-  50px 57px 33px -32px rgba(0, 0, 0, 0.07);
-  transition:0.5s;
-}
-.input-label:hover {
-  box-shadow:
-  0.1px 0px 3.6px rgba(0, 0, 0, 0.044),
-  0.1px 0px 4.7px rgba(0, 0, 0, 0.061),
-  0.2px 0px 5.3px rgba(0, 0, 0, 0.068),
-  0.2px 0px 6.4px rgba(0, 0, 0, 0.07),
-  0.3px 0px 8.5px rgba(0, 0, 0, 0.069),
-  0.5px 0px 11.7px rgba(0, 0, 0, 0.068),
-  1px 0px 16px rgba(0, 0, 0, 0.07);
-}
-.app-content-form input, textarea, select {
-  float:left;
-  clear:left;  
-  margin:0.25em 5em 0.25em -200%;
-}
-.app-content-form input:focus, textarea:focus, select:focus {
-  transition:0.5s;
-  margin:0.25em 0 ; 
-}
-.app-content-form input:focus + .input-label,
-.app-content-form textarea:focus + .input-label,
-.app-content-form select:focus + .input-label {
-  display: none;
-}
-.app-input:focus + .input-label,  .app-textarea:focus  + .input-label, .app-input:focus + select:focus {
-  margin-left:-30%;
-  transition:0.5s;
-} */
 
+.breadcrumb .breadcrumb-item a:active {
+  color: #ff0000;
+}
 
 
 /* profile edit form fields */

@@ -41,15 +41,21 @@ Route::group(['prefix' => '/admin_'], function() {
 // ADMIN PAGES ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::group(['middleware' => 'adminauth'], function() {
-    Route::resource('applicants', ApplicantsController::class);
-    Route::resource('organizations', OrganizationsController::class);
+    // jobs
     Route::resource('job', JobsController::class);
-    Route::resource('administrators', AdminController::class);
-    Route::resource('gallery', GalleryController::class);
     Route::resource('job_categories', JobsCategoryController::class);
+    // organizations
+    Route::resource('organizations', OrganizationsController::class);
     Route::resource('organizations_categories', OrganizationsCategoryController::class);
+    // applications
+    Route::resource('applicants', ApplicantsController::class);
+    // administrations
+    Route::resource('administrators', AdminController::class);
+    // gallery
+    Route::resource('gallery', GalleryController::class);
+    // progress
     Route::resource('progress', ProgressController::class);
-    // spartie permissions
+    // spartie permissions and roles
     Route::resource('permissions', PermissionsController::class);
     Route::resource('roles', RolesController::class);
 });
