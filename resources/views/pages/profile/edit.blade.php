@@ -1,22 +1,6 @@
 @extends('layouts.app_profile')
 
 @section('content')
-    <div class="content-wrapper">
-        <div class="content-wrapper-header">
-            <div class="content-wrapper-context">
-                <h3 class="img-content">
-                    <div class="profile-img">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="" style="padding-left: 10%">
-                        {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
-                    </div>
-                </h3>
-                <div class="content-text">Grab yourself jobs internationally and open up to oppotunities,
-                    that will help you get to the next level in your life.</div>
-            </div>
-            <img class="content-wrapper-img" src="https://assets.codepen.io/3364143/glass.png" alt="">
-        </div>
 
         @if (count($errors) > 0)
             <div class="alert alert-danger col-md-12">
@@ -71,60 +55,6 @@
                                     <input type="text" name="phone" onkeyup="this.setAttribute('value', this.value);"
                                         value="{{ $users->first()->phone }}" />
                                     <label> Phone:</label>
-                                </div>
-                                <div class="inputBox mt-3">
-                                    <div class="form row p-2" style="margin-left: 20px;">
-                                        <p for="certificate">Police Clearance</p>
-                                        <div class="custom-control custom-radio col">
-                                            <input type="radio" id="customRadio4" name="pcertificate"
-                                                class="custom-control-input" value="3"
-                                                @if ($users->first()->has_police_clearance == 3) checked @endif>
-                                            <label class="custom-control-label" for="customRadio4">Yes</label>
-                                        </div>
-                                        <div class="custom-control custom-radio col">
-                                            <input type="radio" id="customRadio5" name="pcertificate"
-                                                class="custom-control-input" value="2"
-                                                @if ($users->first()->has_police_clearance == 2) checked @endif>
-                                            <label class="custom-control-label" for="customRadio5">No</label>
-                                        </div>
-                                        <div class="custom-control custom-radio col">
-                                            <input type="radio" id="customRadio6" name="pcertificate"
-                                                class="custom-control-input" value="1"
-                                                @if ($users->first()->has_police_clearance == 1) checked @endif>
-                                            <label class="custom-control-label" for="customRadio6">Waiting</label>
-                                        </div>
-                                        <div class="custom-control custom-radio col">
-                                            <input type="radio" id="customRadio7" name="pcertificate"
-                                                class="custom-control-input" value="0"
-                                                @if ($users->first()->has_police_clearance == 0) checked @endif>
-                                            <label class="custom-control-label" for="customRadio7">It's
-                                                Old</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="inputBox  mt-3">
-                                    <div class="for row p-2" style="margin-left: 20px;">
-                                        <p for="Passport">Passport?</p>
-                                        <div class="custom-control custom-radio col">
-                                            <input type="radio" id="customRadio8" name="Passport"
-                                                class="custom-control-input" value="2"
-                                                @if ($users->first()->has_passport == 2) checked @endif>
-                                            <label class="custom-control-label" for="customRadio8">Yes</label>
-                                        </div>
-                                        <div class="custom-control custom-radio col">
-                                            <input type="radio" id="customRadio9" name="Passport"
-                                                class="custom-control-input" value="1"
-                                                @if ($users->first()->has_passport == 1) checked @endif>
-                                            <label class="custom-control-label" for="customRadio9">No</label>
-                                        </div>
-                                        <div class="custom-control custom-radio col">
-                                            <input type="radio" id="customRadio10" name="Passport"
-                                                class="custom-control-input" value="0"
-                                                @if ($users->first()->has_passport == 0) checked @endif>
-                                            <label class="custom-control-label" for="customRadio10">Waiting</label>
-                                        </div>
-                                    </div>
                                 </div>
                                 <hr>
                                 <div class="row mt-3">
@@ -200,6 +130,61 @@
                                                 <option @if ($languages->first()->proficiency == 'Fluent') selected @endif>Fluent</option>
                                                 <option @if ($languages->first()->proficiency == 'Native') selected @endif>Native</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="inputBox mt-3">
+                                    <div class="form row p-2" style="margin-left: 20px;">
+                                        <p for="certificate">Police Clearance</p>
+                                        <div class="custom-control custom-radio col">
+                                            <input type="radio" id="customRadio4" name="pcertificate"
+                                                class="custom-control-input" value="3"
+                                                @if ($users->first()->has_police_clearance == 3) checked @endif>
+                                            <label class="custom-control-label" for="customRadio4">Yes</label>
+                                        </div>
+                                        <div class="custom-control custom-radio col">
+                                            <input type="radio" id="customRadio5" name="pcertificate"
+                                                class="custom-control-input" value="2"
+                                                @if ($users->first()->has_police_clearance == 2) checked @endif>
+                                            <label class="custom-control-label" for="customRadio5">No</label>
+                                        </div>
+                                        <div class="custom-control custom-radio col">
+                                            <input type="radio" id="customRadio6" name="pcertificate"
+                                                class="custom-control-input" value="1"
+                                                @if ($users->first()->has_police_clearance == 1) checked @endif>
+                                            <label class="custom-control-label" for="customRadio6">Waiting</label>
+                                        </div>
+                                        <div class="custom-control custom-radio col">
+                                            <input type="radio" id="customRadio7" name="pcertificate"
+                                                class="custom-control-input" value="0"
+                                                @if ($users->first()->has_police_clearance == 0) checked @endif>
+                                            <label class="custom-control-label" for="customRadio7">It's
+                                                Old</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="inputBox  mt-3">
+                                    <div class="for row p-2" style="margin-left: 20px;">
+                                        <p for="Passport">Passport?</p>
+                                        <div class="custom-control custom-radio col">
+                                            <input type="radio" id="customRadio8" name="Passport"
+                                                class="custom-control-input" value="2"
+                                                @if ($users->first()->has_passport == 2) checked @endif>
+                                            <label class="custom-control-label" for="customRadio8">Yes</label>
+                                        </div>
+                                        <div class="custom-control custom-radio col">
+                                            <input type="radio" id="customRadio9" name="Passport"
+                                                class="custom-control-input" value="1"
+                                                @if ($users->first()->has_passport == 1) checked @endif>
+                                            <label class="custom-control-label" for="customRadio9">No</label>
+                                        </div>
+                                        <div class="custom-control custom-radio col">
+                                            <input type="radio" id="customRadio10" name="Passport"
+                                                class="custom-control-input" value="0"
+                                                @if ($users->first()->has_passport == 0) checked @endif>
+                                            <label class="custom-control-label" for="customRadio10">Waiting</label>
                                         </div>
                                     </div>
                                 </div>

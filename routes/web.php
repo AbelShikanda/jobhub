@@ -28,15 +28,18 @@ Route::get('/admin_', function () {
     return view('admin.dashboard');})
     ->middleware('adminauth');
 
-
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// ADMIN LOGIN ROUTES
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::group(['prefix' => '/admin_'], function() {
     Route::get('/login', [AdminAuthController::class, 'getLogin'])->name('getLogin');
     Route::post('/login', [AdminAuthController::class, 'postLogin'])->name('postLogin');
     Route::post('/logout', [AdminAuthController::class, 'adminLogout'])->name('adminLogout');
     Route::resource('/dashboard', DashboardController::class)->middleware('adminauth');
 });
-
-
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// ADMIN PAGES ROUTES
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::group(['middleware' => 'adminauth'], function() {
     Route::resource('applicants', ApplicantsController::class);
     Route::resource('organizations', OrganizationsController::class);
@@ -50,25 +53,32 @@ Route::group(['middleware' => 'adminauth'], function() {
     Route::resource('permissions', PermissionsController::class);
     Route::resource('roles', RolesController::class);
 });
-
-
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Auth::routes();
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // HOME ROUTES
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // PAGES ROUTES
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::get('/about', [PagesController::class, 'about'])->name('about');
 Route::get('/jobs', [PagesController::class, 'jobs'])->name('jobs');
 Route::get('/jobsCategory/{id}', [PagesController::class, 'jobsCategory'])->name('jobsCategory');
 Route::get('/job_details', [PagesController::class, 'job_details'])->name('job_details');
 Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
-
-// PROFILE ROUTE
-// Route::get('/profile_category', [ProfileController::class, 'profile_category'])->name('profile_category');
-// Route::get('/profile_category{id}', [ProfileController::class, 'profileCategory'])->name('profileCategory');
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// PROFILE ROUTES
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::resource('profile', ProfileController::class);
-
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// APPLICANT'S APPLICATION ROUTES
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::resource('applications', ApplicationsController::class);
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// CONTACT ROUTES
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::resource('contacts', ContactsController::class);
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

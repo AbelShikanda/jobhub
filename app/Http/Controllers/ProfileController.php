@@ -77,7 +77,7 @@ class ProfileController extends Controller
 
         $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
         // $categories = JobsCategories::all();
-        // dd($jobs);
+        // dd($categories);
 
         return view(
             'pages.profile.profile',
@@ -118,7 +118,47 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        $user_id = auth()->user()->id;
+
+        $appliedJobsId = job_user::all()
+            ->where('user_id', $user_id)
+            ->pluck('job_id');
+
+        $appliedJobsCategoriesId = Jobs::all()
+            ->whereIn('job_category_id', $appliedJobsId)
+            ->pluck('job_category_id')
+            ->toArray();
+
+        $jobs = Jobs::selectRaw('jobs.*')
+            ->addSelect('organizations.Org_Name AS org_name')
+            ->addSelect('organizations.website AS site')
+            ->addSelect('organizations.Country AS country')
+            ->addSelect('organizations.Description AS description')
+            ->addSelect('organizations.Founded_Date AS fdate')
+            ->addSelect('jobs_categories.name AS category_name')
+            ->join('organizations', 'jobs.org_id', '=', 'organizations.id')
+            ->join('jobs_categories', 'jobs.job_category_id', '=', 'jobs_categories.id')
+            ->where('jobs.job_category_id', $id)
+            ->latest()
+            ->paginate(10);
+
+        // if ($jobs->isEmpty()) {
+        //     // No jobs found for the given category_id
+        //     // You can return a view with a message or redirect the user to another page
+        //     return view('pages.noJobsFound');
+        // }
+
+        $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
+        // $categories = JobsCategories::all();
+        // dd($appliedJobsId);
+
+        return view(
+            'pages.profile.profile_categories',
+            [
+                'jobs' => $jobs,
+                'categories' => $categories,
+            ]
+        );
     }
 
     /**
@@ -324,25 +364,6 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function profile_category()
-    {
-        $categories = JobsCategories::all();
-        return view(
-            'pages.profile.profile_categories',
-            [
-                // 'organizations' => $paginator,
-                'categories' => $categories,
-            ]
-        );
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -350,51 +371,23 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        // Find the user by ID
+        $user = User::findOrFail($id);
 
-    public function profileCategory($category_id)
-    {
-        $user_id = auth()->user()->id;
+        // Get the current jobs (assuming they are stored as a JSON array)
+        $jobs = json_decode($user->preferred_industry, true);
+        dd($jobs);
 
-        $appliedJobsId = job_user::all()
-            ->where('user_id', $user_id)
-            ->pluck('job_id');
+        // Remove the job ID from the array
+        if (($key = array_search($id, $jobs)) !== false) {
+            unset($jobs[$key]);
+        }
 
-        $appliedJobsCategoriesId = Jobs::all()
-            ->whereIn('job_category_id', $appliedJobsId)
-            ->pluck('job_category_id')
-            ->toArray();
+        // Update the user's jobs column
+        $user->preferred_industry = json_encode(array_values($jobs)); // Re-index the array and encode back to JSON
+        $user->save();
 
-        $jobs = Jobs::selectRaw('jobs.*')
-            ->addSelect('organizations.Org_Name AS org_name')
-            ->addSelect('organizations.website AS site')
-            ->addSelect('organizations.Country AS country')
-            ->addSelect('organizations.Description AS description')
-            ->addSelect('organizations.Founded_Date AS fdate')
-            ->addSelect('jobs_categories.name AS category_name')
-            ->join('organizations', 'jobs.org_id', '=', 'organizations.id')
-            ->join('jobs_categories', 'jobs.job_category_id', '=', 'jobs_categories.id')
-            ->where('jobs.job_category_id', $category_id)
-            ->latest()
-            ->paginate(10);
-
-        // if ($jobs->isEmpty()) {
-        //     // No jobs found for the given category_id
-        //     // You can return a view with a message or redirect the user to another page
-        //     return view('pages.noJobsFound');
-        // }
-
-        $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
-        // $categories = JobsCategories::all();
-        // dd($appliedJobsId);
-
-        return view(
-            'pages.profile.profile_categories',
-            [
-                'jobs' => $jobs,
-                'categories' => $categories,
-            ]
-        );
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Job removed successfully');
     }
 }

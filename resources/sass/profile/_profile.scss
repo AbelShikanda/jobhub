@@ -14,7 +14,7 @@
  --hover-menu-bg: rgba(12 15 25 / 30%);
  --content-title-color: #999ba5;
  --content-bg: rgb(146 151 179 / 13%);
- --button-inactive: rgb(249 250 251 / 55%);
+ --button-inactive: rgba(0, 0, 0, 0.55);
  --dropdown-profile-bg: #21242d;
  --dropdown-profile-hover: rgb(42 46 60);
  --popup-bg: rgb(22 25 37);
@@ -777,14 +777,14 @@ img {
  display: flex;
  align-items: center;
  flex-wrap: wrap;
- width: calc(100% + 20px);
+ width: 100%;
 }
 
 .app-card {
  display: flex;
  overflow:hidden;
  flex-direction: column;
- width: 100%;
+ min-width: 100%;
  font-size: 16px;
  background-color: var(--content-bg);
  border-radius: 14px;
