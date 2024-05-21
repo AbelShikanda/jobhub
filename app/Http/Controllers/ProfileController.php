@@ -299,9 +299,10 @@ class ProfileController extends Controller
             ]);
 
             $selectedJobs = $request->input('jobz');
-            dd($selectedJobs);
+            // dd($selectedJobs);
+            job_user::where('user_id', $id)->delete();
             foreach ($selectedJobs as $jobs) {
-                job_user::where('user_id', $id)->update([
+                job_user::create([
                     'job_id' => $jobs,
                     'user_id' =>  $user->id,
                 ]);
