@@ -393,7 +393,7 @@
                                     </div>
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio5" name="certificate"
-                                            class="custom-control-input" value="2">
+                                            class="custom-control-input" value="0">
                                         <label class="custom-control-label" for="customRadio5">No</label>
                                     </div>
                                     <div class="custom-control custom-radio">
@@ -403,7 +403,7 @@
                                     </div>
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio7" name="certificate"
-                                            class="custom-control-input" value="0">
+                                            class="custom-control-input" value="2">
                                         <label class="custom-control-label" for="customRadio7">Older than 4 months (to
                                             be
                                             renewed)</label>
@@ -427,12 +427,12 @@
                                     </div>
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio9" name="Passport"
-                                            class="custom-control-input" value="1">
+                                            class="custom-control-input" value="0">
                                         <label class="custom-control-label" for="customRadio9">No</label>
                                     </div>
                                     <div class="custom-control custom-radio">
                                         <input type="radio" id="customRadio10" name="Passport"
-                                            class="custom-control-input" value="0">
+                                            class="custom-control-input" value="1">
                                         <label class="custom-control-label" for="customRadio10">Waiting</label>
                                     </div>
                                 </div>

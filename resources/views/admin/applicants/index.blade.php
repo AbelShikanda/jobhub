@@ -50,11 +50,11 @@
                                                 <td>{{ $applicant->phone }}</td>
                                                 <td>
                                                     @if ($applicant->has_police_clearance === 0)
-                                                        <span class="badge badge-danger">No</span>
+                                                    <span class="badge badge-danger">No</span>
                                                     @elseif ($applicant->has_police_clearance === 1)
-                                                        <span class="badge badge-warning">Waiting</span>
+                                                    <span class="badge badge-info">Waiting</span>
                                                     @elseif ($applicant->has_police_clearance === 2)
-                                                        <span class="badge badge-info">Renewing</span>
+                                                    <span class="badge badge-warning">Old</span>
                                                     @elseif ($applicant->has_police_clearance === 3)
                                                         <span class="badge badge-success">Yes</span>
                                                     @endif
@@ -72,9 +72,9 @@
                                                 </td>
                                                 <td>
                                                     @if ($applicant->has_passport === 0)
-                                                        <span class="badge badge-danger">No</span>
+                                                    <span class="badge badge-danger">No</span>
                                                     @elseif ($applicant->has_passport === 1)
-                                                        <span class="badge badge-warning">Waiting</span>
+                                                    <span class="badge badge-warning">Waiting</span>
                                                     @elseif ($applicant->has_passport === 2)
                                                         <span class="badge badge-success">Yes</span>
                                                     @endif

@@ -144,8 +144,8 @@
                                         </div>
                                         <div class="custom-control custom-radio col">
                                             <input type="radio" id="customRadio5" name="pcertificate"
-                                                class="custom-control-input" value="2"
-                                                @if ($users->first()->has_police_clearance == 2) checked @endif>
+                                                class="custom-control-input" value="0"
+                                                @if ($users->first()->has_police_clearance == 0) checked @endif>
                                             <label class="custom-control-label" for="customRadio5">No</label>
                                         </div>
                                         <div class="custom-control custom-radio col">
@@ -156,8 +156,8 @@
                                         </div>
                                         <div class="custom-control custom-radio col">
                                             <input type="radio" id="customRadio7" name="pcertificate"
-                                                class="custom-control-input" value="0"
-                                                @if ($users->first()->has_police_clearance == 0) checked @endif>
+                                                class="custom-control-input" value="2"
+                                                @if ($users->first()->has_police_clearance == 2) checked @endif>
                                             <label class="custom-control-label" for="customRadio7">It's
                                                 Old</label>
                                         </div>
@@ -175,14 +175,14 @@
                                         </div>
                                         <div class="custom-control custom-radio col">
                                             <input type="radio" id="customRadio9" name="Passport"
-                                                class="custom-control-input" value="1"
-                                                @if ($users->first()->has_passport == 1) checked @endif>
+                                                class="custom-control-input" value="0"
+                                                @if ($users->first()->has_passport == 0) checked @endif>
                                             <label class="custom-control-label" for="customRadio9">No</label>
                                         </div>
                                         <div class="custom-control custom-radio col">
                                             <input type="radio" id="customRadio10" name="Passport"
-                                                class="custom-control-input" value="0"
-                                                @if ($users->first()->has_passport == 0) checked @endif>
+                                                class="custom-control-input" value="1"
+                                                @if ($users->first()->has_passport == 1) checked @endif>
                                             <label class="custom-control-label" for="customRadio10">Waiting</label>
                                         </div>
                                     </div>
