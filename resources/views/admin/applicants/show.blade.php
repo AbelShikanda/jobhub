@@ -105,13 +105,11 @@
                                                                     <td>Police Clearance</td>
                                                                     <td><span class="badge bg-">
                                                                             @if ($user->has_police_clearance === 0)
-                                                                                <span class="badge badge-warning">Old</span>
+                                                                                <span class="badge badge-danger">No</span>
                                                                             @elseif ($user->has_police_clearance === 1)
-                                                                                <span
-                                                                                    class="badge badge-info">Waiting</span>
+                                                                                <span class="badge badge-info">Waiting</span>
                                                                             @elseif ($user->has_police_clearance === 2)
-                                                                                <span
-                                                                                    class="badge badge-danger">No</span>
+                                                                                <span class="badge badge-warning">Old</span>
                                                                             @elseif ($user->has_police_clearance === 3)
                                                                                 <span class="badge badge-success">Yes</span>
                                                                             @endif
@@ -125,8 +123,7 @@
                                                                             @if ($user->has_passport === 0)
                                                                                 <span class="badge badge-danger">No</span>
                                                                             @elseif ($user->has_passport === 1)
-                                                                                <span
-                                                                                    class="badge badge-warming">Waiting</span>
+                                                                                <span class="badge badge-info">Waiting</span>
                                                                             @elseif ($user->has_passport === 2)
                                                                                 <span class="badge badge-success">Yes</span>
                                                                             @endif
@@ -140,15 +137,21 @@
                                                                         <span class="badge bg-">
                                                                             @if ($agree !== null)
                                                                                 @if ($agree->agreement_type == 0)
-                                                                                    <span class="badge badge-danger">disagree</span>
+                                                                                    <span
+                                                                                        class="badge badge-danger">disagree</span>
                                                                                 @elseif ($agree->agreement_type == 1)
-                                                                                    <span class="badge badge-success">agree</span>
+                                                                                    <span
+                                                                                        class="badge badge-success">agree</span>
                                                                                 @else
                                                                                     {{-- Add a debug statement to see if this block is reached --}}
-                                                                                    <span class="badge badge-info">Unexpected value: {{ $agree->agreement_type }}</span>
+                                                                                    <span
+                                                                                        class="badge badge-info">Unexpected
+                                                                                        value:
+                                                                                        {{ $agree->agreement_type }}</span>
                                                                                 @endif
                                                                             @else
-                                                                                <span class="badge badge-warning">No agreement</span>
+                                                                                <span class="badge badge-warning">No
+                                                                                    agreement</span>
                                                                             @endif
                                                                         </span>
                                                                     </td>

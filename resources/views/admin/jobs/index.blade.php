@@ -56,20 +56,20 @@
 
                                                     <td class="project-actions text-right d-flex justify-content-between">
                                                         <a class="btn btn-primary btn-sm"
-                                                            href="{{ route('organizations.show', $work->id) }}">
+                                                            href="{{ route('job.show', $work->id) }}">
                                                             <i class="fas fa-folder">
                                                             </i>
                                                             View
                                                         </a>
                                                         <a class="btn btn-info btn-sm"
-                                                            href="{{ route('organizations.edit', $work->id) }}">
+                                                            href="{{ route('job.edit', $work->id) }}">
                                                             <i class="fas fa-pencil-alt">
                                                             </i>
                                                             Edit
                                                         </a>
                                                         {!! Form::open([
                                                             'method' => 'DELETE',
-                                                            'route' => ['organizations.destroy', $work->id],
+                                                            'route' => ['job.destroy', $work->id],
                                                             'style' => 'display:inline',
                                                         ]) !!}
                                                         <button type="submit" class="btn btn-danger btn-sm">

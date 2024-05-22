@@ -110,8 +110,9 @@ class JobsController extends Controller
      */
     public function show($id)
     {
+        $jobs = Jobs::where('id', $id)->get();
         return view('admin.jobs.show')->with([
-            // 'users' => $users
+            'jobs' => $jobs
         ]);
     }
 
@@ -185,8 +186,8 @@ class JobsController extends Controller
      */
     public function destroy($id)
     {
-        $category = Jobs::find($id);
-        $category->delete();
-        return redirect()->route('job.index')->with('message', 'Category Deleted Successfully.');
+        $job = Jobs::find($id);
+        $job->delete();
+        return redirect()->route('job.index')->with('message', 'Job Deleted Successfully.');
     }
 }

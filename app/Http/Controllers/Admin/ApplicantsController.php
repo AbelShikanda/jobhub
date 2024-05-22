@@ -106,12 +106,7 @@ class ApplicantsController extends Controller
         $certificates = Certificates::where('user_id', $id)->latest()->first();
         $languages = Language::where('user_id', $id)->latest()->first();
 
-        // $preferredlanguages = $languages->first()->language;
-        // $preferredlanguagesArray = explode(', ', $preferredlanguages);
-
-        $preferredlanguagesArray = [];
-
-        if ($languages !== null && !$languages->count() > 0) {
+        if ($languages !== null && $languages->count() > 0) {
             $preferredlanguages = $languages->first()->language;
             if ($preferredlanguages !== null && $preferredlanguages !== '') {
                 $preferredlanguagesArray = explode(', ', $preferredlanguages);
@@ -119,12 +114,8 @@ class ApplicantsController extends Controller
         } else {
             $preferredlanguagesArray = [];
         }
-
-        $userPreferredJobIds = $user->first()->preferred_industry;
-        // $userPreferredJobIds = json_decode($userPreferredJobIds);
-        // foreach ($userPreferredJobIds as &$jobId) {
-        //     $jobId = intval($jobId);
-        // }
+        
+        $userPreferredJobIds = $user->preferred_industry;
         if (!is_null($userPreferredJobIds) && $userPreferredJobIds !== '' && $userPreferredJobIds !== 'null') {
             $userPreferredJobIds = json_decode($userPreferredJobIds);
 
@@ -150,7 +141,7 @@ class ApplicantsController extends Controller
         } else {
             $fileName = null;
         }
-        // dd($agree->agreement_type);
+        // dd($preferredIndustries);
 
         return view('admin.applicants.show')->with([
             'user' => $user,
