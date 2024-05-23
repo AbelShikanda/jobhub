@@ -33,7 +33,8 @@
                                 <div class="col-12">
                                     <h4>
                                         <i class="fas fa-globe"></i> {{ $orgs->Org_Name }}
-                                        <small class="float-right"><strong>Founded_Date: </strong>{{ $orgs->Founded_Date }}</small>
+                                        <small class="float-right"><strong>Founded_Date:
+                                            </strong>{{ $orgs->Founded_Date }}</small>
                                     </h4>
                                 </div>
                                 <!-- /.col -->
@@ -99,16 +100,19 @@
 
                                     <div class="table-responsive">
                                         <table class="table">
-                                            @if ($applicants->count() > 0)
-                                                @foreach ($applicants as $data)
-                                                    <tr>
-                                                        <th style="width:50%">{{ $data->first_name }} {{ $data->last_name }}</th>
-                                                        <td>{{ $data->phone }}</td>
-                                                        <td>{{ $data->country }}</td>
-                                                    </tr>
+                                            @if ($groupedUsers)
+                                                @foreach ($groupedUsers as $jobId => $users)
+                                                    @foreach ($users as $user)
+                                                        <tr>
+                                                            <th style="width:50%">{{ $user->first_name }}
+                                                                {{ $user->last_name }}</th>
+                                                            <td>{{ $user->phone }}</td>
+                                                            <td>{{ $user->country }}</td>
+                                                        </tr>
+                                                    @endforeach
                                                 @endforeach
                                             @else
-                                                    <p>all portential applications will be visible here</p>
+                                                <p>all portential applications will be visible here</p>
                                             @endif
                                         </table>
                                     </div>

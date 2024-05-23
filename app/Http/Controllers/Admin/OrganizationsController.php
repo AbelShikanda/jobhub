@@ -8,6 +8,7 @@ use App\Models\job_user;
 use App\Models\Jobs;
 use App\Models\organization_organization_category;
 use App\Models\Organizations;
+use App\Models\Organizations_jobs;
 use App\Models\OrganizationsCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -77,7 +78,7 @@ class OrganizationsController extends Controller
                 'org_category_id' => $request->input('category'),
             ]);
 
-            if(!$organizations){
+            if (!$organizations) {
                 DB::rollBack();
 
                 return back()->with('message', 'Something went wrong while saving user data');
@@ -85,8 +86,6 @@ class OrganizationsController extends Controller
 
             DB::commit();
             return redirect()->route('organizations.index')->with('message', 'Category Stored Successfully.');
-
-
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
@@ -103,15 +102,33 @@ class OrganizationsController extends Controller
     {
         $orgs = Organizations::find($id);
         $jobs = Jobs::where('org_id', $id)->get();
-        $portentialApplicantID = job_user::where('job_id', $id)->pluck('user_id');
-        $applicants = User::whereIn('id', $portentialApplicantID)->get();
 
-        // dd($applicants);
+        $jobIds = Organizations_jobs::where('org_id', $id)->pluck('job_id')->all();
+        // dd($jobId);
+
+        $groupedUsers = [];
+
+        if ($jobIds) {
+            // dd('something');
+            // Step 2: Loop through each job ID and get the users
+            foreach ($jobIds as $jobId) {
+                $jobIdString = (string) $jobId;
+                $users = User::whereJsonContains('preferred_industry', $jobIdString)->get();
+                foreach ($users as $user) {
+                    if (!isset($groupedUsers[$jobId])) {
+                        $groupedUsers[$jobId] = [];
+                    }
+                    $groupedUsers[$jobId][] = $user;
+                }
+            }
+        }
+
+        // dd($jobIds);
 
         return view('admin.orgs.show')->with([
             'orgs' => $orgs,
             'jobs' => $jobs,
-            'applicants' => $applicants,
+            'groupedUsers' => $groupedUsers,
         ]);
     }
 
@@ -169,7 +186,7 @@ class OrganizationsController extends Controller
                 'org_category_id' => $request->input('category'),
             ]);
 
-            if(!$organizations){
+            if (!$organizations) {
                 DB::rollBack();
 
                 return back()->with('message', 'Something went wrong while saving user data');
@@ -177,8 +194,6 @@ class OrganizationsController extends Controller
 
             DB::commit();
             return redirect()->route('organizations.show', $id)->with('message', 'Category Stored Successfully.');
-
-
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;

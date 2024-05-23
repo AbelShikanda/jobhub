@@ -29,7 +29,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <strong><i class="fas fa-book mr-1"></i> Job Title</strong>
+                                <strong><i class="fas fa-book mr-1"></i> Job Description</strong>
 
                                 <p class="text-muted">
                                     {{ $jobs->first()->description }}

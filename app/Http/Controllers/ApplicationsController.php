@@ -143,13 +143,13 @@ class ApplicationsController extends Controller
 
         try {
             DB::beginTransaction();
-            // Logic For Save User Data
+            
+            $selectedplatform = $request->input('platform', []);
+            $platformString = is_array($selectedplatform) ? implode(', ', $selectedplatform) : '';
 
-            $selectedplatform = $request->input('platform');
-            // Convert the selected platform array to a string
-            $platformString = implode(', ', $selectedplatform);
+            // dd($preferredIndustryString);
 
-            $update_user = User::where('id', $id)->create([
+            $update_user = User::where('id', $id)->update([
                 'gender' => $request->input('gender'),
                 'phone' => $request->input('phoneNumber'),
                 'date_of_birth' => $request->input('selectedDobDate'),

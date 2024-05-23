@@ -369,10 +369,10 @@
                                     <div class="col-sm-8">
                                         <select class="form-control validate" id="level" name="plevel" required>
                                             <option value="" disabled selected>Proficiency</option>
-                                            <option value="Tiktok">Beginner</option>
-                                            <option value="English">Advanced</option>
-                                            <option value="French">Fluent</option>
-                                            <option value="Arabic">Native</option>
+                                            <option value="Beginner">Beginner</option>
+                                            <option value="Advanced">Advanced</option>
+                                            <option value="Fluent">Fluent</option>
+                                            <option value="Native">Native</option>
                                         </select>
                                     </div>
                                 </div>
@@ -452,7 +452,7 @@
                                     <div class="col-sm-8">
                                         <select id="inputGroupSelect06" name="platform[]"
                                             placeholder="Where did you find us" multiple>
-                                            <option value="Kiswahili">Tiktok</option>
+                                            <option value="Tiktok">Tiktok</option>
                                             <option value="Instagram">Instagram</option>
                                             <option value="Facebook">Facebook</option>
                                             <option value="LinkedIn">LinkedIn</option>
