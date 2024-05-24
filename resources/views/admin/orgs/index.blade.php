@@ -45,39 +45,39 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($work as $work)
-                                            @foreach ($work->categories as $category)
-                                                <tr>
-                                                    <td>{{ $work->Org_Name }}</td>
-                                                    <td>
+                                            <tr>
+                                                <td>{{ $work->Org_Name }}</td>
+                                                <td>
+                                                    @foreach ($work->categories as $category)
                                                         {{ $category->name }}
-                                                    </td>
-                                                    <td>{{ $work->Country }}</td>
+                                                    @endforeach
+                                                </td>
+                                                <td>{{ $work->Country }}</td>
 
-                                                    <td class="project-actions text-right d-flex justify-content-between">
-                                                        <a class="btn btn-primary btn-sm"
-                                                            href="{{ route('organizations.show', $work->id) }}">
-                                                            <i class="fas fa-folder">
-                                                            </i>
-                                                            View
-                                                        </a>
-                                                        <a class="btn btn-info btn-sm"
-                                                            href="{{ route('organizations.edit', $work->id) }}">
-                                                            <i class="fas fa-pencil-alt">
-                                                            </i>
-                                                            Edit
-                                                        </a>
-                                                        {!! Form::open([
-                                                            'method' => 'DELETE',
-                                                            'route' => ['organizations.destroy', $work->id],
-                                                            'style' => 'display:inline',
-                                                        ]) !!}
-                                                        <button type="submit" class="btn btn-danger btn-sm">
-                                                            <i class="fas fa-trash"></i> Delete
-                                                        </button>
-                                                        {!! Form::close() !!}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                                <td class="project-actions text-right d-flex justify-content-between">
+                                                    <a class="btn btn-primary btn-sm"
+                                                        href="{{ route('organizations.show', $work->id) }}">
+                                                        <i class="fas fa-folder">
+                                                        </i>
+                                                        View
+                                                    </a>
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('organizations.edit', $work->id) }}">
+                                                        <i class="fas fa-pencil-alt">
+                                                        </i>
+                                                        Edit
+                                                    </a>
+                                                    {!! Form::open([
+                                                        'method' => 'DELETE',
+                                                        'route' => ['organizations.destroy', $work->id],
+                                                        'style' => 'display:inline',
+                                                    ]) !!}
+                                                    <button type="submit" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                    {!! Form::close() !!}
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                     <tfoot>

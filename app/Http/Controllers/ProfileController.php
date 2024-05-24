@@ -42,8 +42,8 @@ class ProfileController extends Controller
     public function index()
     {
         $user_id = auth()->user()->id;
-        $jobsId = job_user::all()
-            ->where('user_id', $user_id)
+        // dd($user_id);
+        $jobsId = job_user::where('user_id', $user_id)
             ->pluck('job_id');
 
         $agreementType = "1";
@@ -76,8 +76,6 @@ class ProfileController extends Controller
             ->get();
 
         $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
-        // $categories = JobsCategories::all();
-        // dd($categories);
 
         return view(
             'pages.profile.profile',
@@ -138,7 +136,7 @@ class ProfileController extends Controller
             ->addSelect('jobs_categories.name AS category_name')
             ->join('organizations', 'jobs.org_id', '=', 'organizations.id')
             ->join('jobs_categories', 'jobs.job_category_id', '=', 'jobs_categories.id')
-            ->where('jobs.job_category_id', $id)
+            ->where('jobs.id', $id)
             ->latest()
             ->paginate(10);
 
@@ -230,9 +228,6 @@ class ProfileController extends Controller
             ->whereIn('job_category_id', $appliedJobsId)
             ->pluck('job_category_id')
             ->toArray();
-
-        // dd($preferredIndustriesID);
-        // var_dump($preferredIndustriesID);
 
         $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
 

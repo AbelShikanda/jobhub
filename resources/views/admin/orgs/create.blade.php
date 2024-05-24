@@ -25,6 +25,14 @@
             </div>
         @endif
 
+        <div class="pt-3">
+            @if (session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+        </div>
+
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">

@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Organizations</h1>
+                        <h1>Organizations ( {{ $orgs->Org_Name }} )</h1>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -111,10 +111,15 @@
                                                                                 <label>Country</label>
                                                                                 <select class="form-control select2"
                                                                                     style="width: 100%;" name="country">
+                                                                                    @if ($users->first())
+                                                                                        <option value="{{ $users->first()->country }}" selected>
+                                                                                            {{ $users->first()->country }}</option>
+                                                                                    @endif
                                                                                     @foreach ($countries as $country)
-                                                                                        <option value="{{ $country->id }}"
-                                                                                            @selected(old('country') == $country)>
-                                                                                            {{ $country->name }}</option>
+                                                                                        <option value="{{ $country->name }}"
+                                                                                            @if (old('country') == $country->name) selected @endif>
+                                                                                            {{ $country->name }}
+                                                                                        </option>
                                                                                     @endforeach
                                                                                 </select>
                                                                             </div>
@@ -122,15 +127,15 @@
                                                                                 <label for="dob"
                                                                                     class="col-sm-3 col-form-label text-dark">Founded
                                                                                     Date</label>
-                                                                                <div class="col-sm-9">
-                                                                                    <input type="datetime-local"
-                                                                                        id="dob" name="selectedDate"
-                                                                                        class="form-control text-dark"
-                                                                                        type="text" id="selectedDate"
-                                                                                        value="">
-                                                                                    <input type="text" id="endDate"
-                                                                                        value="0" hidden="true">
-                                                                                </div>
+                                                                                    <?php
+                                                                                    $dob = $orgs->Founded_Date ? date('Y-m-d\TH:i', strtotime($orgs->Founded_Date)) : '';
+                                                                                    ?>
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-8 form-control">
+                                                                                            <input type="datetime-local" name="selectedDate"
+                                                                                                value="{{ $dob }}" />
+                                                                                        </div>
+                                                                                    </div>
                                                                             </div>
                                                                         </div>
                                                                     </td>
@@ -155,8 +160,7 @@
                                                                     <td>
                                                                         <div class="row">
                                                                             <div class="form-group col-12">
-                                                                                <textarea class="form-control" id="experience" rows="3" name="desc" required
-                                                                                    placeholder="Add organization's description">{{ $orgs->Description }}</textarea>
+                                                                                    <textarea class="form-control" id="Desc" rows="3" name="desc" placeholder="">{{ old('desc', $orgs->Description) }}</textarea>
                                                                             </div>
                                                                         </div>
                                                                     </td>

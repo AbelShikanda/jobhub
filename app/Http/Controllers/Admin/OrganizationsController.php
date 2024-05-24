@@ -24,7 +24,10 @@ class OrganizationsController extends Controller
      */
     public function index()
     {
-        $work = Organizations::orderByDesc('created_at')->with('categories')->get();
+        $work = Organizations::orderByDesc('created_at')
+        ->with('categories')
+        ->get();
+        // dd($work);
         return view('admin.orgs.index')->with([
             'work' => $work,
         ]);
@@ -143,10 +146,12 @@ class OrganizationsController extends Controller
         $categories = OrganizationsCategory::all();
         $countries = ModelsCountry::all();
         $orgs = Organizations::find($id);
+        $users = User::find($id);
         return view('admin.orgs.edit')->with([
             'orgs' => $orgs,
             'categories' => $categories,
             'countries' => $countries,
+            'users' => $users,
         ]);
     }
 
@@ -168,11 +173,24 @@ class OrganizationsController extends Controller
             'desc' => '',
         ]);
 
+
+        // $data = $request->only([
+        //     'eName',
+        //     'category',
+        //     'website',
+        //     'country',
+        //     'selectedDate',
+        //     'desc', 
+        // ]);
+        // dd($data);
+
         try {
             DB::beginTransaction();
             // Logic For Save User Data
 
-            $organizations = Organizations::create([
+            $organizations = Organizations::find($id);
+
+            $organizations->update([
                 'Org_Name' => $request->input('eName'),
                 'Website' => $request->input('website'),
                 'Country' => $request->input('country'),
@@ -181,10 +199,13 @@ class OrganizationsController extends Controller
                 'org_category_id' => $request->input('category'),
             ]);
 
+            // dd($selectedJobs);
+            organization_organization_category::where('org_id', $id)->delete();
             organization_organization_category::create([
                 'org_id' => $organizations->id,
                 'org_category_id' => $request->input('category'),
             ]);
+
 
             if (!$organizations) {
                 DB::rollBack();
@@ -193,7 +214,7 @@ class OrganizationsController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('organizations.show', $id)->with('message', 'Category Stored Successfully.');
+            return back()->with('message', 'Category Stored Successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
@@ -208,8 +229,8 @@ class OrganizationsController extends Controller
      */
     public function destroy($id)
     {
-        $category = Organizations::find($id);
-        $category->delete();
+        $organization = Organizations::find($id);
+        $organization->delete();
         return redirect()->route('organizations.index')->with('message', 'Category Deleted Successfully.');
     }
 }

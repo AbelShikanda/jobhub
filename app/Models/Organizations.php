@@ -28,7 +28,7 @@ class Organizations extends Model
     */
     public function categories()
     {
-        return $this->belongsToMany(OrganizationsCategory::class, 'organization_organization_category', 'org_id', 'id');
+        return $this->belongsToMany(OrganizationsCategory::class, 'organization_organization_category', 'org_id', 'org_category_id');
     }
     
     public function jobs()
