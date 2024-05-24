@@ -60,6 +60,10 @@
                                                                                 <label>Category</label>
                                                                                 <select class="form-control select2"
                                                                                     style="width: 100%;" name="category">
+                                                                                    @if ($orgsCategories)
+                                                                                        <option value="{{ $orgsCategories->id }}" selected>
+                                                                                            {{ $orgsCategories->name }}</option>
+                                                                                    @endif
                                                                                     @foreach ($categories as $category)
                                                                                         <option value="{{ $category->id }}"
                                                                                             @selected(old('category') == $category)>

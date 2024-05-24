@@ -88,7 +88,7 @@ class OrganizationsController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('organizations.index')->with('message', 'Category Stored Successfully.');
+            return redirect()->route('organizations.index')->with('message', 'Organization Stored Successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
@@ -144,6 +144,8 @@ class OrganizationsController extends Controller
     public function edit($id)
     {
         $categories = OrganizationsCategory::all();
+        $orgsCategoriesId = Organizations::find($id)->org_category_id;
+        $orgsCategories = OrganizationsCategory::find($orgsCategoriesId);
         $countries = ModelsCountry::all();
         $orgs = Organizations::find($id);
         $users = User::find($id);
@@ -152,6 +154,7 @@ class OrganizationsController extends Controller
             'categories' => $categories,
             'countries' => $countries,
             'users' => $users,
+            'orgsCategories' => $orgsCategories,
         ]);
     }
 
@@ -214,7 +217,7 @@ class OrganizationsController extends Controller
             }
 
             DB::commit();
-            return back()->with('message', 'Category Stored Successfully.');
+            return redirect()->route('organizations.index')->with('message', 'Organization updated Successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
@@ -231,6 +234,6 @@ class OrganizationsController extends Controller
     {
         $organization = Organizations::find($id);
         $organization->delete();
-        return redirect()->route('organizations.index')->with('message', 'Category Deleted Successfully.');
+        return redirect()->route('organizations.index')->with('message', 'Organization Deleted Successfully.');
     }
 }

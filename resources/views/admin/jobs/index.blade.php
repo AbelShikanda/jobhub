@@ -14,6 +14,25 @@
             </div><!-- /.container-fluid -->
         </section>
 
+        @if (count($errors) > 0)
+            <div class="alert alert-danger col-md-8 offset-md-3">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <div class="pt-3">
+            @if (session()->has('message'))
+                <div class="alert alert-success">
+                    {{ session()->get('message') }}
+                </div>
+            @endif
+        </div>
+
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">

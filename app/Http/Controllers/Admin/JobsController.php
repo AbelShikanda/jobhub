@@ -9,6 +9,7 @@ use App\Models\JobsCategories;
 use App\Models\Organizations;
 use App\Models\Organizations_jobs;
 use App\Models\OrganizationsCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -93,7 +94,7 @@ class JobsController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('job.index')->with('message', 'Category Stored Successfully.');
+            return redirect()->route('job.index')->with('message', 'Job Stored Successfully.');
 
 
         } catch (\Throwable $th) {
@@ -124,8 +125,21 @@ class JobsController extends Controller
      */
     public function edit($id)
     {
+        $jobsCategories = JobsCategories::find($id);
+        $currentOrgsIds = Jobs::find($id)->org_id;
+        $currentOrgs = Organizations::find($currentOrgsIds);
+        $users = User::find($id);
+
+        $categories = JobsCategories::all();
+        $organizations = Organizations::all();
+        $jobs = Jobs::find($id);
         return view('admin.jobs.edit')->with([
-            // 'users' => $users
+            'categories' => $categories,
+            'organizations' => $organizations,
+            'jobsCategories' => $jobsCategories,
+            'currentOrgs' => $currentOrgs,
+            'users' => $users,
+            'jobs' => $jobs,
         ]);
     }
 
@@ -140,7 +154,7 @@ class JobsController extends Controller
     {
         $request->validate([
             'organization' => '',
-            'category' => 'required',
+            'category' => '',
             'jName' => '',
             'range' => '',
             'selectedDate' => '',
@@ -149,17 +163,45 @@ class JobsController extends Controller
             'req' => '',
         ]);
 
+
+        // $data = $request->only([
+        //     'organization',
+        //     'category',
+        //     'jName',
+        //     'range',
+        //     'selectedDate',
+        //     'responce',
+        //     'desc',
+        //     'req',
+        // ]);
+        // dd($data);
+
         try {
             DB::beginTransaction();
             // Logic For Save User Data
 
-            $jobs = Jobs::create([
+            $jobs = Jobs::find($id);
+            $jobs->update([
+                'org_id' => $request->input('organization'),
+                'job_category_id' => $request->input('category'),
                 'job_title' => $request->input('jName'),
-                'description' => $request->input('desc'),
+                'deadline_date' => $request->input('selectedDate'),
                 'responsibilities' => $request->input('responce'),
+                'description' => $request->input('desc'),
                 'requirements' => $request->input('req'),
                 'salary_range' => $request->input('range'),
-                'deadline_date' => $request->input('selectedDate'),
+            ]);
+
+            job_job_category::where('job_id', $id)->delete();
+            job_job_category::create([
+                'job_id' => $jobs->id,
+                'job_category_id' => $request->input('category'),
+            ]);
+
+            Organizations_jobs::where('job_id', $id)->delete();
+            Organizations_jobs::create([
+                'job_id' => $jobs->id,
+                'org_id' => $request->input('organization'),
             ]);
 
             if(!$jobs){
@@ -169,7 +211,7 @@ class JobsController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('job.index')->with('message', 'Category Stored Successfully.');
+            return redirect()->route('job.index')->with('message', 'job Updated Successfully.');
 
 
         } catch (\Throwable $th) {
