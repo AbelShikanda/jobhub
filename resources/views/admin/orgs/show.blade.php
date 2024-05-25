@@ -119,7 +119,13 @@
                             <div class="row no-print">
                                 <div class="col-12">
                                     <div class="text-center mb-3">
-                                        <a class="btn btn-warning btn-sm px-5 float-right"
+                                        <a class="btn btn-warning btn-sm px-5 float-right mx-2"
+                                            href="{{ route('organizations.index') }}">
+                                            <i class="fa fa-arrow-left">
+                                            </i>
+                                            Organizations
+                                        </a>
+                                        <a class="btn btn-warning btn-sm px-5 float-right mx-2"
                                             href="{{ route('organizations.edit', $orgs->id) }}">
                                             <i class="fas fa-pencil-alt">
                                             </i>

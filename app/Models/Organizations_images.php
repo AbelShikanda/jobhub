@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class images extends Model
+class Organizations_images extends Model
 {
     use HasFactory;
 
@@ -16,13 +16,6 @@ class images extends Model
      */
     protected $fillable = [
         'org_id',
-        'is_admin',
-        'image_path',
-        'text',
+        'img_id',
     ];
-
-    public function organization()
-{
-    return $this->belongsTo(Organizations::class, 'org_id');
-}
 }

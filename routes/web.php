@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\ProgressController;
 use App\Http\Controllers\Admin\OrganizationsController;
 use App\Http\Controllers\Admin\OrganizationsCategoryController;
 use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\ImagesController;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -52,7 +53,7 @@ Route::group(['middleware' => 'adminauth'], function() {
     // administrations
     Route::resource('administrators', AdminController::class);
     // gallery
-    Route::resource('gallery', GalleryController::class);
+    Route::resource('gallery', ImagesController::class);
     // progress
     Route::resource('progress', ProgressController::class);
     // spartie permissions and roles

@@ -61,8 +61,23 @@
                         <div class="job-item p-4 mb-4">
                             <div class="row g-4">
                                 <div class="col-sm-12 col-md-8 d-flex align-items-center">
-                                    <img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-1.jpg"
-                                        alt="" style="width: 80px; height: 80px;">
+                                    @php $firstImageDisplayed = false; @endphp
+                                    <!-- Define a flag to track if the first image has been displayed -->
+                                    @foreach ($orgs as $org)
+                                        <!-- Filter organizations to find the one associated with the current job -->
+                                        @if ($org->id === $data['org_id'])
+                                            @foreach ($org->images as $img)
+                                                @if (!$firstImageDisplayed)
+                                                    <!-- Check if the first image for this organization has been displayed -->
+                                                    <img class="flex-shrink-0 img-fluid border rounded"
+                                                        src="{{ asset('storage/img/pictures/' . $img->image_path) }}"
+                                                        alt="" style="width: 80px; height: 80px;">
+                                                    @php $firstImageDisplayed = true; @endphp
+                                                    <!-- Set the flag to true after displaying the first image -->
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
                                     <div class="text-start ps-4">
                                         @auth
                                             <input type="text" name="jobz[]" value="{{ $data['id'] }}" hidden>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\images;
 use App\Models\Jobs;
+use App\Models\Organizations;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -24,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $orgs = Organizations::with('images')->get();
         $jobs = Jobs::selectRaw('jobs.*')
             ->addSelect('organizations.Org_Name AS org_name')
             ->addSelect('organizations.website AS site')
@@ -37,6 +40,11 @@ class HomeController extends Controller
             ->take(5)
             ->get();
 
-        return view('home', ['organizations' => $jobs]);
+        // dd($orgs);
+
+        return view('home', [
+            'organizations' => $jobs,
+            'orgs' => $orgs,
+        ]);
     }
 }

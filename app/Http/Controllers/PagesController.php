@@ -55,6 +55,7 @@ class PagesController extends Controller
      */
     public function jobs()
     {
+        $orgs = Organizations::with('images')->get();
         $perPage = 10;
         $currentPage = \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPage();
         $pageTitle = 'Jobs';
@@ -98,6 +99,7 @@ class PagesController extends Controller
                 'categories' => $categories,
                 'pageTitle' => $pageTitle,
                 'breadcrumbLinks' => $breadcrumbLinks,
+                'orgs' => $orgs,
             ]
         );
     }

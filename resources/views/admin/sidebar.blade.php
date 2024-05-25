@@ -27,7 +27,8 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item menu-open">
-                    <a href="{{ route('dashboard.index') }}" class="nav-link">
+                    <a href="{{ route('dashboard.index') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'dashboard.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -35,7 +36,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('applicants.index') }}" class="nav-link">
+                    <a href="{{ route('applicants.index') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'applicants.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-circle"></i>
                         <p>
                             Applicants
@@ -43,7 +45,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('organizations.index') }}" class="nav-link">
+                    <a href="{{ route('organizations.index') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'organizations.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-building"></i>
                         <p>
                             Organizations
@@ -51,15 +54,20 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('job.index') }}" class="nav-link">
+                    <a href="{{ route('job.index') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'job.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-suitcase"></i>
                         <p>
                             Jobs
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                @php
+                    $adminRoutes = ['administrators.index', 'permissions.index', 'roles.index'];
+                    $isAdminSectionActive = in_array(Route::currentRouteName(), $adminRoutes);
+                @endphp
+                <li class="nav-item {{ $isAdminSectionActive ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ $isAdminSectionActive ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user-secret"></i>
                         <p>
                             Administrators
@@ -68,19 +76,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('administrators.index') }}" class="nav-link">
+                            <a href="{{ route('administrators.index') }}" class="nav-link {{ Route::currentRouteName() == 'administrators.index' ? 'active' : '' }}">
                                 <i class="fas fa-user-shield"></i>
                                 <p>Admins</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('permissions.index') }}" class="nav-link">
+                            <a href="{{ route('permissions.index') }}" class="nav-link {{ Route::currentRouteName() == 'permissions.index' ? 'active' : '' }}">
                                 <i class="fas fa-lock"></i>
                                 <p>permissions</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('roles.index') }}" class="nav-link">
+                            <a href="{{ route('roles.index') }}" class="nav-link {{ Route::currentRouteName() == 'roles.index' ? 'active' : '' }}">
                                 <i class="fas fa-user-tag"></i>
                                 <p>roles</p>
                             </a>
@@ -90,15 +98,20 @@
                 <li class="nav-header">LEVEL</li>
                 <li class="nav-item">
                 <li class="nav-item">
-                    <a href="{{ route('organizations.index') }}" class="nav-link">
+                    <a href="{{ route('gallery.index') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'gallery.index' ? 'active' : '' }}">
                         <i class="nav-icon far fa-image"></i>
                         <p>
                             Gallery
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                @php
+                    $adminRoutes = ['job_categories.index', 'organizations_categories.index'];
+                    $isAdminSectionActive = in_array(Route::currentRouteName(), $adminRoutes);
+                @endphp
+                <li class="nav-item {{ $isAdminSectionActive ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ $isAdminSectionActive ? 'active' : '' }}">
                         <i class="nav-icon fas fa-list"></i>
                         <p>
                             Categories
@@ -107,13 +120,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('job_categories.index') }}" class="nav-link">
+                            <a href="{{ route('job_categories.index') }}" class="nav-link {{ Route::currentRouteName() == 'job_categories.index' ? 'active' : '' }}">
                                 <i class="fas fa-briefcase"></i>
                                 <p>Job categories</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('organizations_categories.index') }}" class="nav-link">
+                            <a href="{{ route('organizations_categories.index') }}" class="nav-link {{ Route::currentRouteName() == 'organizations_categories.index' ? 'active' : '' }}">
                                 <i class="far fa-building"></i>
                                 <p>Organizations categories</p>
                             </a>
@@ -121,7 +134,8 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('progress.index') }}" class="nav-link">
+                    <a href="{{ route('progress.index') }}"
+                        class="nav-link {{ Route::currentRouteName() == 'progress.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-chart-line"></i>
                         <p>
                             progress

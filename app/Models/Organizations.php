@@ -35,4 +35,9 @@ class Organizations extends Model
     {
         return $this->belongsToMany(Jobs::class, 'organizations_jobs', 'org_id', 'job_id');
     }
+
+    public function images()
+    {
+        return $this->hasMany(images::class, 'org_id');
+    }
 }
