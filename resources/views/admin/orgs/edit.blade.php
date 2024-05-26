@@ -115,7 +115,7 @@
                                                                                 <label>Country</label>
                                                                                 <select class="form-control select2"
                                                                                     style="width: 100%;" name="country">
-                                                                                    @if ($users->first())
+                                                                                    @if ($users)
                                                                                         <option value="{{ $users->first()->country }}" selected>
                                                                                             {{ $users->first()->country }}</option>
                                                                                     @endif

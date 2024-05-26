@@ -12,6 +12,7 @@ use App\Models\Experience;
 use App\Models\job_user;
 use App\Models\Jobs;
 use App\Models\Language;
+use App\Models\Progress;
 use App\Models\Resumes;
 use App\Models\Skills;
 use App\Models\User;
@@ -105,6 +106,28 @@ class ApplicantsController extends Controller
         $skills = Skills::where('user_id', $id)->latest()->first();
         $certificates = Certificates::where('user_id', $id)->latest()->first();
         $languages = Language::where('user_id', $id)->latest()->first();
+        $progress = Progress::find($id);
+
+        if ($user->has_passport == 2) {
+            $progress = $progress->progress + 20;
+        }else if ($user->has_passport == 1) {
+            $progress = $progress->progress + 10;
+        }else if ($user->has_passport == 0) {
+            $progress = $progress->progress + 0;
+        }
+        if ($user->has_police_clearance == 3) {
+            $progress = $progress + 20;
+        }else if ($user->has_police_clearance == 2) {
+            $progress = $progress + 15;
+        }else if ($user->has_police_clearance == 1) {
+            $progress = $progress + 10;
+        }else if ($user->has_police_clearance == 0) {
+            $progress = $progress + 0;
+        }
+        if ($progress >= 100) {
+            $progress = 100;
+        }
+        // dd($progress);
 
         if ($languages !== null && $languages->count() > 0) {
             $preferredlanguages = $languages->first()->language;
@@ -118,22 +141,17 @@ class ApplicantsController extends Controller
         $userPreferredJobIds = $user->preferred_industry;
         if (!is_null($userPreferredJobIds) && $userPreferredJobIds !== '' && $userPreferredJobIds !== 'null') {
             $userPreferredJobIds = json_decode($userPreferredJobIds);
-
-            // Check if json_decode did not return null (indicating a valid JSON)
             if (json_last_error() === JSON_ERROR_NONE && is_array($userPreferredJobIds)) {
                 foreach ($userPreferredJobIds as &$jobId) {
                     $jobId = intval($jobId);
                 }
                 $preferredIndustries = Jobs::whereIn('id', $userPreferredJobIds)->pluck('job_title');
             } else {
-                // Handle the case where JSON is invalid
                 $preferredIndustries = collect();
             }
         } else {
-            // Handle the case where preferred_industry is null or empty
             $preferredIndustries = collect();
         }
-        // $preferredIndustries = Jobs::whereIn('id', $userPreferredJobIds)->pluck('job_title');
 
         if ($resume) {
             $filePath = $resume->file_path;
@@ -155,6 +173,7 @@ class ApplicantsController extends Controller
             'skills' => $skills,
             'certificates' => $certificates,
             'preferredlanguagesArray' => $preferredlanguagesArray,
+            'progress' => $progress,
         ]);
     }
 

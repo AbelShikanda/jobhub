@@ -14,6 +14,7 @@ use App\Models\JobsCategories;
 use App\Models\JobsCategoties;
 use App\Models\Language;
 use App\Models\Organizations;
+use App\Models\Progress;
 use App\Models\Resumes;
 use App\Models\Skills;
 use App\Models\User;
@@ -121,6 +122,8 @@ class ApplicationsController extends Controller
             'language' => 'array',
             'user_id' => 'required',
         ]);
+
+        $progress = 25;
 
         // $skilllevel = $request->input('slevel');
         // dd($skilllevel);
@@ -240,6 +243,11 @@ class ApplicationsController extends Controller
                 'Skill_Name' => $request->input('sName'),
                 'Skill_Level' => $request->input('slevel'),
                 'Description' => $request->input('sDesc'),
+            ]);
+
+            Progress::create([
+                'user_id' => $id,
+                'progress' => $progress,
             ]);
             // dd($update_user,$acknowledgement,$available,$cert,$comment,$education,$experience,$language,$resume, $skill);
 

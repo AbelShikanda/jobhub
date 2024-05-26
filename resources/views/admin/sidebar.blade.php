@@ -138,7 +138,7 @@
                         class="nav-link {{ Route::currentRouteName() == 'progress.index' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-chart-line"></i>
                         <p>
-                            progress
+                            Application Status
                         </p>
                     </a>
                 </li>

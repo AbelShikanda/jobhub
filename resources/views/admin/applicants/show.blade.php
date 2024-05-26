@@ -536,11 +536,34 @@
                                         {{ $user->email }}</a>
                                 </li>
                             </ul>
+                            
+                            <div class="row justify-content-center mt-5">
+                                @if ($progress)
+                                    <div role="progressbar" 
+                                         aria-valuenow="{{ $progress ?? 0 }}" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100" 
+                                         style="--value: {{ $progress ?? 0 }};">
+                                    </div>
+                                @else
+                                    <div role="progressbar" 
+                                         aria-valuenow="0" 
+                                         aria-valuemin="0" 
+                                         aria-valuemax="100" 
+                                         style="--value: 0;">
+                                    </div>
+                                @endif
+                            </div>
                             <div class="text-center mt-5 mb-3">
                                 <a class="btn btn-warning btn-sm px-5" href="{{ route('applicants.index') }}">
                                     <i class="fa fa-arrow-left">
                                     </i>
                                     Applicants
+                                </a>
+                                <a class="btn btn-success btn-sm px-5" href="{{ route('progress.edit', $user->id) }}">
+                                    <i class="fa fa-arrow-right">
+                                    </i>
+                                    approve
                                 </a>
                             </div>
                         </div>
