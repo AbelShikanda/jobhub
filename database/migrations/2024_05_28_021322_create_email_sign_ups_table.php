@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrganizationsJobsTable extends Migration
+class CreateEmailSignUpsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateOrganizationsJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('organizations_jobs', function (Blueprint $table) {
+        Schema::create('email_sign_ups', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('job_id')->constrained('jobs')->onDelete('cascade');
-            $table->foreignId('orgs_id')->constrained('organizations')->onDelete('cascade');
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateOrganizationsJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organizations_jobs');
+        Schema::dropIfExists('email_sign_ups');
     }
 }

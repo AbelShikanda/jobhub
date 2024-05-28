@@ -97,8 +97,13 @@
                                 </div>
                                 <div
                                     class="col-sm-12 col-md-4 d-flex flex-column align-items-start align-items-md-end justify-content-center">
-                                    <div class="d-flex mb-3">
-                                        <button class="btn btn-success" type="submit">Apply Now</button>
+                                    <div class="row">
+                                        <div class="mb-3 col">
+                                            <button class="btn btn-success" type="submit">Apply</button>
+                                        </div>
+                                        <div class="mb-3 col">
+                                            <a class="btn btn-success" href="{{ route('jobDetails', $data['id']) }}">View</a>
+                                        </div>
                                     </div>
                                     <small class="text-truncate"><i
                                             class="far fa-calendar-alt text-danger me-2"></i>Deadline

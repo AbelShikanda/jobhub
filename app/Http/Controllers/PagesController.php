@@ -115,19 +115,25 @@ class PagesController extends Controller
      * @param  Parameter type  Parameter name Description of the parameter (optional)
      * @return Return type Description of the return value (optional)
      */
-    public function jobs_details()
+    public function jobDetails($id)
     {
         $pageTitle = 'Jobs Details';
         $breadcrumbLinks = [
             ['url' => '/', 'label' => 'Home'],
             ['url' => '', 'label' => 'Jobs Details'],
         ];
+        $job = Jobs::where('id', $id)->with('organizations.images')->first();
+        // $orgsId = Jobs::where('id', $id)->pluck('org_id');
+        // $orgs = Organizations::where('id', $orgsId)->with('images')->get();
+        // dd($job);
+        // dd($job->toArray());
 
         return view(
-            'pages.jobs_details',
+            'pages.job_details',
             [
                 'pageTitle' => $pageTitle,
                 'breadcrumbLinks' => $breadcrumbLinks,
+                'job' => $job,
             ]
         );
     }
@@ -178,7 +184,7 @@ class PagesController extends Controller
             ['url' => '/', 'label' => 'Home'],
             ['url' => '', 'label' => 'Job Category'],
         ];
-        
+
         $jobs = Jobs::selectRaw('jobs.*')
             ->addSelect('organizations.Org_Name AS org_name')
             ->addSelect('organizations.website AS site')
@@ -224,7 +230,7 @@ class PagesController extends Controller
         ]);
 
         $userID = $request->input('user_id');
-        
+
         if (!Acknowledgment::where('user_id', $userID)->where('agreement_type', '1')->exists()) {
             return redirect()->route('applications.index')->with('message', 'You are almost done. Just fill in the form to get started');
         }

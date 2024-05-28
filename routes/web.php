@@ -61,28 +61,29 @@ Route::group(['middleware' => 'adminauth'], function() {
     Route::resource('roles', RolesController::class);
 });
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Auth::routes();
+Auth::routes(['verify' => true]);
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // HOME ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/home/singup', [HomeController::class, 'emailSignup'])->name('emailSignup');
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // PAGES ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::get('/about', [PagesController::class, 'about'])->name('about');
 Route::get('/jobs', [PagesController::class, 'jobs'])->name('jobs');
 Route::get('/jobsCategory/{id}', [PagesController::class, 'jobsCategory'])->name('jobsCategory');
-Route::get('/job_details', [PagesController::class, 'job_details'])->name('job_details');
+Route::get('/job/details/{id}', [PagesController::class, 'jobDetails'])->name('jobDetails');
 Route::post('/add_jobs', [PagesController::class, 'addJobs'])->name('addJobs');
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // PROFILE ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Route::resource('profile', ProfileController::class);
+Route::resource('profile', ProfileController::class)->middleware(['auth', 'verified']);
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // APPLICANT'S APPLICATION ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Route::resource('applications', ApplicationsController::class);
+Route::resource('applications', ApplicationsController::class)->middleware(['auth', 'verified']);
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // CONTACT ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

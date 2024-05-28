@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\jobPosted;
 use App\Models\job_job_category;
 use App\Models\Jobs;
 use App\Models\JobsCategories;
@@ -12,6 +13,7 @@ use App\Models\OrganizationsCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class JobsController extends Controller
 {
@@ -61,6 +63,8 @@ class JobsController extends Controller
             'desc' => 'required',
             'req' => 'required',
         ]);
+        $users = User::all();
+        $emails = $users->pluck('email')->toArray();
 
         try {
             DB::beginTransaction();
@@ -84,8 +88,12 @@ class JobsController extends Controller
 
             Organizations_jobs::create([
                 'job_id' => $jobs->id,
-                'org_id' => $request->input('organization'),
+                'orgs_id' => $request->input('organization'),
             ]);
+
+            Mail::to('multi@jobhub.com')
+            ->bcc($emails)
+            ->send(new jobPosted($jobs));
 
             if(!$jobs){
                 DB::rollBack();
@@ -94,7 +102,7 @@ class JobsController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('job.index')->with('message', 'Job Stored Successfully.');
+            return redirect()->route('job.index')->with('message', 'Job Posted Successfully.');
 
 
         } catch (\Throwable $th) {

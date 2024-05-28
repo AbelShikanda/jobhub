@@ -40,6 +40,6 @@ class Jobs extends Model
 
     public function organizations()
     {
-        return $this->belongsToMany(Organizations::class, 'organizations_jobs', 'org_id', 'job_id');
+        return $this->belongsToMany(Organizations::class, 'organizations_jobs', 'job_id', 'orgs_id');
     }
 }

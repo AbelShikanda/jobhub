@@ -33,7 +33,7 @@ class Organizations extends Model
     
     public function jobs()
     {
-        return $this->belongsToMany(Jobs::class, 'organizations_jobs', 'org_id', 'job_id');
+        return $this->belongsToMany(Jobs::class, 'organizations_jobs', 'orgs_id', 'job_id');
     }
 
     public function images()
