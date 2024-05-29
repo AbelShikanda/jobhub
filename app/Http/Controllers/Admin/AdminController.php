@@ -3,34 +3,49 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware(['auth:admin', 'permission:View Admins'])->only(['index', 'show']);
+    //     $this->middleware(['auth:admin', 'permission:Create Admins'])->only(['create', 'store']);
+    //     $this->middleware(['auth:admin', 'permission:Edit Admins'])->only(['edit', 'update']);
+    //     $this->middleware(['auth:admin', 'permission:Delete Admins'])->only(['destroy']);
+    // }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     $admins = Admin::orderBy('id', 'ASC')->paginate(7);
-
-    //     return view('admin.admins.index')->with([
-    //         'admins' => $admins
-    //     ]);
-    // }
+    public function index()
+    {
+        $admins = Admin::orderBy('id', 'DESC')->get();
+        return view('admin.admins.administrators.index')->with([
+            'admins' => $admins
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    // public function create()
-    // {
-    //     $admins = Admin::all();
-    //     return view('admin.admins.create', compact('admins'));
-    // }
+    public function create()
+    {
+        $roles = Role::get();
+        return view('admin.admins.administrators.create', [
+            'roles' => $roles,
+        ]);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -38,38 +53,85 @@ class AdminController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required',
-    //         'email' => 'required|email'
-    //     ]);
-        
-    //     try {
-    //         DB::beginTransaction();
-    //         // Logic For Save User Data
+    public function store(Request $request)
+    {
+        $request->validate([
+            'user_name' => 'required',
+            'name' => 'required',
+            'email' => 'required|email|unique:admins,email',
+            'certificate' => 'nullable|integer',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required',
+            'role' => 'required'
+        ]);
 
-    //         $create_user = User::create([
-    //             'name' => $request->name,
-    //             'email' => $request->email,
-    //             'password' => Hash::make('password')
-    //         ]);
+        // $data = $request->only([
+        //     'user_name',
+        //     'name',
+        //     'email',
+        //     'certificate',
+        //     'password',
+        //     'password_confirmation',
+        //     'role',
+        // ]);
+        // dd($data);
 
-    //         if(!$create_user){
-    //             DB::rollBack();
+        try {
+            DB::beginTransaction();
 
-    //             return back()->with('error', 'Something went wrong while saving user data');
-    //         }
+            // Logic for saving admin data
+            $createAdmin = Admin::create([
+                'username' => $request->user_name,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password) // Ensure the password is hashed properly
+            ]);
 
-    //         DB::commit();
-    //         return redirect()->route('admins.users.index')->with('success', 'User Stored Successfully.');
+            if (!$createAdmin) {
+                DB::rollBack();
+                return back()->with('error', 'Something went wrong while saving user data');
+            }
+
+            $admin = Admin::findOrFail($createAdmin->id);
+
+            // Set initial roles to zero
+            $admin->is_admin = 0;
+            $admin->is_mod = 0;
+            $admin->is_staff = 0;
+
+            // Assign roles based on the certificate value
+            switch ($request->input('certificate')) {
+                case 3:
+                    $admin->is_admin = 1;
+                    break;
+                case 0:
+                    $admin->is_mod = 1;
+                    break;
+                case 1:
+                    $admin->is_staff = 1;
+                    break;
+                default:
+                    $admin->is_staff = 1;
+                    break;
+            }
+
+            $admin->save();
+            // Sync roles
+            $roles = $request->get('role');
+            $admin->roles()->detach(); // Detach existing roles
+            foreach ($roles as $roleName) {
+                $role = Role::where('name', $roleName)->firstOrFail();
+                $admin->roles()->attach($role->id);
+            }
 
 
-    //     } catch (\Throwable $th) {
-    //         DB::rollBack();
-    //         throw $th;
-    //     }
-    // }
+            DB::commit();
+            return redirect()->route('administrators.index')->with('message', 'Admin Created Successfully.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error', 'An error occurred: ' . $th->getMessage());
+        }
+    }
 
     /**
      * Display the specified resource.
@@ -77,15 +139,27 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show($id)
-    // {
-    //     $admins = Admin::where('id', $id)->first();
-    //     // dd($admins);
+    public function show($id)
+    {
+        $admins = Admin::where('id', $id)->first();
+        // // dd($admins);
+        
+        // $permissions = Permission::get();
+        // $permissions = $admins->getAllPermissions();
+        // $admin = $admins->hasAnyPermission($permissions);
 
-    //     return view('admin.admins.show')->with([
-    //         'admins' => $admins
-    //     ]);
-    // }
+        // dd($admin);
+        
+        // if ($admins->hasPermissionTo('View jobs')) {
+        //     dd('User can View jobs');
+        // } else {
+        //     dd('User can not View jobs');
+        // }
+
+        return view('admin.admins.administrators.show')->with([
+            // 'admins' => $admins
+        ]);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -93,18 +167,24 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function edit($id)
-    // {
-    //     $admins =  Admin::whereId($id)->first();
+    public function edit(Role $role, $id)
+    {
+        $admin =  Admin::whereId($id)->first();
+        $roleroles = $admin->getRoleNames()->toArray();
+        // $roleroles = $admin->getRoleNames()->pluck('name')->toArray();
+        // dd($roleroles);
+        $roles = Role::get();
 
-    //     if(!$admins){
-    //         return back()->with('error', 'admins Not Found');
-    //     }
+        if (!$admin) {
+            return back()->with('error', 'admins Not Found');
+        }
 
-    //     return view('admin.admins.edit')->with([
-    //         'admins' => $admins
-    //     ]);
-    // }
+        return view('admin.admins.administrators.edit')->with([
+            'admin' => $admin,
+            'roles' => $roles,
+            'roleroles' => $roleroles
+        ]);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -113,37 +193,80 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'name' => 'required',
-    //         'email' => 'required|email'
-    //     ]);
-        
-    //     try {
-    //         DB::beginTransaction();
-    //         // Logic For Save User Data
+    public function update(Request $request, $id)
+    {
+        $admin = Admin::findOrFail($id);
 
-    //         $update_user = User::where('id', $id)->update([
-    //             'name' => $request->name,
-    //             'email' => $request->email
-    //         ]);
+        $request->validate([
+            'user_name' => '',
+            'name' => '',
+            'email' => 'email|unique:admins,email,'.$admin->id,
+            'pcertificate' => 'nullable|integer',
+            'password' => 'nullable|min:6|confirmed',
+            'password_confirmation' => 'nullable|same:password',
+            'role' => ''
+        ]);
 
-    //         if(!$update_user){
-    //             DB::rollBack();
+        // $data = $request->only([
+        //     'user_name',
+        //     'name',
+        //     'email',
+        //     'pcertificate',
+        //     'password',
+        //     'password_confirmation',
+        //     'role',
+        // ]);
+        // dd($data);
 
-    //             return back()->with('error', 'Something went wrong while update user data');
-    //         }
+        try {
+            DB::beginTransaction();
 
-    //         DB::commit();
-    //         return redirect()->route('users.index')->with('success', 'User Updated Successfully.');
+            // Logic for saving admin data
+            $admin->update([
+                'username' => $request->user_name,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password) // Ensure the password is hashed properly
+            ]);
+
+            // Set initial roles to zero
+            $admin->is_admin = 0;
+            $admin->is_mod = 0;
+            $admin->is_staff = 0;
+
+            // Assign roles based on the pcertificate value
+            switch ($request->input('pcertificate')) {
+                case 3:
+                    $admin->is_admin = 1;
+                    break;
+                case 0:
+                    $admin->is_mod = 1;
+                    break;
+                case 1:
+                    $admin->is_staff = 1;
+                    break;
+                default:
+                    $admin->is_staff = 1;
+                    break;
+            }
+
+            $admin->save();
+            // Sync roles
+            $roles = $request->get('role');
+            $admin->roles()->detach(); // Detach existing roles
+            foreach ($roles as $roleName) {
+                $role = Role::where('name', $roleName)->firstOrFail();
+                $admin->roles()->attach($role->id);
+            }
 
 
-    //     } catch (\Throwable $th) {
-    //         DB::rollBack();
-    //         throw $th;
-    //     }
-    // }
+            DB::commit();
+            return redirect()->route('administrators.index')->with('message', 'Admin Created Successfully.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error', 'An error occurred: ' . $th->getMessage());
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -151,26 +274,23 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy($id)
-    // {
-    //     try {
-    //         DB::beginTransaction();
+    public function destroy($id)
+    {
+        try {
+            DB::beginTransaction();
 
-    //         $delete_user = User::whereId($id)->delete();
+            $deleteAdmin = Admin::whereId($id)->delete();
 
-    //         if(!$delete_user){
-    //             DB::rollBack();
-    //             return back()->with('error', 'There is an error while deleting user.');
-    //         }
+            if(!$deleteAdmin){
+                DB::rollBack();
+                return back()->with('error', 'There is an error while deleting user.');
+            }
 
-    //         DB::commit();
-    //         return redirect()->route('users.index')->with('success', 'User Deleted successfully.');
-
-
-
-    //     } catch (\Throwable $th) {
-    //         DB::rollBack();
-    //         throw $th;
-    //     }
-    // }
+            DB::commit();
+            return redirect()->route('administrators.index')->with('message', 'User Deleted successfully.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
 }

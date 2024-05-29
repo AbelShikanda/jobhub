@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 
 class PermissionsController extends Controller
 {
@@ -12,24 +13,24 @@ class PermissionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // public function index()
-    // {
-    //     $permissions = Permission::orderBy('id','ASC')->paginate(7);
+    public function index()
+    {
+        $permissions = Permission::orderBy('id','DESC')->get();
 
-    //     return view('admin.permissions.index', [
-    //         'permissions' => $permissions
-    //     ]);
-    // }
+        return view('admin.admins.permissions.index', [
+            'permissions' => $permissions
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    // public function create()
-    // {
-    //     return view('admin.permissions.create');
-    // }
+    public function create()
+    {
+        return view('admin.admins.permissions.create');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -37,18 +38,19 @@ class PermissionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         // 'name' => 'required|unique:users,name'
-    //         'name' => 'required|unique:permissions,name'
-    //     ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'pName' => 'required|unique:permissions,name,'
+        ]);
 
-    //     Permission::create($request->only('name'));
+        Permission::create([
+            'name' => $request->input('pName')]);
 
-    //     return redirect()->route('permissions.index')
-    //         ->withSuccess(__('Permission created successfully.'));
-    // }
+        return redirect()
+        ->route('permissions.index')
+        ->with('message', 'Permission created successfully.');
+    }
 
     /**
      * Display the specified resource.
@@ -67,12 +69,12 @@ class PermissionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function edit(Permission $permission)
-    // {
-    //     return view('admin.permissions.edit', [
-    //         'permission' => $permission
-    //     ]);
-    // }
+    public function edit(Permission $permission)
+    {
+        return view('admin.admins.permissions.edit', [
+            'permission' => $permission
+        ]);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -81,17 +83,20 @@ class PermissionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, Permission $permission)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|unique:permissions,name,'.$permission->id
-    //     ]);
+    public function update(Request $request, Permission $permission)
+    {
+        $request->validate([
+            'pName' => 'required|unique:permissions,name,'.$permission->id,
+        ]);
 
-    //     $permission->update($request->only('name'));
+        $permission->update([
+            'name' => $request->input('pName'),
+        ]);
 
-    //     return redirect()->route('permissions.index')
-    //         ->withSuccess(__('Permission updated successfully.'));
-    // }
+        return redirect()
+        ->route('permissions.index')
+        ->with('message', 'Permission updated successfully.');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -99,11 +104,12 @@ class PermissionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // public function destroy(Permission $permission)
-    // {
-    //     $permission->delete();
+    public function destroy(Permission $permission)
+    {
+        $permission->delete();
 
-    //     return redirect()->route('permissions.index')
-    //         ->withSuccess(__('Permission deleted successfully.'));
-    // }
+        return redirect()
+        ->route('permissions.index')
+        ->with('message', 'Permission deleted successfully.');
+    }
 }

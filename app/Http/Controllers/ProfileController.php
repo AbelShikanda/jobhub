@@ -57,7 +57,7 @@ class ProfileController extends Controller
             ->pluck('job_id');
 
         $appliedJobsCategoriesId = Jobs::all()
-            ->whereIn('job_category_id', $appliedJobsId)
+            ->whereIn('id', $appliedJobsId)
             ->pluck('job_category_id')
             ->toArray();
 
@@ -76,6 +76,7 @@ class ProfileController extends Controller
             ->get();
 
         $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
+        // dd($categories);
 
         return view(
             'pages.profile.profile',
@@ -123,7 +124,7 @@ class ProfileController extends Controller
             ->pluck('job_id');
 
         $appliedJobsCategoriesId = Jobs::all()
-            ->whereIn('job_category_id', $appliedJobsId)
+            ->whereIn('id', $appliedJobsId)
             ->pluck('job_category_id')
             ->toArray();
 
@@ -136,7 +137,8 @@ class ProfileController extends Controller
             ->addSelect('jobs_categories.name AS category_name')
             ->join('organizations', 'jobs.org_id', '=', 'organizations.id')
             ->join('jobs_categories', 'jobs.job_category_id', '=', 'jobs_categories.id')
-            ->where('jobs.id', $id)
+            ->where('jobs_categories.id', $id)
+            ->whereIn('jobs.id', $appliedJobsId)
             ->latest()
             ->paginate(10);
 
@@ -148,7 +150,7 @@ class ProfileController extends Controller
 
         $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
         // $categories = JobsCategories::all();
-        // dd($appliedJobsId);
+        // dd($appliedJobsCategoriesId);
 
         return view(
             'pages.profile.profile_categories',
@@ -225,7 +227,7 @@ class ProfileController extends Controller
             ->pluck('job_id');
 
         $appliedJobsCategoriesId = Jobs::all()
-            ->whereIn('job_category_id', $appliedJobsId)
+            ->whereIn('id', $appliedJobsId)
             ->pluck('job_category_id')
             ->toArray();
 

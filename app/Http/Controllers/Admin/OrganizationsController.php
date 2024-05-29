@@ -106,7 +106,7 @@ class OrganizationsController extends Controller
         $orgs = Organizations::find($id);
         $jobs = Jobs::where('org_id', $id)->get();
 
-        $jobIds = Organizations_jobs::where('org_id', $id)->pluck('job_id')->all();
+        $jobIds = Organizations_jobs::where('orgs_id', $id)->pluck('job_id')->all();
         // dd($jobId);
 
         $groupedUsers = [];
@@ -126,7 +126,7 @@ class OrganizationsController extends Controller
             }
         }
 
-        // dd($jobIds);
+        dd($groupedUsers);
 
         return view('admin.orgs.show')->with([
             'orgs' => $orgs,

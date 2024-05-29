@@ -91,7 +91,7 @@
                                 @endauth
                                 <div class="row">
                                     <div class="mb-3 col-md-8">
-                                        <button class="btn btn-success" type="submit">Apply</button>
+                                        <button class="btn btn-success px-5" type="submit">Apply</button>
                                     </div>
                                 </div>
                                 <small class="text-truncate"><i class="far fa-calendar-alt text-danger me-2"></i>Deadline

@@ -26,13 +26,14 @@ use Illuminate\Support\Facades\Auth;
 
 
 Route::get('/admin_', function () {
-    return view('admin.dashboard');})
+    return view('admin.dashboard');
+})
     ->middleware('adminauth');
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // ADMIN LOGIN ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Route::group(['prefix' => '/admin_'], function() {
+Route::group(['prefix' => '/admin_'], function () {
     Route::get('/login', [AdminAuthController::class, 'getLogin'])->name('getLogin');
     Route::post('/login', [AdminAuthController::class, 'postLogin'])->name('postLogin');
     Route::post('/logout', [AdminAuthController::class, 'adminLogout'])->name('adminLogout');
@@ -41,7 +42,7 @@ Route::group(['prefix' => '/admin_'], function() {
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // ADMIN PAGES ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Route::group(['middleware' => 'adminauth'], function() {
+Route::group(['middleware' => ['adminauth']], function () {
     // jobs
     Route::resource('job', JobsController::class);
     Route::resource('job_categories', JobsCategoryController::class);
@@ -90,4 +91,3 @@ Route::resource('applications', ApplicationsController::class)->middleware(['aut
 Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 Route::resource('contacts', ContactsController::class);
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
