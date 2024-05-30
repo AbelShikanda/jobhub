@@ -46,8 +46,11 @@
                                         <h3 class="card-title">Organizations and their information</h3>
                                     </div>
                                     <div class="col-md-2">
+                                        @role('Staff/Support Agent')
+                                        @else
                                         <a href="{{ route('organizations.create') }}" type="button"
                                             class="btn btn-block btn-dark btn-sm">Add Organizations</a>
+                                        @endrole
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +62,10 @@
                                             <th>Organization's Name</th>
                                             <th>Organization's Category</th>
                                             <th>Organization's Country</th>
+                                            @role('Staff/Support Agent')
+                                            @else
                                             <th style="width:20%;"></th>
+                                            @endrole
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -72,7 +78,8 @@
                                                     @endforeach
                                                 </td>
                                                 <td>{{ $work->Country }}</td>
-
+                                                @role('Staff/Support Agent')
+                                                @else
                                                 <td class="project-actions text-right d-flex justify-content-between">
                                                     <a class="btn btn-primary btn-sm"
                                                         href="{{ route('organizations.show', $work->id) }}">
@@ -96,6 +103,7 @@
                                                     </button>
                                                     {!! Form::close() !!}
                                                 </td>
+                                                @endrole
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -104,7 +112,10 @@
                                             <th>Organization's Name</th>
                                             <th>Organization's Category</th>
                                             <th>Organization's Country</th>
+                                            @role('Staff/Support Agent')
+                                            @else
                                             <th style="width:20%;"></th>
+                                            @endrole
                                         </tr>
                                     </tfoot>
                                 </table>

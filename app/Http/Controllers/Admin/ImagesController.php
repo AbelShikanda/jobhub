@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Storage;
 
 class ImagesController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:admin', 'permission:Upload Files'])->only(['index', 'show']);
+        $this->middleware(['auth:admin', 'permission:View Files'])->only(['create', 'store']);
+        // $this->middleware(['auth:admin', 'permission:Edit Files'])->only(['edit', 'update']);
+        $this->middleware(['auth:admin', 'permission:Delete Files'])->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *

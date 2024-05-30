@@ -1,4 +1,3 @@
-
 @extends('admin.layouts.app')
 
 @section('content')
@@ -14,7 +13,7 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
-        
+
         <div class="pt-3">
             @if (session()->has('message'))
                 <div class="alert alert-success">
@@ -54,6 +53,11 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($roles as $role)
+                                            @unlessrole('Super Super Admin')
+                                                @if ($role->name == 'Super Super Admin')
+                                                    @continue
+                                                @endif
+                                            @endunlessrole
                                             <tr>
                                                 <td>
                                                     {{ $role->id }}
@@ -66,7 +70,8 @@
                                                 </td>
 
                                                 <td class="project-actions text-right  justify-content-between">
-                                                    <a class="btn btn-info btn-sm" href="{{ route('roles.edit', $role->id) }}">
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('roles.edit', $role->id) }}">
                                                         <i class="fas fa-pencil-alt">
                                                         </i>
                                                         Edit
@@ -106,4 +111,3 @@
     </div>
     <!-- /.content-wrapper -->
 @endsection
-

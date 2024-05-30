@@ -53,9 +53,11 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($admins as $admin)
-                                            {{-- @if ($admin->username == 'abel')
-                                                @continue
-                                            @endif --}}
+                                            @unlessrole('Super Super Admin')
+                                                @if ($admin->username == 'abel')
+                                                    @continue
+                                                @endif
+                                            @endunlessrole
                                             <tr>
                                                 <td>
                                                     {{ $admin->username }}
@@ -66,21 +68,12 @@
                                                 <td>
                                                     @if (!@empty($admin->getRoleNames()))
                                                         @foreach ($admin->getRoleNames() as $rolename)
-                                                            {{-- @if ($rolename == 'Super Super Admin')
-                                                                @continue
-                                                            @endif --}}
                                                             <label class="badge bg-primary">{{ $rolename }}</label>
                                                         @endforeach
                                                     @endif
                                                 </td>
 
                                                 <td class="project-actions text-right  justify-content-between">
-                                                    <a class="btn btn-primary btn-sm"
-                                                        href="{{ route('administrators.show', $admin->id) }}">
-                                                        <i class="fas fa-folder">
-                                                        </i>
-                                                        View
-                                                    </a>
                                                     <a class="btn btn-info btn-sm"
                                                         href="{{ route('administrators.edit', $admin->id) }}">
                                                         <i class="fas fa-pencil-alt">

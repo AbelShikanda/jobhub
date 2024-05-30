@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class JobsCategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:admin', 'permission:View jobs categories'])->only(['index', 'show']);
+        $this->middleware(['auth:admin', 'permission:Create jobs categories'])->only(['create', 'store']);
+        $this->middleware(['auth:admin', 'permission:Edit jobs categories'])->only(['edit', 'update']);
+        $this->middleware(['auth:admin', 'permission:Delete jobs categories'])->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *

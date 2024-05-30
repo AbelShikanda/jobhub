@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\DB;
 
 class OrganizationsCategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:admin', 'permission:View organizations categories'])->only(['index', 'show']);
+        $this->middleware(['auth:admin', 'permission:Create organizations categories'])->only(['create', 'store']);
+        $this->middleware(['auth:admin', 'permission:Edit organizations categories'])->only(['edit', 'update']);
+        $this->middleware(['auth:admin', 'permission:Delete organizations categories'])->only(['destroy']);
+    }
+    
     /**
      * Display a listing of the resource.
      *

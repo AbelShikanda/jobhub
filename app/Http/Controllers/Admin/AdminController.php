@@ -13,13 +13,13 @@ use Spatie\Permission\Models\Role;
 class AdminController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this->middleware(['auth:admin', 'permission:View Admins'])->only(['index', 'show']);
-    //     $this->middleware(['auth:admin', 'permission:Create Admins'])->only(['create', 'store']);
-    //     $this->middleware(['auth:admin', 'permission:Edit Admins'])->only(['edit', 'update']);
-    //     $this->middleware(['auth:admin', 'permission:Delete Admins'])->only(['destroy']);
-    // }
+    public function __construct()
+    {
+        $this->middleware(['auth:admin', 'permission:View Admins'])->only(['index', 'show']);
+        $this->middleware(['auth:admin', 'permission:Create Admins'])->only(['create', 'store']);
+        $this->middleware(['auth:admin', 'permission:Edit Admins'])->only(['edit', 'update']);
+        $this->middleware(['auth:admin', 'permission:Delete Admins'])->only(['destroy']);
+    }
 
     /**
      * Display a listing of the resource.
@@ -104,20 +104,14 @@ class AdminController extends Controller
                 case 3:
                     $admin->is_admin = 1;
                     break;
-                case 0:
-                    $admin->is_mod = 1;
-                    break;
-                case 1:
-                    $admin->is_staff = 1;
-                    break;
                 default:
                     $admin->is_staff = 1;
                     break;
             }
-
             $admin->save();
-            // Sync roles
+            
             $roles = $request->get('role');
+            // $admin->assignRole($roles); 
             $admin->roles()->detach(); // Detach existing roles
             foreach ($roles as $roleName) {
                 $role = Role::where('name', $roleName)->firstOrFail();
@@ -141,20 +135,15 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        $admins = Admin::where('id', $id)->first();
+        $admin = Admin::where('id', $id)->first();
         // // dd($admins);
-        
+
         // $permissions = Permission::get();
         // $permissions = $admins->getAllPermissions();
         // $admin = $admins->hasAnyPermission($permissions);
+        $admin = $admin->hasRole('Super Super Admin');
 
-        // dd($admin);
-        
-        // if ($admins->hasPermissionTo('View jobs')) {
-        //     dd('User can View jobs');
-        // } else {
-        //     dd('User can not View jobs');
-        // }
+        dd($admin);
 
         return view('admin.admins.administrators.show')->with([
             // 'admins' => $admins
@@ -200,7 +189,7 @@ class AdminController extends Controller
         $request->validate([
             'user_name' => '',
             'name' => '',
-            'email' => 'email|unique:admins,email,'.$admin->id,
+            'email' => 'email|unique:admins,email,' . $admin->id,
             'pcertificate' => 'nullable|integer',
             'password' => 'nullable|min:6|confirmed',
             'password_confirmation' => 'nullable|same:password',
@@ -221,15 +210,26 @@ class AdminController extends Controller
         try {
             DB::beginTransaction();
 
-            // Logic for saving admin data
-            $admin->update([
-                'username' => $request->user_name,
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password) // Ensure the password is hashed properly
-            ]);
-
-            // Set initial roles to zero
+            if ($admin) {
+                if ($request->password) {
+                    $hashedPassword = Hash::make($request->password);
+                    $admin->password = $hashedPassword;
+                }
+                if ($request->username) {
+                    $username = $request->username;
+                    $admin->username = $username;
+                }
+                if ($request->name) {
+                    $name = $request->name;
+                    $admin->name = $name;
+                }
+                if ($request->email) {
+                    $email = $request->email;
+                    $admin->email = $email;
+                }
+                $admin->save();
+            }
+            
             $admin->is_admin = 0;
             $admin->is_mod = 0;
             $admin->is_staff = 0;
@@ -239,21 +239,16 @@ class AdminController extends Controller
                 case 3:
                     $admin->is_admin = 1;
                     break;
-                case 0:
-                    $admin->is_mod = 1;
-                    break;
-                case 1:
-                    $admin->is_staff = 1;
-                    break;
                 default:
                     $admin->is_staff = 1;
                     break;
             }
-
             $admin->save();
-            // Sync roles
+            
+
             $roles = $request->get('role');
-            $admin->roles()->detach(); // Detach existing roles
+            // $admin->assignRole($roles); // this is currently not functioning
+            $admin->roles()->detach();
             foreach ($roles as $roleName) {
                 $role = Role::where('name', $roleName)->firstOrFail();
                 $admin->roles()->attach($role->id);
@@ -281,7 +276,7 @@ class AdminController extends Controller
 
             $deleteAdmin = Admin::whereId($id)->delete();
 
-            if(!$deleteAdmin){
+            if (!$deleteAdmin) {
                 DB::rollBack();
                 return back()->with('error', 'There is an error while deleting user.');
             }

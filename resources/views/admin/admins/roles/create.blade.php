@@ -47,6 +47,7 @@
                                             placeholder="Role Name" required>
                                     </div>
                                     <div class="row">
+                                        <p>Add Permissions to New Role</p>
                                         <div class="col-sm-12">
                                             <!-- checkbox -->
                                             <div class="form-group justify-content-between d-flex flex-wrap">

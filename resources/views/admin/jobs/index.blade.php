@@ -46,7 +46,11 @@
                                         <h3 class="card-title">Jobs</h3>
                                     </div>
                                     <div class="col-md-2">
-                                        <a href="{{ route('job.create') }}" type="button" class="btn btn-block btn-dark btn-sm">Add Jobs</a>
+                                        @role('Staff/Support Agent')
+                                        @else
+                                        <a href="{{ route('job.create') }}" type="button"
+                                            class="btn btn-block btn-dark btn-sm">Add Jobs</a>
+                                        @endrole
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +63,10 @@
                                             <th>Job Category</th>
                                             <th>Salary Range</th>
                                             <th>Deadline</th>
+                                            @role('Staff/Support Agent')
+                                            @else
                                             <th style="width:20%;"></th>
+                                            @endrole
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -73,6 +80,8 @@
                                                     <td>{{ $work->salary_range }}</td>
                                                     <td>{{ $work->deadline_date }}</td>
 
+                                                    @role('Staff/Support Agent')
+                                                    @else
                                                     <td class="project-actions text-right d-flex justify-content-between">
                                                         <a class="btn btn-primary btn-sm"
                                                             href="{{ route('job.show', $work->id) }}">
@@ -96,6 +105,8 @@
                                                         </button>
                                                         {!! Form::close() !!}
                                                     </td>
+                                                    @endrole
+
                                                 </tr>
                                             @endforeach
                                         @endforeach
@@ -106,7 +117,10 @@
                                             <th>Job Category</th>
                                             <th>Salary Range</th>
                                             <th>Deadline</th>
+                                            @role('Staff/Support Agent')
+                                            @else
                                             <th style="width:20%;"></th>
+                                            @endrole
                                         </tr>
                                     </tfoot>
                                 </table>

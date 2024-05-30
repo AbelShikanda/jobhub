@@ -23,6 +23,14 @@ use Illuminate\Support\Facades\Storage;
 
 class ApplicantsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth:admin', 'permission:View Users'])->only(['index', 'show']);
+        $this->middleware(['auth:admin', 'permission:Create Users'])->only(['create', 'store']);
+        $this->middleware(['auth:admin', 'permission:Edit Users'])->only(['edit', 'update']);
+        $this->middleware(['auth:admin', 'permission:Delete Users'])->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *

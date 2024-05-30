@@ -17,6 +17,15 @@ use Illuminate\Support\Facades\Mail;
 
 class JobsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth:admin', 'permission:View jobs'])->only(['index', 'show']);
+        $this->middleware(['auth:admin', 'permission:Create jobs'])->only(['create', 'store']);
+        $this->middleware(['auth:admin', 'permission:Edit jobs'])->only(['edit', 'update']);
+        $this->middleware(['auth:admin', 'permission:Delete jobs'])->only(['destroy']);
+    }
+    
     /**
      * Display a listing of the resource.
      *

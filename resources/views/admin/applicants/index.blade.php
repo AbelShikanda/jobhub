@@ -29,86 +29,86 @@
                                 </div>
                             </div>
                             <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="example1" class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Applicant Name</th>
-                                            <th>Phone number</th>
-                                            <th>Police clearance</th>
-                                            <th>Age</th>
-                                            <th>passport</th>
-                                            <th>Refference</th>
-                                            <th>Application Date</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($applicants as $applicant)
+                                <div class="card-body">
+                                    <table id="example1" class="table table-bordered table-striped">
+                                        <thead>
                                             <tr>
-                                                <td>{{ $applicant->first_name }}</td>
-                                                <td>{{ $applicant->phone }}</td>
-                                                <td>
-                                                    @if ($applicant->has_police_clearance === 0)
-                                                        <span class="badge badge-danger">No</span>
-                                                    @elseif ($applicant->has_police_clearance === 1)
-                                                        <span class="badge badge-info">Waiting</span>
-                                                    @elseif ($applicant->has_police_clearance === 2)
-                                                        <span class="badge badge-warning">Old</span>
-                                                    @elseif ($applicant->has_police_clearance === 3)
-                                                        <span class="badge badge-success">Yes</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    // Calculate the age based on the date of birth
-                                                    $dob = $applicant->date_of_birth;
-                                                    $dobObj = new DateTime($dob);
-                                                    $currentDate = new DateTime();
-                                                    $ageInterval = $currentDate->diff($dobObj);
-                                                    $age = $ageInterval->y;
-                                                    ?>
-                                                    {{ $age }} Years
-                                                </td>
-                                                <td>
-                                                    @if ($applicant->has_passport === 0)
-                                                        <span class="badge badge-danger">No</span>
-                                                    @elseif ($applicant->has_passport === 1)
-                                                        <span class="badge badge-info">Waiting</span>
-                                                    @elseif ($applicant->has_passport === 2)
-                                                        <span class="badge badge-success">Yes</span>
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    {{ $applicant->reference_source }}
-                                                </td>
-                                                <td>
-                                                    {{ $applicant->created_at }}
-                                                </td>
-
-                                                <td class="project-actions text-right  justify-content-between">
-                                                    <a class="btn btn-primary btn-sm"
-                                                        href="{{ route('applicants.show', $applicant->id) }}">
-                                                        <i class="fas fa-folder">
-                                                        </i>
-                                                        View
-                                                    </a>
-                                                </td>
+                                                <th>Applicant Name</th>
+                                                <th>Phone number</th>
+                                                <th>Police clearance</th>
+                                                <th>Age</th>
+                                                <th>passport</th>
+                                                <th>Refference</th>
+                                                <th>Application Date</th>
+                                                <th></th>
                                             </tr>
-                                        @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Applicant Name</th>
-                                            <th>Phone number</th>
-                                            <th>Police clearance</th>
-                                            <th>Age</th>
-                                            <th>passport</th>
-                                            <th style="width:20%;"></th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($applicants as $applicant)
+                                                <tr>
+                                                    <td>{{ $applicant->first_name }}</td>
+                                                    <td>{{ $applicant->phone }}</td>
+                                                    <td>
+                                                        @if ($applicant->has_police_clearance === 0)
+                                                            <span class="badge badge-danger">No</span>
+                                                        @elseif ($applicant->has_police_clearance === 1)
+                                                            <span class="badge badge-info">Waiting</span>
+                                                        @elseif ($applicant->has_police_clearance === 2)
+                                                            <span class="badge badge-warning">Old</span>
+                                                        @elseif ($applicant->has_police_clearance === 3)
+                                                            <span class="badge badge-success">Yes</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        // Calculate the age based on the date of birth
+                                                        $dob = $applicant->date_of_birth;
+                                                        $dobObj = new DateTime($dob);
+                                                        $currentDate = new DateTime();
+                                                        $ageInterval = $currentDate->diff($dobObj);
+                                                        $age = $ageInterval->y;
+                                                        ?>
+                                                        {{ $age }} Years
+                                                    </td>
+                                                    <td>
+                                                        @if ($applicant->has_passport === 0)
+                                                            <span class="badge badge-danger">No</span>
+                                                        @elseif ($applicant->has_passport === 1)
+                                                            <span class="badge badge-info">Waiting</span>
+                                                        @elseif ($applicant->has_passport === 2)
+                                                            <span class="badge badge-success">Yes</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        {{ $applicant->reference_source }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $applicant->created_at }}
+                                                    </td>
+
+                                                    <td class="project-actions text-right  justify-content-between">
+                                                        <a class="btn btn-primary btn-sm"
+                                                            href="{{ route('applicants.show', $applicant->id) }}">
+                                                            <i class="fas fa-folder">
+                                                            </i>
+                                                            View
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Applicant Name</th>
+                                                <th>Phone number</th>
+                                                <th>Police clearance</th>
+                                                <th>Age</th>
+                                                <th>passport</th>
+                                                <th style="width:20%;"></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->

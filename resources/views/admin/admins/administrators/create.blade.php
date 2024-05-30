@@ -94,26 +94,6 @@
                                                                                         <label class="custom-control-label"
                                                                                             for="customRadio4">Admin</label>
                                                                                     </div>
-                                                                                    <div
-                                                                                        class="custom-control custom-radio">
-                                                                                        <input type="radio"
-                                                                                            id="customRadio5"
-                                                                                            name="certificate"
-                                                                                            class="custom-control-input"
-                                                                                            value="0">
-                                                                                        <label class="custom-control-label"
-                                                                                            for="customRadio5">Moderator</label>
-                                                                                    </div>
-                                                                                    <div
-                                                                                        class="custom-control custom-radio">
-                                                                                        <input type="radio"
-                                                                                            id="customRadio6"
-                                                                                            name="certificate"
-                                                                                            class="custom-control-input"
-                                                                                            value="1">
-                                                                                        <label class="custom-control-label"
-                                                                                            for="customRadio6">Staff</label>
-                                                                                    </div>
                                                                                 </div>
                                                                                 <div class="input-field">
                                                                                     <div id="e4"></div>
@@ -177,9 +157,11 @@
                                                                                     class="form-group justify-content-between d-flex flex-wrap">
                                                                                     <div class="row">
                                                                                         @foreach ($roles as $role)
-                                                                                            @if ($role->name == 'Super Super Admin')
-                                                                                                @continue
-                                                                                            @endif
+                                                                                        @unlessrole('Super Super Admin')
+                                                                                        @if ($role->name == 'Super Super Admin')
+                                                                                            @continue
+                                                                                        @endif
+                                                                                        @endunlessrole
                                                                                             <div
                                                                                                 class="form-check pr-2 col-12 col-md-6 col-lg-4">
                                                                                                 <input

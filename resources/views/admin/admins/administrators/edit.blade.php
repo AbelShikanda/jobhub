@@ -106,28 +106,6 @@
                                                                                         <label class="custom-control-label"
                                                                                             for="customRadio4">Admin</label>
                                                                                     </div>
-                                                                                    <div
-                                                                                        class="custom-control custom-radio col">
-                                                                                        <input type="radio"
-                                                                                            id="customRadio5"
-                                                                                            name="pcertificate"
-                                                                                            class="custom-control-input"
-                                                                                            value="0"
-                                                                                            @if ($admin->is_mod == 1) checked @endif>
-                                                                                        <label class="custom-control-label"
-                                                                                            for="customRadio5">Moderator</label>
-                                                                                    </div>
-                                                                                    <div
-                                                                                        class="custom-control custom-radio col">
-                                                                                        <input type="radio"
-                                                                                            id="customRadio6"
-                                                                                            name="pcertificate"
-                                                                                            class="custom-control-input"
-                                                                                            value="1"
-                                                                                            @if ($admin->is_staff == 1) checked @endif>
-                                                                                        <label class="custom-control-label"
-                                                                                            for="customRadio6">Staff</label>
-                                                                                    </div>Old</label>
                                                                                 </div>
                                                                                 <div class="input-field">
                                                                                     <div id="e4"></div>
@@ -191,9 +169,11 @@
                                                                                     class="form-group justify-content-between d-flex flex-wrap">
                                                                                     <div class="row">
                                                                                         @foreach ($roles as $role)
-                                                                                            {{-- @if ($role->name == 'Super Super Admin')
-                                                                                                @continue
-                                                                                            @endif --}}
+                                                                                        @unlessrole('Super Super Admin')
+                                                                                        @if ($role->name == 'Super Super Admin')
+                                                                                            @continue
+                                                                                        @endif
+                                                                                        @endunlessrole
                                                                                             <div
                                                                                                 class="form-check pr-2 col-12 col-md-6 col-lg-4">
                                                                                                 <input
