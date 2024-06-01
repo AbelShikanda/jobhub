@@ -65,7 +65,7 @@
                                     <!-- Define a flag to track if the first image has been displayed -->
                                     @foreach ($orgs as $org)
                                         <!-- Filter organizations to find the one associated with the current job -->
-                                        @if ($org->id === $data['org_id'])
+                                        @if ($org->id === $data['org_id'] && $org->text = 'logo')
                                             @foreach ($org->images as $img)
                                                 @if (!$firstImageDisplayed)
                                                     <!-- Check if the first image for this organization has been displayed -->

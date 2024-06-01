@@ -31,9 +31,11 @@
                         @if ($job->organizations->isNotEmpty())
                             @foreach ($job->organizations as $organization)
                                 @foreach ($organization->images as $img)
-                                    <img class="flex-shrink-0 img-fluid border rounded"
-                                        src="{{ asset('storage/img/pictures/' . $img->image_path) }}" alt=""
-                                        style="width: 80px; height: 80px;">
+                                    @if ($img->text = 'logo')
+                                        <img class="flex-shrink-0 img-fluid border rounded"
+                                            src="{{ asset('storage/img/pictures/' . $img->image_path) }}" alt=""
+                                            style="width: 80px; height: 80px;">
+                                    @endif
                                 @endforeach
                             @endforeach
                         @else
@@ -52,6 +54,16 @@
                             </span>
                             <span class="text-truncate me-0"><i
                                     class="far fa-money-bill-alt text-primary me-2"></i>{{ $job->salary_range }}</span>
+                            <span class="text-truncate mx-2"><i class="fa fa-globe text-primary me-2"
+                                    aria-hidden="true"></i>
+                                @if ($job->organizations->isNotEmpty())
+                                    @foreach ($job->organizations as $organization)
+                                        <a href="{{ $organization->Website }}">Website</a>
+                                    @endforeach
+                                @else
+                                    No organizations found.
+                                @endif
+                            </span>
                         </div>
                     </div>
 

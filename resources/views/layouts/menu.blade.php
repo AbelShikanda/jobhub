@@ -15,13 +15,13 @@
                         </div>
                         All Jobs
                     </a>
-                    <a href="#">
+                    {{-- <a href="#">
                         <div class="px-2">
                             <i class="fas fa-sync-alt"></i>
                         </div>
                         Updates
                         <span class="notification-number updates">3</span>
-                    </a>
+                    </a> --}}
                 </div>
             </div>
             <div class="side-wrapper">

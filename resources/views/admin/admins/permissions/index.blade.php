@@ -35,10 +35,13 @@
                                     <div class="col">
                                         <h3 class="card-title">Permissions and their information</h3>
                                     </div>
+                                    @role('Staff/Support Agent')
                                     <div class="col-md-2">
                                         <a href="{{ route('permissions.create') }}" type="button"
                                             class="btn btn-block btn-dark btn-sm">Add permissions</a>
                                     </div>
+                                    @else
+                                    @endrole
                                 </div>
                             </div>
                             <!-- /.card-header -->
@@ -66,11 +69,14 @@
                                                 </td>
 
                                                 <td class="project-actions text-right  justify-content-between">
+                                                    @role('Staff/Support Agent')
                                                     <a class="btn btn-info btn-sm" href="{{ route('permissions.edit', $permission->id) }}">
                                                         <i class="fas fa-pencil-alt">
                                                         </i>
                                                         Edit
                                                     </a>
+                                                    @else
+                                                    @endrole
                                                     {!! Form::open([
                                                         'method' => 'DELETE',
                                                         'route' => ['permissions.destroy', $permission->id],

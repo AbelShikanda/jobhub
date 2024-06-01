@@ -34,12 +34,9 @@
                         </div>
                         <span class="status">
                             <span class="status-circle green"></span>
-                            progress</span>
-                        <div class="">
-                            <button class="content-button status-button open">More</button>
-                        </div>
+                            <strong>Company:</strong> {{ $data['org_name'] }}</span>
                         <div class="button-wrapper">
-                            <button class="content-button status-button open">More</button>
+                            <a href="{{ $data['site'] }}" class="content-button status-button open">Site</a>
                         </div>
                     </li>
                 @endforeach

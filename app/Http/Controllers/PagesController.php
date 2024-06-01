@@ -120,6 +120,7 @@ class PagesController extends Controller
         $pageTitle = 'Jobs Details';
         $breadcrumbLinks = [
             ['url' => '/', 'label' => 'Home'],
+            ['url' => '/jobs', 'label' => 'Jobs'],
             ['url' => '', 'label' => 'Jobs Details'],
         ];
         $job = Jobs::where('id', $id)->with('organizations.images')->first();
@@ -179,9 +180,11 @@ class PagesController extends Controller
      */
     public function jobsCategory($category_id)
     {
+        $orgs = Organizations::with('images')->get();
         $pageTitle = 'Job Category';
         $breadcrumbLinks = [
             ['url' => '/', 'label' => 'Home'],
+            ['url' => '/jobs', 'label' => 'Jobs'],
             ['url' => '', 'label' => 'Job Category'],
         ];
 
@@ -199,6 +202,7 @@ class PagesController extends Controller
             ->paginate(10);
 
         $categories = JobsCategories::all();
+        $category = JobsCategories::find($category_id);
 
         return view(
             'pages.jobsCategory',
@@ -207,6 +211,8 @@ class PagesController extends Controller
                 'categories' => $categories,
                 'pageTitle' => $pageTitle,
                 'breadcrumbLinks' => $breadcrumbLinks,
+                'orgs' => $orgs,
+                'category' => $category,
             ]
         );
     }

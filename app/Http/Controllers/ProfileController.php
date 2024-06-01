@@ -76,7 +76,7 @@ class ProfileController extends Controller
             ->get();
 
         $categories = JobsCategories::whereIn('id', $appliedJobsCategoriesId)->get();
-        // dd($categories);
+        // dd($jobs);
 
         return view(
             'pages.profile.profile',

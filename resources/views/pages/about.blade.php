@@ -29,6 +29,12 @@
                 <p class="mb-4">Connect to job seekers with potential employers,
                      and find qualified candidates. You can explore job opportunities, 
                      create profiles, and apply for positions that match your skills and experience.</p>
+                <h4>ABOUT US</h4>
+                <p class="mb-4">With over 24 years of experience in providing our clients with the best services, Multi WorkForce has built a reputation for excellence in recruitment. Our team of recruiters has a deep understanding of the job market and can help candidates navigate the hiring process with confidence.</p>
+                <h4>OUR VISION</h4>
+                <p class="mb-4">We aim to provide job opportunities in Romania, Italy, and other European countries to create a diverse and talented workforce. By tapping into a pool of skilled professionals from various backgrounds, the company aims to drive innovation and excellence in its operations across Europe </p>
+                <h4>ONBOARDING</h4>
+                <p class="mb-4">As part of our ongoing efforts to expand our workforce and bring diverse talent into our company, we will  be onboarding foreign workers and proactively addressing cultural differences and fostering an inclusive environment. It's crucial for us to ensure a smooth transition for these individuals as they integrate into our local society and workplace culture. </p>
                 <p><i class="fa fa-check text-danger me-3"></i>The ultimate resource for both job seekers and employers</p>
                 <p><i class="fa fa-check text-danger me-3"></i>Seamless recruitment experience</p>
                 <p><i class="fa fa-check text-danger me-3"></i>A high-performing team</p>

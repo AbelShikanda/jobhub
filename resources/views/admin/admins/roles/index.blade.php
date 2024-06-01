@@ -34,10 +34,13 @@
                                     <div class="col">
                                         <h3 class="card-title">Roles and their information</h3>
                                     </div>
+                                    @role('Staff/Support Agent')
                                     <div class="col-md-2">
                                         <a href="{{ route('roles.create') }}" type="button"
                                             class="btn btn-block btn-dark btn-sm">Add roles</a>
                                     </div>
+                                    @else
+                                    @endrole
                                 </div>
                             </div>
                             <!-- /.card-header -->
