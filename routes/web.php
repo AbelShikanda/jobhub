@@ -43,21 +43,21 @@ Route::group(['prefix' => '/admin_'], function () {
 // ADMIN PAGES ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::group(['middleware' => ['adminauth']], function () {
-    // jobs
+    // jobs +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     Route::resource('job', JobsController::class);
     Route::resource('job_categories', JobsCategoryController::class);
-    // organizations
+    // organizations ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     Route::resource('organizations', OrganizationsController::class);
     Route::resource('organizations_categories', OrganizationsCategoryController::class);
-    // applications
+    // applications +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     Route::resource('applicants', ApplicantsController::class);
-    // administrations
+    // administrations ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     Route::resource('administrators', AdminController::class);
-    // gallery
+    // gallery ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     Route::resource('gallery', ImagesController::class);
-    // progress
+    // progress +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     Route::resource('progress', ProgressController::class);
-    // spartie permissions and roles
+    // spartie permissions and roles ++++++++++++++++++++++++++++++++++++++++++++++++++++
     Route::resource('permissions', PermissionsController::class);
     Route::resource('roles', RolesController::class);
 });
@@ -88,6 +88,6 @@ Route::resource('applications', ApplicationsController::class)->middleware(['aut
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // CONTACT ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
-Route::resource('contacts', ContactsController::class);
+// Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
+Route::resource('contact', ContactsController::class);
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

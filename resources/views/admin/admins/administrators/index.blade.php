@@ -62,9 +62,11 @@
                                                 <td>
                                                     {{ $admin->username }}
                                                 </td>
+                                                @role(['Super Super Admin|Super Admin'])
                                                 <td>
                                                     {{ $admin->email }}
                                                 </td>
+                                                @endrole
                                                 <td>
                                                     @if (!@empty($admin->getRoleNames()))
                                                         @foreach ($admin->getRoleNames() as $rolename)

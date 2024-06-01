@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\approvalmail;
 use App\Models\Progress;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class ProgressController extends Controller
 {
@@ -95,11 +97,13 @@ class ProgressController extends Controller
 
         $status = $request->input('approve') ? 1 : 0;
         $threshold = $status ? 25 : null;
+        $user = User::find($id);
+        
 
         // $data = $request->only([
         //     'approve',
         // ]);
-        // dd($data);
+        // dd($user->email);
         // dd($threshold);
         try {
             DB::beginTransaction();
@@ -109,6 +113,9 @@ class ProgressController extends Controller
                 ->update([
                     'progress' => 100,
                 ]);
+
+            Mail::to($user->email)
+            ->send(new approvalmail($user));
 
             if (!$update_progress) {
                 DB::rollBack();

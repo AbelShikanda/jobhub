@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="#" class="brand-link">
         <img src="{{ asset('admin/dist/img/AdminLTELogo.png') }}" alt="Admin" class="brand-image img-circle elevation-3"
             style="opacity: .8">
         <span class="brand-text font-weight-light">JobHub Admin</span>
@@ -16,7 +16,7 @@
                     alt="User">
             </div>
             <div class="info">
-                <a href="{{ route('dashboard.index') }}"
+                <a href="{{ route('job.index') }}"
                     class="d-block">{{ auth()->guard('admin')->user()->username }}</a>
             </div>
         </div>
@@ -29,15 +29,17 @@
                with font-awesome or any other icon font library -->
                 @role('Staff/Support Agent')
                 @else
-                    <li class="nav-item menu-open">
-                        <a href="{{ route('dashboard.index') }}"
-                            class="nav-link {{ Route::currentRouteName() == 'dashboard.index' ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>
-                                Dashboard
-                            </p>
-                        </a>
-                    </li>
+                    @role('Super Super Admin')
+                        <li class="nav-item menu-open">
+                            <a href="{{ route('dashboard.index') }}"
+                                class="nav-link {{ Route::currentRouteName() == 'dashboard.index' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                    @endrole
                     <li class="nav-item">
                         <a href="{{ route('applicants.index') }}"
                             class="nav-link {{ Route::currentRouteName() == 'applicants.index' ? 'active' : '' }}">
@@ -72,6 +74,9 @@
                 @endphp
                 @role('Staff/Support Agent')
                 @else
+                
+                @role(['Manager|Moderator'])
+                @else
                     <li class="nav-item {{ $isAdminSectionActive ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ $isAdminSectionActive ? 'active' : '' }}">
                             <i class="nav-icon fas fa-user-secret"></i>
@@ -104,6 +109,7 @@
                             </li>
                         </ul>
                     </li>
+                    @endrole
                     <li class="nav-header">LEVEL</li>
                     <li class="nav-item">
                     <li class="nav-item">

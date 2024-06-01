@@ -24,7 +24,7 @@ class AdminAuthController extends Controller
             if(!$user->is_admin == 1){
                 return redirect()->back()->with('error','You have to be an Admin');
             }else {
-                return redirect()->route('dashboard.index')->with('success','You are Logged in sucessfully.');
+                return redirect()->route('job.index')->with('success','You are Logged in sucessfully.');
             }
         }else {
             return redirect()->back()->with('error','Whoops! Invalid Credentials');

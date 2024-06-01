@@ -50,7 +50,7 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Description (for logo use the caption 'logo')</label>
+                                        <label for="exampleInputEmail1">Description </label> <label class="text-danger">(for logo use the caption 'logo')</label>
                                         <input type="text" class="form-control" id="exampleInputEmail1" name="iName"
                                             placeholder="short caption">
                                     </div>
