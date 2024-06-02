@@ -89,6 +89,8 @@
                         class="nav-item nav-link {{ request()->is('about') ? 'active' : '' }}">About</a>
                     <a href="{{ url('/jobs') }}"
                         class="nav-item nav-link {{ request()->is('jobs') ? 'active' : '' }}">Jobs</a>
+                    <a href="{{ url('/images') }}"
+                        class="nav-item nav-link {{ request()->is('images') ? 'active' : '' }}">Gallery</a>
                     <a href="{{ route('applications.index') }}"
                         class="nav-item nav-link {{ request()->routeIs('applications.index') ? 'active' : '' }}">Applications</a>
                     <a href="{{ url('/contact') }}"

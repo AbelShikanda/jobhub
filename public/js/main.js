@@ -219,3 +219,12 @@ document.getElementById('revealButton').addEventListener('click', function() {
     document.getElementById('inputField').classList.remove('app-card-edit-input');
     this.style.display = 'none';
 });
+
+
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image as InterventionImage;
 use App\Models\images;
 use App\Models\Organizations;
 use App\Models\Organizations_images;
@@ -17,7 +18,7 @@ class ImagesController extends Controller
     {
         $this->middleware(['auth:admin', 'permission:Upload Files'])->only(['index', 'show']);
         $this->middleware(['auth:admin', 'permission:View Files'])->only(['create', 'store']);
-        // $this->middleware(['auth:admin', 'permission:Edit Files'])->only(['edit', 'update']);
+        $this->middleware(['auth:admin', 'permission:Edit Files'])->only(['edit', 'update']);
         $this->middleware(['auth:admin', 'permission:Delete Files'])->only(['destroy']);
     }
 
@@ -64,6 +65,26 @@ class ImagesController extends Controller
         ]);
 
         $file = $request->file('filepath');
+
+        // if (isset($file)) {
+        //     $currentDate = now()->toDateString();
+        //     $fileName = $currentDate . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+        
+        //     // Save the uploaded image
+        //     $image = InterventionImage::make([$file]);
+        //     $imagePath = 'img/pictures/' . $fileName;
+        //     Storage::disk('public')->put($imagePath, (string) $image);
+        
+        //     // Resize and crop the image to a 2:3 aspect ratio (800x1200)
+        //     $croppedImage = $image->fit(1200, 800, function ($constraint) {
+        //         $constraint->aspectRatio();
+        //         $constraint->upsize();
+        //     });
+        //     $croppedImagePath = 'img/pictures/cropped_' . $fileName;
+        //     Storage::disk('public')->put($croppedImagePath, (string) $croppedImage->encode());
+        // } else {
+        //     $fileName = '';
+        // }
 
         if (isset($file)) {
             $currentDate = Carbon::now()->toDateString();

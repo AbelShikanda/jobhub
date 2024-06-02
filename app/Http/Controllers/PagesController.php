@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Admin\ImagesController;
 use App\Models\Acknowledgment;
+use App\Models\images;
 use App\Models\job_user;
 use App\Models\Jobs;
 use App\Models\JobsCategories;
@@ -242,5 +244,26 @@ class PagesController extends Controller
             DB::rollBack();
             throw $th;
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function images()
+    {
+        $images = Images::where('text', '!=', 'logo')->get();
+        // dd($images);
+        $pageTitle = 'Gallery';
+        $breadcrumbLinks = [
+            ['url' => '/', 'label' => 'Home'],
+            ['url' => '', 'label' => 'Gallery'],
+        ];
+        return view('pages.gallery', with([
+            'pageTitle' => $pageTitle,
+            'breadcrumbLinks' => $breadcrumbLinks,
+            'images' => $images,
+        ]));
     }
 }

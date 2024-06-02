@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\ApplicationsController;
@@ -19,7 +20,6 @@ use App\Http\Controllers\Admin\JobsCategoryController;
 use App\Http\Controllers\Admin\ProgressController;
 use App\Http\Controllers\Admin\OrganizationsController;
 use App\Http\Controllers\Admin\OrganizationsCategoryController;
-use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\ImagesController;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,7 +43,7 @@ Route::group(['prefix' => '/admin_'], function () {
 // ADMIN PAGES ROUTES
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Route::group(['middleware' => ['adminauth']], function () {
-    // jobs +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // jobs +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     Route::resource('job', JobsController::class);
     Route::resource('job_categories', JobsCategoryController::class);
     // organizations ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -90,4 +90,8 @@ Route::resource('applications', ApplicationsController::class)->middleware(['aut
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 Route::resource('contact', ContactsController::class);
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// GALLERY ROUTES
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Route:: get('/images', [PagesController::class, 'images'])->name('images');
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
