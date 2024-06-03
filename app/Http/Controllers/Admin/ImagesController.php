@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class ImagesController extends Controller
 {
@@ -66,36 +68,26 @@ class ImagesController extends Controller
 
         $file = $request->file('filepath');
 
-        // if (isset($file)) {
-        //     $currentDate = now()->toDateString();
-        //     $fileName = $currentDate . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
-        
-        //     // Save the uploaded image
-        //     $image = InterventionImage::make([$file]);
-        //     $imagePath = 'img/pictures/' . $fileName;
-        //     Storage::disk('public')->put($imagePath, (string) $image);
-        
-        //     // Resize and crop the image to a 2:3 aspect ratio (800x1200)
-        //     $croppedImage = $image->fit(1200, 800, function ($constraint) {
-        //         $constraint->aspectRatio();
-        //         $constraint->upsize();
-        //     });
-        //     $croppedImagePath = 'img/pictures/cropped_' . $fileName;
-        //     Storage::disk('public')->put($croppedImagePath, (string) $croppedImage->encode());
-        // } else {
-        //     $fileName = '';
-        // }
-
         if (isset($file)) {
-            $currentDate = Carbon::now()->toDateString();
+            $file = $request->file('filepath');
+            // dd($file);
+            $currentDate = now()->toDateString();
             $fileName = $currentDate . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
-            if (!Storage::disk('public')->exists('img/pictures')) {
-                Storage::disk('public')->makeDirectory('img/pictures');
-            }
-            $postFile = file_get_contents($file);
-            Storage::disk('public')->put('img/pictures/' . $fileName, $postFile);
+
+            // Create new ImageManager instance with desired driver
+            $manager = new ImageManager(Driver::class); // or ['driver' => 'gd']
+
+            // Read the image
+            $image = $manager->read($file->getPathname());
+
+            // Resize and crop the image to a 2:3 aspect ratio (800x1200)
+            $croppedImage = $image->resize(1280, 853);
+
+            // Save the resized and cropped image to storage
+            $croppedImagePath = 'img/pictures/' . $fileName;
+            Storage::disk('public')->put($croppedImagePath, (string) $croppedImage->toJpeg());
         } else {
-            $fileName = '';
+            return response()->json(['error' => 'No file uploaded'], 400);
         }
 
         // $data = $request->only([
@@ -122,7 +114,7 @@ class ImagesController extends Controller
                 'org_id' => $request->input('organization'),
             ]);
 
-            if(!$img){
+            if (!$img) {
                 DB::rollBack();
 
                 return back()->with('message', 'Something went wrong while saving user data');
@@ -130,8 +122,6 @@ class ImagesController extends Controller
 
             DB::commit();
             return redirect()->route('gallery.index')->with('message', 'Image Stored Successfully.');
-
-
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
@@ -227,7 +217,7 @@ class ImagesController extends Controller
                 'org_id' => $request->input('organization'),
             ]);
 
-            if(!$image){
+            if (!$image) {
                 DB::rollBack();
 
                 return back()->with('message', 'Something went wrong while saving user data');
@@ -235,8 +225,6 @@ class ImagesController extends Controller
 
             DB::commit();
             return redirect()->route('gallery.index')->with('message', 'Image Updated Successfully.');
-
-
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;

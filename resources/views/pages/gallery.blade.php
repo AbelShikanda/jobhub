@@ -16,11 +16,12 @@
                         </figure>
                         <div class="case-study__overlay">
                             <h2 class="case-study__title">{{ $image->text }}</h2>
-                            <a class="case-study__link" href="#">View Image</a>
+                            <a class="case-study__link" href="{{ asset('storage/img/pictures/'.$image->image_path) }}">View Image</a>
                         </div>
                     </div>
                     @endforeach
                 </div>
             </div>
+            {{ $images->links() }}
         </div>
     @endsection

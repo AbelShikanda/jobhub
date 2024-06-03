@@ -20,8 +20,6 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
-    <!-- Ekko Lightbox -->
-    <link rel="stylesheet" href="{{ asset('admin/plugins/ekko-lightbox/ekko-lightbox.css') }}">
 
 </head>
 
@@ -47,6 +45,8 @@
     <script src="{{ asset('admin/plugins/chart.js/Chart.min.js') }}"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('admin/dist/js/pages/dashboard3.js') }}"></script>
+    <!-- Filterizr-->
+    <script src="{{ asset('admin/plugins/filterizr/jquery.filterizr.min.js') }}"></script>
     <!-- DataTables  & Plugins -->
     <script src="{{ asset('admin/plugins/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
@@ -60,22 +60,28 @@
     <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('admin/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
-    <!-- Ekko Lightbox -->
-    <script src="{{ asset('admin/plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('admin/dist/js/adminlte.min.js') }}"></script>
-    <!-- Filterizr-->
-    <script src="{{ asset('admin/plugins/filterizr/jquery.filterizr.min.js') }}"></script>
     <!-- Page specific script -->
     <script>
+        $(function () {
+          $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+          }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+          $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+          });
+        });
+      </script>
+    <script>
         $(function() {
-            $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-                event.preventDefault();
-                $(this).ekkoLightbox({
-                    alwaysShowClose: true
-                });
-            });
-
             $('.filter-container').filterizr({
                 gutterPixels: 3
             });
@@ -85,20 +91,9 @@
             });
         })
     </script>
-    <!-- Page specific script -->
     <script>
-        $(function() {
-            $("#example1").DataTable({
-                "responsive": true,
-                "lengthChange": false,
-                "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        });
-    </script>
-    <script>
-        $(document).ready(function(){
-            $('[data-widget="expandable-table"]').on('click', function(){
+        $(document).ready(function() {
+            $('[data-widget="expandable-table"]').on('click', function() {
                 $(this).closest('tr').next('.expandable-body').toggleClass('d-none');
                 var expanded = $(this).attr('aria-expanded') === 'true' || false;
                 $(this).attr('aria-expanded', !expanded);

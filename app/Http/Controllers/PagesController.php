@@ -253,7 +253,7 @@ class PagesController extends Controller
      */
     public function images()
     {
-        $images = Images::where('text', '!=', 'logo')->get();
+        $images = Images::where('text', '!=', 'logo')->paginate(10);
         // dd($images);
         $pageTitle = 'Gallery';
         $breadcrumbLinks = [

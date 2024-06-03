@@ -107,4 +107,19 @@ class HomeController extends Controller
             throw $th;
         }
     }
+
+    /**
+     * function to perfrom tests
+     *
+     * This function does the following:
+     * - Step 1
+     * - Step 2
+     * - Step 3
+     *
+     * @param  Parameter type  Parameter name Description of the parameter (optional)
+     * @return Return type Description of the return value (optional)
+     */
+    public function test() {
+        return view('test');
+    }
 }

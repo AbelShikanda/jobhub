@@ -31,10 +31,10 @@
                         @if ($job->organizations->isNotEmpty())
                             @foreach ($job->organizations as $organization)
                                 @foreach ($organization->images as $img)
-                                    @if ($img->text = 'logo')
-                                        <img class="flex-shrink-0 img-fluid border rounded"
-                                            src="{{ asset('storage/img/pictures/' . $img->image_path) }}" alt=""
-                                            style="width: 80px; height: 80px;">
+                                    @if ($img->text == 'logo')
+                                    <img class="flex-shrink-0 img-fluid border rounded"
+                                        src="{{ asset('storage/img/pictures/' . $img->image_path) }}" alt=""
+                                        style="width: 80px; height: 80px;">
                                     @endif
                                 @endforeach
                             @endforeach
